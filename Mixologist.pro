@@ -29,6 +29,8 @@ SOURCES += \
         mainwindow.cpp \
     controller.cpp \
     qsfmlcanvas.cpp \
+    customdrinkimporter.cpp \
+    gamearea.cpp
     gamearea.cpp
 
 HEADERS += \
@@ -36,10 +38,13 @@ HEADERS += \
     controller.h \
     qsfmlcanvas.h \
     ingredients.h \
+    customdrinkimporter.h \
+    gamearea.h
     gamearea.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    customdrinkimporter.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
