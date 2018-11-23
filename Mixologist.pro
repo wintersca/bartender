@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    controller.cpp
+    controller.cpp \
+    dragwidget.cpp
 
 HEADERS += \
         mainwindow.h \
-    controller.h
+    controller.h \
+    dragwidget.h
 
 FORMS += \
         mainwindow.ui
@@ -40,3 +42,6 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+RESOURCES += \
+    images.qrc
