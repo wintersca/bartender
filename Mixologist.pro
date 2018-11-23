@@ -35,7 +35,8 @@ HEADERS += \
         mainwindow.h \
     controller.h \
     qsfmlcanvas.h \
-    mycanvas.h
+    mycanvas.h \
+    ingredients.h
 
 FORMS += \
         mainwindow.ui

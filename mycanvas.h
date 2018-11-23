@@ -7,13 +7,16 @@
 #include <SFML/Graphics.hpp>
 #include "qsfmlcanvas.h"
 #include <QDebug>
+#include "ingredients.h"
 
-class MyCanvas : public QSFMLCanvas
+class GameArea : public QSFMLCanvas
 {
+
+    Q_OBJECT
 
 public :
 
-    MyCanvas(QWidget* Parent, const QPoint& Position, const QSize& Size) :
+    GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size) :
         QSFMLCanvas(Parent, Position, Size) { }
 
 private :
@@ -25,6 +28,9 @@ private :
     void OnInit();
 
     void OnUpdate();
+
+signals:
+    void ingredientAdded(Ingredients::Ingredients);
 
 };
 

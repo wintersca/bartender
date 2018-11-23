@@ -7,7 +7,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
     MainWindow w;
 
-    MyCanvas* SFMLView = new MyCanvas(&w, QPoint(20, 20), QSize(360, 360));
+    GameArea* SFMLView = new GameArea(&w, QPoint(20, 20), QSize(360, 360));
     SFMLView->show();
     w.show();
 

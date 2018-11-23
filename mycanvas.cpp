@@ -1,16 +1,14 @@
 #include "mycanvas.h"
 
-void MyCanvas::OnInit()
+void GameArea::OnInit()
 {
-
-    // Setup the sprite
 
     myTexture.loadFromFile("cherry.png");
     mySprite.setTexture(myTexture);
 }
 
 //Game loop
-void MyCanvas::OnUpdate()
+void GameArea::OnUpdate()
 {
     // Clear screen
     clear(sf::Color(0, 180, 0));
@@ -23,7 +21,10 @@ void MyCanvas::OnUpdate()
         //qDebug() << "The mouse coordinates are at " << mouse.x << ", " << mouse.y;
 
         if(mySprite.getGlobalBounds().contains(sf::Vector2f(mouse)))
-               qDebug() << "Mouse is on Sprite!";
+        {
+            qDebug() << "Mouse is on Sprite!";
+            emit ingredientAdded(Ingredients::Tequila);
+        }
 
     }
 
