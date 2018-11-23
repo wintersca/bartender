@@ -7,6 +7,8 @@ void GameArea::OnInit()
     mySprite.setTexture(myTexture);
     mySprite.setPosition(250.f, 250.f);
     mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
+
+    selected = false;
 }
 
 //Game loop
@@ -24,15 +26,25 @@ void GameArea::OnUpdate()
 
         if(mySprite.getGlobalBounds().contains(sf::Vector2f(mouse)))
         {
+            selected = true;
+
             qDebug() << "Mouse is on Sprite!";
             emit ingredientAdded(Ingredients::Tequila);
 
             //mySprite.setOrigin(mouse.x - (mySprite.getPosition().x - mySprite.getOrigin().x),
                            //mouse.y - (mySprite.getPosition().y - mySprite.getOrigin().y));
+
+        }
+
+        if(selected) {
             mySprite.setPosition(mouse.x, mouse.y);
             qDebug() << mouse.x << ", " << mouse.y;
         }
 
+    }
+
+    else {
+           selected = false;
     }
 
     draw(mySprite);

@@ -24,6 +24,7 @@ private :
     sf::Image  myImage;
     sf::Sprite mySprite;
     sf::Texture myTexture;
+    bool selected;
 
     void OnInit();
 
