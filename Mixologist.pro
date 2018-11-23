@@ -28,12 +28,14 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     controller.cpp \
-    dragwidget.cpp
+    qsfmlcanvas.cpp \
+    mycanvas.cpp
 
 HEADERS += \
         mainwindow.h \
     controller.h \
-    dragwidget.h
+    qsfmlcanvas.h \
+    mycanvas.h
 
 FORMS += \
         mainwindow.ui
@@ -42,6 +44,9 @@ FORMS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+unix:!macx: LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+
 
 RESOURCES += \
     images.qrc
