@@ -1,4 +1,4 @@
-#include "mycanvas.h"
+#include "gamearea.h"
 
 void GameArea::OnInit()
 {
