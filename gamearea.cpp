@@ -1,10 +1,12 @@
-#include "mycanvas.h"
+#include "gamearea.h"
 
 void GameArea::OnInit()
 {
 
     myTexture.loadFromFile("cherry.png");
     mySprite.setTexture(myTexture);
+    mySprite.setPosition(250.f, 250.f);
+    mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
 }
 
 //Game loop
@@ -24,14 +26,14 @@ void GameArea::OnUpdate()
         {
             qDebug() << "Mouse is on Sprite!";
             emit ingredientAdded(Ingredients::Tequila);
+
+            //mySprite.setOrigin(mouse.x - (mySprite.getPosition().x - mySprite.getOrigin().x),
+                           //mouse.y - (mySprite.getPosition().y - mySprite.getOrigin().y));
+            mySprite.setPosition(mouse.x, mouse.y);
+            qDebug() << mouse.x << ", " << mouse.y;
         }
 
     }
-
-    mySprite.move(.0001f, .0001f);
-
-    sf::Vector2f sprite = mySprite.getPosition();
-    //qDebug() << "The sprite coordinates are at " << sprite.x << ", " << sprite.y;
 
     draw(mySprite);
 }

@@ -29,16 +29,16 @@ SOURCES += \
         mainwindow.cpp \
     controller.cpp \
     qsfmlcanvas.cpp \
-    mycanvas.cpp \
     customdrinkimporter.cpp
+    gamearea.cpp
 
 HEADERS += \
         mainwindow.h \
     controller.h \
     qsfmlcanvas.h \
-    mycanvas.h \
     ingredients.h \
     customdrinkimporter.h
+    gamearea.h
 
 FORMS += \
         mainwindow.ui \
