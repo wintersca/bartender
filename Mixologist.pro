@@ -27,13 +27,11 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    controller.cpp \
-    dragwidget.cpp
+    controller.cpp
 
 HEADERS += \
         mainwindow.h \
-    controller.h \
-    dragwidget.h
+    controller.h
 
 FORMS += \
         mainwindow.ui
