@@ -3,6 +3,7 @@
 
 #include <QString>
 #include <QMap>
+#include <QVector>
 #include "ingredients.h"
 
 class Drink
@@ -10,6 +11,7 @@ class Drink
 public:
     Drink(QString name);
     QString Name;
+    QVector<QString> Trivia;
     QMap<Ingredients::Ingredients, int> IngredientsMap;
 };
 

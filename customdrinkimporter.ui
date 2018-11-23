@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>480</width>
-    <height>514</height>
+    <height>634</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -25,7 +25,7 @@
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>30</height>
+       <height>40</height>
       </size>
      </property>
      <property name="frameShape">
@@ -386,6 +386,28 @@
       </item>
       <item row="9" column="4">
        <widget class="QSpinBox" name="amountBox10"/>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item>
+    <widget class="QFrame" name="frame_3">
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout_2">
+      <item>
+       <widget class="QLabel" name="label_22">
+        <property name="text">
+         <string>Drink Trivia:</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QTextEdit" name="drinkTrivia"/>
       </item>
      </layout>
     </widget>

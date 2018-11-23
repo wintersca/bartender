@@ -166,7 +166,7 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     {
         drink.IngredientsMap.insert(includedIngredients[i], totalOfIngredients[i]);
     }
-
+    drink.Trivia.append(ui->drinkTrivia->toPlainText());
     int test = 0;
 }
 
