@@ -2,6 +2,7 @@
 #include "ui_customdrinkimporter.h"
 #include "ingredients.h"
 #include <QMetaEnum>
+#include "drink.h"
 
 CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
     QDialog(parent),
@@ -152,5 +153,14 @@ void CustomDrinkImporter::on_buttonBox_accepted()
             }
         }
     }
+
+
+    // Convert to a drink object.
+    Drink drink = Drink(ui->drinkName->text());
+    for (int i = 0; i < includedIngredients.count(); i++)
+    {
+        drink.IngredientsMap.insert(includedIngredients[i], totalOfIngredients[i]);
+    }
+
     int test = 0;
 }
