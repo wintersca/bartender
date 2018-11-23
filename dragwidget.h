@@ -10,6 +10,7 @@ class DragWidget : public QFrame
 {
 public:
     explicit DragWidget(QWidget *parent = nullptr);
+    void addSprite(int locX, int locY, QPixmap sprite);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event) override;

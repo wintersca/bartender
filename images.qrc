@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/iconImages">
-        <file>images/cherry.png</file>
-        <file>images/Lemon.png</file>
+        <file>images/lemon2</file>
     </qresource>
 </RCC>
