@@ -17,6 +17,8 @@ public:
 
 private slots:
 
+    void on_actionAdd_New_Drink_triggered();
+
 private:
     Ui::MainWindow *ui;
 };

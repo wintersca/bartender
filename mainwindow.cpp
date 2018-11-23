@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QHBoxLayout>
+#include "customdrinkimporter.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -13,4 +14,13 @@ MainWindow::MainWindow(QWidget *parent) :
 MainWindow::~MainWindow()
 {
     delete ui;
+}
+
+void MainWindow::on_actionAdd_New_Drink_triggered()
+{
+    CustomDrinkImporter* window = new CustomDrinkImporter(this);
+    window->setModal(true);
+    window->show();
+    window->raise();
+    window->activateWindow();
 }

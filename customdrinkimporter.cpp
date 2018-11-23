@@ -34,6 +34,12 @@ CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
     amountBoxes[8] = ui->amountBox9;
     amountBoxes[9] = ui->amountBox10;
 
+    // Set bounds of quantity boxes.
+    for (int i = 0; i < MAXINGREDIENTS; i++)
+    {
+        amountBoxes[i]->setMinimum(1);
+    }
+
     int totalIngredients = Ingredients::TOTALINGREDIENTS;
     for (int box = 0; box < MAXINGREDIENTS; box++)
     {
@@ -154,7 +160,6 @@ void CustomDrinkImporter::on_buttonBox_accepted()
         }
     }
 
-
     // Convert to a drink object.
     Drink drink = Drink(ui->drinkName->text());
     for (int i = 0; i < includedIngredients.count(); i++)
@@ -163,4 +168,9 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     }
 
     int test = 0;
+}
+
+void CustomDrinkImporter::on_buttonBox_rejected()
+{
+    this->close();
 }
