@@ -74,6 +74,83 @@ void CustomDrinkImporter::on_buttonBox_accepted()
             {
                 includedIngredients.append(Ingredients::Salt);
             }
+            else if (currentText == "Grand Marnier")
+            {
+                includedIngredients.append(Ingredients::GrandMarnier);
+            }
+            else if (currentText == "Simple Syrup")
+            {
+                includedIngredients.append(Ingredients::SimpleSyrup);
+            }
+            else if (currentText == "Angustura")
+            {
+                includedIngredients.append(Ingredients::Angustura);
+            }
+            else if (currentText == "Bourbon")
+            {
+                includedIngredients.append(Ingredients::Bourbon);
+            }
+            else if (currentText == "Orange Twist")
+            {
+                includedIngredients.append(Ingredients::OrangeTwist);
+            }
+            else if (currentText == "Lime Juice")
+            {
+                includedIngredients.append(Ingredients::LimeJuice);
+            }
+            else if (currentText == "Mint Leaf")
+            {
+                includedIngredients.append(Ingredients::MintLeaf);
+            }
+            else if (currentText == "White Rum")
+            {
+                includedIngredients.append(Ingredients::WhiteRum);
+            }
+            else if (currentText == "Sparkling Water")
+            {
+                includedIngredients.append(Ingredients::SparklingWater);
+            }
+            else if (currentText == "Gin")
+            {
+                includedIngredients.append(Ingredients::Gin);
+            }
+            else if (currentText == "Tonic Water")
+            {
+                includedIngredients.append(Ingredients::TonicWater);
+            }
+            else if (currentText == "Orange Juice")
+            {
+                includedIngredients.append(Ingredients::OrangeJuice);
+            }
+            else if (currentText == "Orange Wedge")
+            {
+                includedIngredients.append(Ingredients::OrangeWedge);
+            }
+            else if (currentText == "Angostura Bitters")
+            {
+                includedIngredients.append(Ingredients::AngosturaBitters);
+            }
+            else if (currentText == "Sweet Vermouth")
+            {
+                includedIngredients.append(Ingredients::SweetVermouth);
+            }
+            else if (currentText == "Lemon Twist")
+            {
+                includedIngredients.append(Ingredients::LemonTwist);
+            }
+            else if (currentText == "Cherry")
+            {
+                includedIngredients.append(Ingredients::Cherry);
+            }
+            else if (currentText == "Dry Vermouth")
+            {
+                includedIngredients.append(Ingredients::DryVermouth);
+            }
+            else if (currentText == "Green Olive")
+            {
+                includedIngredients.append(Ingredients::GreenOlive);
+            }
         }
     }
+    int test = 0;
 }
