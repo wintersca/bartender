@@ -11,5 +11,4 @@ namespace Ingredients {
     };
 }
 
-
 #endif // INGREDIENTS_H
