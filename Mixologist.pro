@@ -27,11 +27,13 @@ CONFIG += c++11
 SOURCES += \
         main.cpp \
         mainwindow.cpp \
-    controller.cpp
+    controller.cpp \
+    spritesheet.cpp
 
 HEADERS += \
         mainwindow.h \
-    controller.h
+    controller.h \
+    spritesheet.h
 
 FORMS += \
         mainwindow.ui
