@@ -18,10 +18,14 @@ public:
     explicit CustomDrinkImporter(QWidget *parent = nullptr);
     ~CustomDrinkImporter();
 
+private slots:
+    void on_buttonBox_accepted();
+
 private:
     Ui::CustomDrinkImporter *ui;
     QVector<QComboBox*> ingredientBoxes;
     QVector<QSpinBox*> amountBoxes;
+    const int MAXINGREDIENTS = 10;
 };
 
 #endif // CUSTOMDRINKIMPORTER_H

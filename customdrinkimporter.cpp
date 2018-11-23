@@ -9,8 +9,6 @@ CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    const int MAXINGREDIENTS = 10;
-
     ingredientBoxes = QVector<QComboBox*>(10);
     ingredientBoxes[0] = ui->ingredientBox1;
     ingredientBoxes[1] = ui->ingredientBox2;
@@ -38,6 +36,7 @@ CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
     int totalIngredients = Ingredients::TOTALINGREDIENTS;
     for (int box = 0; box < MAXINGREDIENTS; box++)
     {
+        ingredientBoxes[box]->addItem("none");
         for (int ingredient = 0; ingredient < totalIngredients; ingredient++)
         {
             ingredientBoxes[box]->addItem(Ingredients::All[ingredient]);
@@ -48,4 +47,33 @@ CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
 CustomDrinkImporter::~CustomDrinkImporter()
 {
     delete ui;
+}
+
+void CustomDrinkImporter::on_buttonBox_accepted()
+{
+    QVector<Ingredients::Ingredients> includedIngredients = QVector<Ingredients::Ingredients>();
+    QVector<int> totalOfIngredients = QVector<int>();
+
+    // Add all boxes that don't have none selected.
+    for (int i = 0; i < MAXINGREDIENTS; i++)
+    {
+        QString currentText = ingredientBoxes[i]->currentText();
+        if (currentText != "none")
+        {
+            totalOfIngredients.append(amountBoxes[i]->value());
+
+            if (currentText == "Vodka")
+            {
+                includedIngredients.append(Ingredients::Vodka);
+            }
+            else if (currentText == "Tequila")
+            {
+                includedIngredients.append(Ingredients::Tequila);
+            }
+            else if (currentText == "Salt")
+            {
+                includedIngredients.append(Ingredients::Salt);
+            }
+        }
+    }
 }
