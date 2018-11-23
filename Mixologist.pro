@@ -29,17 +29,20 @@ SOURCES += \
         mainwindow.cpp \
     controller.cpp \
     qsfmlcanvas.cpp \
-    mycanvas.cpp
+    mycanvas.cpp \
+    customdrinkimporter.cpp
 
 HEADERS += \
         mainwindow.h \
     controller.h \
     qsfmlcanvas.h \
     mycanvas.h \
-    ingredients.h
+    ingredients.h \
+    customdrinkimporter.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    customdrinkimporter.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
