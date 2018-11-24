@@ -33,6 +33,12 @@ CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
     amountBoxes[8] = ui->amountBox9;
     amountBoxes[9] = ui->amountBox10;
 
+    // Set bounds of quantity boxes.
+    for (int i = 0; i < MAXINGREDIENTS; i++)
+    {
+        amountBoxes[i]->setMinimum(1);
+    }
+
     int totalIngredients = Ingredients::TOTALINGREDIENTS;
     for (int box = 0; box < MAXINGREDIENTS; box++)
     {
@@ -42,6 +48,8 @@ CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
             ingredientBoxes[box]->addItem(Ingredients::All[ingredient]);
         }
     }
+
+    drink = Drink();
 }
 
 CustomDrinkImporter::~CustomDrinkImporter()
@@ -152,5 +160,23 @@ void CustomDrinkImporter::on_buttonBox_accepted()
             }
         }
     }
-    int test = 0;
+
+    // Convert to a drink object.
+    drink.Name = ui->drinkName->text();
+    drink.Trivia.append(ui->drinkTrivia->toPlainText());
+    for (int i = 0; i < includedIngredients.count(); i++)
+    {
+        drink.IngredientsMap.insert(includedIngredients[i], totalOfIngredients[i]);
+    }
+}
+
+void CustomDrinkImporter::on_buttonBox_rejected()
+{
+    this->close();
+}
+
+void CustomDrinkImporter::on_addAdditionalTrivia_clicked()
+{
+    drink.Trivia.append(ui->drinkTrivia->toPlainText());
+    ui->drinkTrivia->setText("");
 }

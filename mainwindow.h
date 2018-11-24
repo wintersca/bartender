@@ -16,6 +16,7 @@ public:
     ~MainWindow();
 
 private slots:
+    void on_addCustomDrink_clicked();
 
 private:
     Ui::MainWindow *ui;

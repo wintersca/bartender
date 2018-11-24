@@ -31,6 +31,7 @@ SOURCES += \
     qsfmlcanvas.cpp \
     customdrinkimporter.cpp \
     gamearea.cpp \
+    drink.cpp \
     ingredientsprite.cpp
     gamearea.cpp
 
@@ -41,6 +42,7 @@ HEADERS += \
     ingredients.h \
     customdrinkimporter.h \
     gamearea.h \
+    drink.h \
     ingredientsprite.h
     gamearea.h
 
