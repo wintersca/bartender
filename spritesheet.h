@@ -7,14 +7,14 @@
 #define SPRITESHEET_H
 
 
-class spritesheet
+class Spritesheet
 {
 private:
-    spritesheet();
+    Spritesheet();
 
 public:
-    QVector<QImage> makeQImages(QString pathToImage);
-    void makeTextures(QString pathToImage);
+    static QVector<QImage> makeQImages(QString pathToSheet, int frameCount, int frameWidth, int frameHeight);
+    static QVector<sf::Sprite> makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight);
 };
 
 #endif // SPRITESHEET_H
