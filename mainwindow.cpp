@@ -22,9 +22,6 @@ MainWindow::MainWindow(Controller *controller, QWidget *parent) :
 
     // sent signals
 
-    QObject::connect(ui->actionAdd_New_Drink, &QAction::triggered,
-                     controller, &controller::socketName);
-
     //received signals
 }
 
