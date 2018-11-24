@@ -1,6 +1,7 @@
 #include <QString>
 #include <QImage>
 #include <QVector>
+#include <SFML/Graphics.hpp>
 
 #ifndef SPRITESHEET_H
 #define SPRITESHEET_H
