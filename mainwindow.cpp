@@ -2,13 +2,18 @@
 #include "ui_mainwindow.h"
 #include <QHBoxLayout>
 #include "customdrinkimporter.h"
+#include "gamearea.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-     Q_INIT_RESOURCE(images);
     this->ui->setupUi(this);
+
+    GameArea* SFMLView = new GameArea(this, QPoint(20, 20), QSize(1000, 1000));
+    //ui->verticalLayout->addWidget(SFMLView);
+    ui->widgetLayout->addWidget(SFMLView);
+
 }
 
 MainWindow::~MainWindow()

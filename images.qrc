@@ -2,5 +2,6 @@
     <qresource prefix="/iconImages">
         <file>images/cherry.png</file>
         <file>images/Lemon.png</file>
+        <file>images/gamePlayBackground.png</file>
     </qresource>
 </RCC>

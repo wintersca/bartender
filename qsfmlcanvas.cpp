@@ -15,10 +15,10 @@ myInitialized (false)
     setAttribute(Qt::WA_NoSystemBackground);
 
     // Set strong focus to enable keyboard events to be received
-    setFocusPolicy(Qt::StrongFocus);
+    //setFocusPolicy(Qt::StrongFocus);
 
     // Setup the widget geometry
-    move(Position);
+    //move(Position);
     resize(Size);
 
     // Setup the timer

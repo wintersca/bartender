@@ -52,7 +52,7 @@
           </property>
           <layout class="QHBoxLayout" name="horizontalLayout_2">
            <item>
-            <layout class="QVBoxLayout" name="verticalLayout"/>
+            <layout class="QVBoxLayout" name="widgetLayout"/>
            </item>
           </layout>
          </widget>
