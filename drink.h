@@ -9,6 +9,7 @@
 class Drink
 {
 public:
+    Drink();
     Drink(QString name);
     QString Name;
     QVector<QString> Trivia;

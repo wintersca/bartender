@@ -5,6 +5,7 @@
 #include <QVector>
 #include <QComboBox>
 #include <QSpinBox>
+#include "drink.h"
 
 namespace Ui {
 class CustomDrinkImporter;
@@ -23,11 +24,14 @@ private slots:
 
     void on_buttonBox_rejected();
 
+    void on_addAdditionalTrivia_clicked();
+
 private:
     Ui::CustomDrinkImporter *ui;
     QVector<QComboBox*> ingredientBoxes;
     QVector<QSpinBox*> amountBoxes;
     const int MAXINGREDIENTS = 10;
+    Drink drink;
 };
 
 #endif // CUSTOMDRINKIMPORTER_H
