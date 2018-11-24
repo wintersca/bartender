@@ -5,9 +5,6 @@ void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
     qDebug() << "YOU CLICKED THE MOUSE";
 
     sf::Vector2i mouse = sf::Mouse::getPosition(*this);
-    //qDebug() << "The mouse coordinates are at " << mouse.x << ", " << mouse.y;
-    //qDebug() << "And the sprite is at " << mySprite.getPosition().x
-      //       << ", " << mySprite.getPosition().y;
 
     if(mySprite.getGlobalBounds().contains(sf::Vector2f(mouse)))
     {
@@ -36,6 +33,15 @@ void GameArea::OnInit()
     mySprite.setPosition(250.f, 250.f);
     mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
 
+
+    if(!backgroundTexture.loadFromFile("gamePlayBackground.png"))
+    {
+        qDebug() << "Couldn't load background.";
+    }
+
+    backgroundSprite.setTexture(backgroundTexture);
+    backgroundSprite.setPosition(0.f, 0.f);
+
     selected = nullptr;
 }
 
@@ -51,5 +57,6 @@ void GameArea::OnUpdate()
             qDebug() << mouse.x << ", " << mouse.y;
         }
 
+    draw(backgroundSprite);
     draw(mySprite);
 }

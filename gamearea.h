@@ -32,6 +32,10 @@ private :
     sf::Texture myTexture;
     sf::Sprite* selected;
 
+    sf::Image backgroundImage;
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite;
+
     void OnInit();
 
     void OnUpdate();
