@@ -30,8 +30,6 @@ SOURCES += \
     controller.cpp \
     qsfmlcanvas.cpp \
     customdrinkimporter.cpp \
-    gamearea.cpp \
-    drink.cpp
     gamearea.cpp
 
 HEADERS += \
@@ -41,8 +39,6 @@ HEADERS += \
     ingredients.h \
     customdrinkimporter.h \
     gamearea.h \
-    drink.h \
-    gamearea.h
 
 FORMS += \
         mainwindow.ui \

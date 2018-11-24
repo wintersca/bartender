@@ -5,6 +5,8 @@
 #include <QVector>
 #include <QComboBox>
 #include <QSpinBox>
+#include "controller.h"
+#include "ingredients.h"
 
 namespace Ui {
 class CustomDrinkImporter;
@@ -15,11 +17,14 @@ class CustomDrinkImporter : public QDialog
     Q_OBJECT
 
 public:
-    explicit CustomDrinkImporter(QWidget *parent = nullptr);
+    explicit CustomDrinkImporter(Controller *controller, QWidget *parent = nullptr);
     ~CustomDrinkImporter();
 
 private slots:
     void on_buttonBox_accepted();
+
+signals:
+    void sendRecipe(QVector<Ingredients::Ingredients> includedIngredients);
 
 private:
     Ui::CustomDrinkImporter *ui;

@@ -4,7 +4,8 @@
 #include "controller.h"
 #include "customdrinkimporter.h"
 
-MainWindow::MainWindow(Controller *controller, QWidget *parent) :
+Controller *controller;
+MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -23,6 +24,12 @@ MainWindow::MainWindow(Controller *controller, QWidget *parent) :
     // sent signals
 
     //received signals
+    if (controller == nullptr)
+    {
+        controller = new Controller();
+    }
+    else
+        controller = controllerPtr;
 }
 
 MainWindow::~MainWindow()
@@ -32,7 +39,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_actionAdd_New_Drink_triggered()
 {
-    CustomDrinkImporter* window = new CustomDrinkImporter(this);
+    CustomDrinkImporter* window = new CustomDrinkImporter(controller, this);
     window->setModal(true);
     window->show();
     window->raise();

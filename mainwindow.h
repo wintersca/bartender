@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "controller.h"
 
+extern  Controller *controller;
 namespace Ui {
 class MainWindow;
 }
@@ -13,7 +14,7 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 public:
-    explicit MainWindow(Controller *controller, QWidget *parent = nullptr);
+    explicit MainWindow(Controller *controller = nullptr, QWidget *parent = nullptr);
     ~MainWindow();
 
 private slots:

@@ -1,9 +1,8 @@
 #include "customdrinkimporter.h"
 #include "ui_customdrinkimporter.h"
-#include "ingredients.h"
 #include <QMetaEnum>
 
-CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
+CustomDrinkImporter::CustomDrinkImporter(Controller *controller, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CustomDrinkImporter)
 {
@@ -42,6 +41,9 @@ CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
             ingredientBoxes[box]->addItem(Ingredients::All[ingredient]);
         }
     }
+    // connect to the controller
+    QObject::connect(this, &CustomDrinkImporter::sendRecipe,
+                     controller, &Controller::receiveRecipe);
 }
 
 CustomDrinkImporter::~CustomDrinkImporter()
@@ -152,5 +154,6 @@ void CustomDrinkImporter::on_buttonBox_accepted()
             }
         }
     }
+    emit sendRecipe(includedIngredients);
     int test = 0;
 }

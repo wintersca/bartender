@@ -3,7 +3,7 @@
 
 #include <QObject>
 #include <QString>
-#include "customdrinkimporter.h"
+#include <QVector>
 #include "gamearea.h"
 #include "ingredients.h"
 #include "qsfmlcanvas.h"
@@ -22,15 +22,14 @@ class Controller : public QObject
 {
 public:
     explicit Controller(QObject *parent = nullptr);
-    Recipe selectRecipe();
     void selectCustomerType();
-    bool checkRecipe();
+    bool checkRecipe(QString ingredient);
     void calculateTip(int customerMood, int customerType);
     void updateTips(double currentTip);
     void shake();
     void blend();
     void createGame();
-    QString getTrivia(Recipe current);
+
 
 
 
@@ -43,16 +42,17 @@ signals:
     void wrongIngredient();
     void wrongTool();
     void sendObjLocation(std::vector<int> newLocation);
+    //QString getTrivia(Recipe current);
 
 
 public slots:
-    void ingredientAdded(Ingredient ing);
+    void ingredientAdded(QString ingredient);
     void selectDifficulty(int difficulty);
     void removeRecipe(QString recipe);
     void addRecipe(QString recipe);
     void recObjLocation(std::vector<int> location);
-    void newRecipe(Recipe new);
     void drinkServed();
+    void receiveRecipe(QVector<Ingredients::Ingredients>);
 
 };
 
