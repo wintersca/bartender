@@ -8,6 +8,8 @@
 #include "qsfmlcanvas.h"
 #include <QDebug>
 #include "ingredients.h"
+#include <QMouseEvent>
+#include "ingredientsprite.h"
 
 class GameArea : public QSFMLCanvas
 {
@@ -19,10 +21,13 @@ public :
     GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size) :
         QSFMLCanvas(Parent, Position, Size) { }
 
+    void mousePressEvent(QMouseEvent* e);
+
 private :
 
+
     sf::Image  myImage;
-    sf::Sprite mySprite;
+    IngredientSprite mySprite;
     sf::Texture myTexture;
     bool selected;
 
