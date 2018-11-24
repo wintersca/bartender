@@ -14,6 +14,12 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->verticalLayout->addWidget(SFMLView);
     ui->widgetLayout->addWidget(SFMLView);
 
+    QPixmap recipeAndTips(":/iconImages/images/barBackground.png");
+    recipeAndTips = recipeAndTips.scaled(this->size(), Qt::IgnoreAspectRatio);
+    QPalette palette;
+    palette.setBrush(QPalette::Background, recipeAndTips);
+    this->setPalette(palette);
+
 }
 
 MainWindow::~MainWindow()
@@ -21,7 +27,7 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_actionAdd_New_Drink_triggered()
+void MainWindow::on_addCustomDrink_clicked()
 {
     CustomDrinkImporter* window = new CustomDrinkImporter(this);
     window->setModal(true);

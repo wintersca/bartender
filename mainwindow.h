@@ -16,8 +16,7 @@ public:
     ~MainWindow();
 
 private slots:
-
-    void on_actionAdd_New_Drink_triggered();
+    void on_addCustomDrink_clicked();
 
 private:
     Ui::MainWindow *ui;
