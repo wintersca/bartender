@@ -34,17 +34,37 @@ SOURCES += \
         main.cpp \
         mainwindow.cpp \
     controller.cpp \
+    qsfmlcanvas.cpp \
+    customdrinkimporter.cpp \
+    gamearea.cpp \
+    drink.cpp \
+    ingredientsprite.cpp
+    gamearea.cpp
     spritesheet.cpp
 
 HEADERS += \
         mainwindow.h \
     controller.h \
+    qsfmlcanvas.h \
+    ingredients.h \
+    customdrinkimporter.h \
+    gamearea.h \
+    drink.h \
+    ingredientsprite.h
+    gamearea.h
     spritesheet.h
 
 FORMS += \
-        mainwindow.ui
+        mainwindow.ui \
+    customdrinkimporter.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+unix:!macx: LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
+
+
+RESOURCES += \
+    images.qrc

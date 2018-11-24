@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/iconImages">
+        <file>images/cherry.png</file>
+        <file>images/Lemon.png</file>
+        <file>images/gamePlayBackground.png</file>
+        <file>images/barBackground.png</file>
+    </qresource>
+</RCC>
