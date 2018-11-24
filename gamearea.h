@@ -22,6 +22,7 @@ public :
         QSFMLCanvas(Parent, Position, Size) { }
 
     void mousePressEvent(QMouseEvent* e);
+    void mouseReleaseEvent(QMouseEvent* e);
 
 private :
 
@@ -29,7 +30,7 @@ private :
     sf::Image  myImage;
     IngredientSprite mySprite;
     sf::Texture myTexture;
-    bool selected;
+    sf::Sprite* selected;
 
     void OnInit();
 
