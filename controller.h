@@ -1,12 +1,13 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <QString>
 #include <QObject>
-#include "mainwindow.h"
+#include <QString>
+#include "customdrinkimporter.h"
 #include "gamearea.h"
 #include "ingredients.h"
 #include "qsfmlcanvas.h"
+
 
 extern int customerType;
 extern int customerMood;
