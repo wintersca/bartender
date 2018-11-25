@@ -7,7 +7,7 @@ XMLDrinkParser::XMLDrinkParser()
 
 QVector<Drink> XMLDrinkParser::parseXMLDatabase()
 {
-    QVecotr<Drink> result;
+    QVector<Drink> result;
     return result;
 }
 
