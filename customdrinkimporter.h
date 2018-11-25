@@ -6,6 +6,7 @@
 #include <QComboBox>
 #include <QSpinBox>
 #include "drink.h"
+#include "controller.h"
 
 namespace Ui {
 class CustomDrinkImporter;
@@ -16,7 +17,7 @@ class CustomDrinkImporter : public QDialog
     Q_OBJECT
 
 public:
-    explicit CustomDrinkImporter(QWidget *parent = nullptr);
+    explicit CustomDrinkImporter(Controller *controller, QWidget *parent = nullptr);
     ~CustomDrinkImporter();
 
 private slots:
@@ -32,6 +33,9 @@ private:
     QVector<QSpinBox*> amountBoxes;
     const int MAXINGREDIENTS = 10;
     Drink drink;
+
+signals:
+    void sendNewRecipe(Drink drink);
 };
 
 #endif // CUSTOMDRINKIMPORTER_H

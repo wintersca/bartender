@@ -4,7 +4,8 @@
 #include "customdrinkimporter.h"
 #include "gamearea.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+Controller *controller;
+MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -20,6 +21,12 @@ MainWindow::MainWindow(QWidget *parent) :
     palette.setBrush(QPalette::Background, recipeAndTips);
     this->setPalette(palette);
 
+    if (controller == nullptr)
+       {
+           controller = new Controller();
+       }
+       else
+           controller = controllerPtr;
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +36,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_addCustomDrink_clicked()
 {
-    CustomDrinkImporter* window = new CustomDrinkImporter(this);
+    CustomDrinkImporter* window = new CustomDrinkImporter(controller, this);
     window->setModal(true);
     window->show();
     window->raise();
