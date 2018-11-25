@@ -7,6 +7,7 @@
 #include <QSpinBox>
 #include "controller.h"
 #include "ingredients.h"
+#include "drink.h"
 
 namespace Ui {
 class CustomDrinkImporter;
@@ -23,8 +24,11 @@ public:
 private slots:
     void on_buttonBox_accepted();
 
+
 signals:
     void sendRecipe(QVector<Ingredients::Ingredients> includedIngredients);
+    void on_buttonBox_rejected();
+
 
 private:
     Ui::CustomDrinkImporter *ui;

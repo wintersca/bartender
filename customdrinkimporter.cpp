@@ -2,6 +2,7 @@
 #include "ui_customdrinkimporter.h"
 #include <QMetaEnum>
 
+
 CustomDrinkImporter::CustomDrinkImporter(Controller *controller, QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CustomDrinkImporter)
@@ -31,6 +32,12 @@ CustomDrinkImporter::CustomDrinkImporter(Controller *controller, QWidget *parent
     amountBoxes[7] = ui->amountBox8;
     amountBoxes[8] = ui->amountBox9;
     amountBoxes[9] = ui->amountBox10;
+
+    // Set bounds of quantity boxes.
+    for (int i = 0; i < MAXINGREDIENTS; i++)
+    {
+        amountBoxes[i]->setMinimum(1);
+    }
 
     int totalIngredients = Ingredients::TOTALINGREDIENTS;
     for (int box = 0; box < MAXINGREDIENTS; box++)
@@ -154,6 +161,19 @@ void CustomDrinkImporter::on_buttonBox_accepted()
             }
         }
     }
-    emit sendRecipe(includedIngredients);
+    // Convert to a drink object.
+    Drink drink = Drink(ui->drinkName->text());
+    for (int i = 0; i < includedIngredients.count(); i++)
+    {
+        drink.IngredientsMap.insert(includedIngredients[i], totalOfIngredients[i]);
+    }
+    drink.Trivia.append(ui->drinkTrivia->toPlainText());
     int test = 0;
+
+    emit sendRecipe(includedIngredients);
+}
+
+void CustomDrinkImporter::on_buttonBox_rejected()
+{
+    this->close();
 }
