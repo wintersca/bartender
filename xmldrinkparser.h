@@ -1,7 +1,4 @@
 #include <QVector>
-#include <QFile>
-#include <QXmlStreamReader>
-#include <QXmlStreamWriter>
 #include <drink.h>
 
 #ifndef XMLDRINKPARSER_H
