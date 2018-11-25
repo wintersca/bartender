@@ -38,8 +38,8 @@ SOURCES += \
     customdrinkimporter.cpp \
     gamearea.cpp \
     drink.cpp \
-    ingredientsprite.cpp
-    gamearea.cpp
+    ingredientsprite.cpp \
+    gamearea.cpp \
     spritesheet.cpp
 
 HEADERS += \
@@ -50,8 +50,8 @@ HEADERS += \
     customdrinkimporter.h \
     gamearea.h \
     drink.h \
-    ingredientsprite.h
-    gamearea.h
+    ingredientsprite.h \
+    gamearea.h \
     spritesheet.h
 
 FORMS += \
