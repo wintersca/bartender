@@ -30,11 +30,15 @@ signals:
 #endif // CONTROLLER_H
 
 /* template signals TO controller
+ *
    QObject::connect(ui->uiElement, &QElementType::action,
                     controller, &Controller::socketName);
    QObject::connect(this, &MainWindow::functionName,
                     controller, &Controller::socketName);
-       template signal FROM controller
+
+
+   template signal FROM controller
+
    QObject::connect(controller, &Controller::signalName,
                     this, &MainWindow::slotName);
 */
