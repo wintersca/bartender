@@ -14,12 +14,35 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->verticalLayout->addWidget(SFMLView);
     ui->widgetLayout->addWidget(SFMLView);
 
-    QPixmap recipeAndTips(":/iconImages/images/barBackground.png");
+    QPixmap recipeAndTips(":/iconImages/images/corkBoard.png");
     recipeAndTips = recipeAndTips.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, recipeAndTips);
     this->setPalette(palette);
 
+    // Set background color of the recipe area.
+    QFrame* recipeFrame = ui->recipeFrame;
+    QPalette paperPalette = recipeFrame->palette();
+    QColor paperColor = QColor(254, 245, 223);
+    paperPalette.setColor(QPalette::Background, paperColor);
+    recipeFrame->setAutoFillBackground(true);
+    recipeFrame->setPalette(paperPalette);
+    recipeFrame->update();
+
+    // Set background color of the trivia area.
+    QFrame* triviaFrame = ui->triviaFrame;
+    triviaFrame->setAutoFillBackground(true);
+    triviaFrame->setPalette(paperPalette);
+    triviaFrame->update();
+
+    // Set background and text color of tips area.
+    QFrame* tipsFrame = ui->tipsFrame;
+    QPalette tipsPalette = tipsFrame->palette();
+    tipsPalette.setColor(QPalette::Background, QColor(Qt::black));
+    tipsPalette.setColor(QPalette::WindowText, QColor(Qt::yellow));
+    tipsFrame->setAutoFillBackground(true);
+    tipsFrame->setPalette(tipsPalette);
+    tipsFrame->update();
 }
 
 MainWindow::~MainWindow()
