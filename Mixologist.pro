@@ -33,7 +33,6 @@ SOURCES += \
     gamearea.cpp \
     drink.cpp \
     ingredientsprite.cpp \
-    gamearea.cpp \
     spritesheet.cpp \
     xmldrinkparser.cpp
 
@@ -46,7 +45,6 @@ HEADERS += \
     gamearea.h \
     drink.h \
     ingredientsprite.h \
-    gamearea.h \
     spritesheet.h \
     xmldrinkparser.h
 
