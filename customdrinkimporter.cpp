@@ -83,6 +83,10 @@ void CustomDrinkImporter::on_buttonBox_accepted()
             {
                 includedSteps.append(Ingredients::Tequila);
             }
+            else if (currentText == "Bourbon")
+            {
+                includedSteps.append(Ingredients::Bourbon);
+            }
             else if (currentText == "Salt")
             {
                 includedSteps.append(Ingredients::Salt);
@@ -98,10 +102,6 @@ void CustomDrinkImporter::on_buttonBox_accepted()
             else if (currentText == "Angustura")
             {
                 includedSteps.append(Ingredients::Angustura);
-            }
-            else if (currentText == "Bourbon")
-            {
-                includedSteps.append(Ingredients::Bourbon);
             }
             else if (currentText == "Orange Twist")
             {
