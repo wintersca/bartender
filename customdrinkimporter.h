@@ -28,8 +28,8 @@ private slots:
 
 private:
     Ui::CustomDrinkImporter *ui;
-    QVector<QComboBox*> ingredientBoxes;
-    QVector<QSpinBox*> amountBoxes;
+    QVector<QComboBox*> stepBoxes;
+    QVector<QDoubleSpinBox*> amountBoxes;
     const int MAXINGREDIENTS = 10;
     Drink drink;
 };
