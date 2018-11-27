@@ -1,8 +1,10 @@
 #include "controller.h"
 
-Controller::Controller(QObject *parent) : QObject(parent)
-{
 
+ XMLDrinkParser parser;
+Controller::Controller(XMLDrinkParser parserInit, QObject *parent) : QObject(parent)
+{
+    parser = parserInit;
 }
 
 /*slots*/

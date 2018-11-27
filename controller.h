@@ -10,13 +10,14 @@
 #include "ingredients.h"
 #include "ingredientsprite.h"
 #include "qsfmlcanvas.h"
+#include "xmldrinkparser.h"
 
 extern QMap<int, Drink> menu;
-
+extern XMLDrinkParser parser;
 class Controller : public QObject
 {
 public:
-    explicit Controller(QObject *parent = nullptr);
+    explicit Controller(XMLDrinkParser parser, QObject *parent = nullptr);
 public slots:
         void receiveRecipe(Drink newDrink);
         void getAllRecipes(QVector<Drink> drinks);

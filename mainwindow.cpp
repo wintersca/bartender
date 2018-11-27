@@ -46,12 +46,7 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     tipsFrame->update();
 
     // Controller set up.
-    if (controller == nullptr)
-       {
-           controller = new Controller();
-       }
-       else
-           controller = controllerPtr;
+    controller = controllerPtr;
 }
 
 MainWindow::~MainWindow()
