@@ -32,7 +32,6 @@ SOURCES += \
     customdrinkimporter.cpp \
     gamearea.cpp \
     drink.cpp \
-    ingredientsprite.cpp \
     spritesheet.cpp \
     xmldrinkparser.cpp
 
