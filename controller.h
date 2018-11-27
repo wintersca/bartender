@@ -1,11 +1,44 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
+#include <QObject>
+#include <QString>
+#include <QVector>
+#include <QMap>
+#include "drink.h"
+#include "gamearea.h"
+#include "ingredients.h"
+#include "ingredientsprite.h"
+#include "qsfmlcanvas.h"
 
-class Controller
+extern QMap<int, Drink> menu;
+
+class Controller : public QObject
 {
 public:
-    Controller();
+    explicit Controller(QObject *parent = nullptr);
+
+public slots:
+        void receiveRecipe(Drink newDrink);
+
+private:
+
+signals:
+
 };
 
 #endif // CONTROLLER_H
+
+/* template signals TO controller
+ *
+   QObject::connect(ui->uiElement, &QElementType::action,
+                    controller, &Controller::socketName);
+   QObject::connect(this, &MainWindow::functionName,
+                    controller, &Controller::socketName);
+
+
+   template signal FROM controller
+
+   QObject::connect(controller, &Controller::signalName,
+                    this, &MainWindow::slotName);
+*/

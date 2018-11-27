@@ -13,7 +13,7 @@ public:
     Drink(QString name);
     QString Name;
     QVector<QString> Trivia;
-    QMap<Ingredients::Ingredients, int> IngredientsMap;
+    QMap<Ingredients::Ingredients, double> IngredientsMap;
 };
 
 #endif // DRINK_H

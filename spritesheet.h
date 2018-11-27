@@ -13,7 +13,6 @@ private:
     Spritesheet();
 
 public:
-    static QVector<QImage> makeQImages(QString pathToSheet, int frameCount, int frameWidth, int frameHeight);
     static QVector<sf::Sprite> makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight);
 };
 

@@ -34,6 +34,7 @@ void GameArea::OnInit()
     mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
 
 
+
     if(!backgroundTexture.loadFromFile("gamePlayBackground.png"))
     {
         qDebug() << "Couldn't load background.";

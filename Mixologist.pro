@@ -17,12 +17,6 @@ TEMPLATE = app
 # deprecated API in order to know how to port your code away from it.
 DEFINES += QT_DEPRECATED_WARNINGS
 
-LIBS += -lsfml-audio
-LIBS += -lsfml-graphics
-LIBS += -lsfml-network
-LIBS += -lsfml-window
-LIBS += -lsfml-system
-
 # You can also make your code fail to compile if you use deprecated APIs.
 # In order to do so, uncomment the following line.
 # You can also select to disable deprecated APIs only up to a certain version of Qt.
@@ -38,9 +32,9 @@ SOURCES += \
     customdrinkimporter.cpp \
     gamearea.cpp \
     drink.cpp \
-    ingredientsprite.cpp
-    gamearea.cpp
-    spritesheet.cpp
+    ingredientsprite.cpp \
+    spritesheet.cpp \
+    xmldrinkparser.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -50,9 +44,9 @@ HEADERS += \
     customdrinkimporter.h \
     gamearea.h \
     drink.h \
-    ingredientsprite.h
-    gamearea.h
-    spritesheet.h
+    ingredientsprite.h \
+    spritesheet.h \
+    xmldrinkparser.h
 
 FORMS += \
         mainwindow.ui \
