@@ -1,15 +1,18 @@
 #include "mainwindow.h"
 #include <QApplication>
 #include "gamearea.h"
+#include "controller.h"
 #include "xmldrinkparser.h"
-
 int main(int argc, char *argv[])
 {
     XMLDrinkParser xml;
     xml.parseXMLDatabase();
     QApplication a(argc, argv);
-    MainWindow w;
+    Controller *c = new Controller();
+    MainWindow w(c);
     w.show();
 
     return a.exec();
 }
+
+

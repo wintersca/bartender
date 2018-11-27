@@ -3,10 +3,13 @@
 #include "ingredients.h"
 #include <QMetaEnum>
 
-CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
+CustomDrinkImporter::CustomDrinkImporter(Controller *controller,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CustomDrinkImporter)
 {
+    //signal to controller
+    QObject::connect(this, &CustomDrinkImporter::sendNewRecipe,
+                     controller, &Controller::receiveRecipe);
     ui->setupUi(this);
 
     stepBoxes = QVector<QComboBox*>(10);
@@ -170,6 +173,7 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     {
         drink.IngredientsMap.insert(includedSteps[i], totalOfSteps[i]);
     }
+    emit sendNewRecipe(drink);
 }
 
 void CustomDrinkImporter::on_buttonBox_rejected()
