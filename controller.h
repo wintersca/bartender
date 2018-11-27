@@ -17,16 +17,16 @@ class Controller : public QObject
 {
 public:
     explicit Controller(QObject *parent = nullptr);
-
 public slots:
         void receiveRecipe(Drink newDrink);
         void getAllRecipes(QVector<Drink> drinks);
-
 private:
-
+void updateDatabase(Drink newRecipe);
+QVector<Drink> sortRecipes(QVector<Drink> recipes);
+void sendUpdatedRecipesToGame(QVector<Drink> sortedDrinks);
 signals:
-        void submitNewRecipes(QVector<Drink> newDrinks);
-
+    void submitNewRecipes(Drink newDrink);
+    void recipesToGame(QVector<Drink>);
 };
 
 #endif // CONTROLLER_H
