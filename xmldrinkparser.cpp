@@ -1,14 +1,14 @@
 #include "xmldrinkparser.h"
 #include <iostream>
 
-XMLDrinkParser::XMLDrinkParser(Controller *controller)
+XMLDrinkParser::XMLDrinkParser()
 {
-    //signal to controller
-    QObject::connect(this, &XMLDrinkParser::sendAllRecipes,
-                     controller, &Controller::getAllRecipes);
-    //signal from controller
-    QObject::connect(controller, &Controller::submitNewRecipes,
-                     this, &XMLDrinkParser::updateXMLDatabase);
+//    //signal to controller
+//    QObject::connect(this, &XMLDrinkParser::sendAllRecipes,
+//                     controller, &Controller::getAllRecipes);
+//    //signal from controller
+//    QObject::connect(controller, &Controller::submitNewRecipes,
+//                     this, &XMLDrinkParser::updateXMLDatabase);
 }
 
 void XMLDrinkParser::parseXMLDatabase()
@@ -32,7 +32,7 @@ void XMLDrinkParser::parseXMLDatabase()
     {
 
     }
-    emit sendAllRecipes(result);
+    //emit sendAllRecipes(result);
 }
 
 void XMLDrinkParser::updateXMLDatabase(QVector<Drink> newDrinks)

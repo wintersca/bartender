@@ -12,7 +12,7 @@
 class XMLDrinkParser
 {
 public:
-    XMLDrinkParser(Controller *controller);
+    XMLDrinkParser();
     void parseXMLDatabase();
 private slots:
     void updateXMLDatabase(QVector<Drink> newDrinks);

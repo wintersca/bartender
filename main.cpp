@@ -6,7 +6,7 @@
 int main(int argc, char *argv[])
 {
     Controller *c = new Controller();
-    XMLDrinkParser xml(c);
+    XMLDrinkParser xml;
     xml.parseXMLDatabase();
     QApplication a(argc, argv);
     MainWindow w(c);
