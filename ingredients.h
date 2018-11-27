@@ -12,7 +12,7 @@ namespace Ingredients {
         Tequila,
         Bourbon,
         Gin,
-        Rum,
+        DarkRum,
         WhiteRum,
         LightRum,
 
@@ -20,7 +20,6 @@ namespace Ingredients {
         GrandMarnier,
         SweetVermouth,
         DryVermouth,
-        Angustura,
         TrippleSec,
         Kahlua,
         Jagermeister,
@@ -82,7 +81,7 @@ namespace Ingredients {
         "Tequila",
         "Bourbon",
         "Gin",
-        "Rum",
+        "Dark Rum",
         "White Rum",
         "Light Rum",
 
@@ -90,7 +89,6 @@ namespace Ingredients {
         "Grand Marnier",
         "Sweet Vermouth",
         "Dry Vermouth",
-        "Angustura",
         "Tripple Sec",
         "Kahlua",
         "Jagermeister",

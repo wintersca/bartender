@@ -73,13 +73,12 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     stringsToIngredients["Tequila"] = Ingredients::Tequila;
     stringsToIngredients["Bourbon"] = Ingredients::Bourbon;
     stringsToIngredients["Gin"] = Ingredients::Gin;
-    stringsToIngredients["Rum"] = Ingredients::Rum;
+    stringsToIngredients["Dark Rum"] = Ingredients::DarkRum;
     stringsToIngredients["White Rum"] = Ingredients::WhiteRum;
     stringsToIngredients["Light Rum"] = Ingredients::LightRum;
     stringsToIngredients["Grand Marnier"] = Ingredients::GrandMarnier;
     stringsToIngredients["Sweet Vermouth"] = Ingredients::SweetVermouth;
     stringsToIngredients["Dry Vermouth"] = Ingredients::DryVermouth;
-    stringsToIngredients["Angustura"] = Ingredients::Angustura;
     stringsToIngredients["Tripple Sec"] = Ingredients::TrippleSec;
     stringsToIngredients["Kahlua"] = Ingredients::Kahlua;
     stringsToIngredients["Jagermeister"] = Ingredients::Jagermeister;

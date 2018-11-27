@@ -28,7 +28,7 @@ void GameArea::OnInit()
 {
 
     myTexture.loadFromFile("Images/Cherries.png");
-    mySprite.ingredient = Ingredients::Angustura;
+    mySprite.ingredient = Ingredients::DarkRum;
     mySprite.setTexture(myTexture);
     mySprite.setPosition(250.f, 250.f);
     mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
