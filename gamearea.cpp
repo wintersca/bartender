@@ -27,19 +27,13 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
 void GameArea::OnInit()
 {
 
-    myTexture.loadFromFile("cherry.png");
+    myTexture.loadFromFile("Images/Cherries.png");
     mySprite.ingredient = Ingredients::Angustura;
     mySprite.setTexture(myTexture);
     mySprite.setPosition(250.f, 250.f);
     mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
 
-
-
-    if(!backgroundTexture.loadFromFile("gamePlayBackground.png"))
-    {
-        qDebug() << "Couldn't load background.";
-    }
-
+    backgroundTexture.loadFromFile("Images/gamePlayBackground.png");
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setPosition(0.f, 0.f);
 
