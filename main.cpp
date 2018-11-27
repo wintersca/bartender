@@ -5,10 +5,10 @@
 #include "xmldrinkparser.h"
 int main(int argc, char *argv[])
 {
-    XMLDrinkParser xml;
+    Controller *c = new Controller();
+    XMLDrinkParser xml(c);
     xml.parseXMLDatabase();
     QApplication a(argc, argv);
-    Controller *c = new Controller();
     MainWindow w(c);
     w.show();
 
