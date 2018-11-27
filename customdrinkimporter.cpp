@@ -67,6 +67,61 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     QVector<Ingredients::Ingredients> includedSteps = QVector<Ingredients::Ingredients>();
     QVector<double> totalOfSteps = QVector<double>();
 
+    // Create a dictionary to map strings to enums.
+    QMap<QString, Ingredients::Ingredients> stringsToIngredients = QMap<QString, Ingredients::Ingredients>();
+    stringsToIngredients["Vodka"] = Ingredients::Vodka;
+    stringsToIngredients["Tequila"] = Ingredients::Tequila;
+    stringsToIngredients["Bourbon"] = Ingredients::Bourbon;
+    stringsToIngredients["Gin"] = Ingredients::Gin;
+    stringsToIngredients["Rum"] = Ingredients::Rum;
+    stringsToIngredients["White Rum"] = Ingredients::WhiteRum;
+    stringsToIngredients["Light Rum"] = Ingredients::LightRum;
+    stringsToIngredients["Grand Marnier"] = Ingredients::GrandMarnier;
+    stringsToIngredients["Sweet Vermouth"] = Ingredients::SweetVermouth;
+    stringsToIngredients["Dry Vermouth"] = Ingredients::DryVermouth;
+    stringsToIngredients["Angustura"] = Ingredients::Angustura;
+    stringsToIngredients["Tripple Sec"] = Ingredients::TrippleSec;
+    stringsToIngredients["Kahlua"] = Ingredients::Kahlua;
+    stringsToIngredients["Jagermeister"] = Ingredients::Jagermeister;
+    stringsToIngredients["Campari"] = Ingredients::Campari;
+    stringsToIngredients["Green Creme de Menthe"] = Ingredients::GreenCremeDeMenthe;
+    stringsToIngredients["Creme de Cacao"] = Ingredients::CremeDeCacao;
+    stringsToIngredients["Peach Schnapps"] = Ingredients::PeachSchnapps;
+    stringsToIngredients["Salt"] = Ingredients::Salt;
+    stringsToIngredients["Pepper"] = Ingredients::Pepper;
+    stringsToIngredients["Ice"] = Ingredients::Ice;
+    stringsToIngredients["Simple Syrup"] = Ingredients::SimpleSyrup;
+    stringsToIngredients["Tonic Water"] = Ingredients::TonicWater;
+    stringsToIngredients["Sparkling Water"] = Ingredients::SparklingWater;
+    stringsToIngredients["Angostura Bitters"] = Ingredients::AngosturaBitters;
+    stringsToIngredients["Cola"] = Ingredients::Cola;
+    stringsToIngredients["Club Soda"] = Ingredients::ClubSoda;
+    stringsToIngredients["Cream"] = Ingredients::Cream;
+    stringsToIngredients["Worcestershire Sauce"] = Ingredients::WorcestershireSauce;
+    stringsToIngredients["Orange Juice"] = Ingredients::OrangeJuice;
+    stringsToIngredients["Lime Juice"] = Ingredients::LimeJuice;
+    stringsToIngredients["Lemon Juice"] = Ingredients::LemonJuice;
+    stringsToIngredients["Pineapple Juice"] = Ingredients::PineappleJuice;
+    stringsToIngredients["Tomato Juice"] = Ingredients::TomatoJuice;
+    stringsToIngredients["Cranberry Juice"] = Ingredients::CranberryJuice;
+    stringsToIngredients["Orange Wedge"] = Ingredients::OrangeWedge;
+    stringsToIngredients["Orange Twist"] = Ingredients::OrangeTwist;
+    stringsToIngredients["Lime Wedge"] = Ingredients::LimeWedge;
+    stringsToIngredients["Lime Twist"] = Ingredients::LimeTwist;
+    stringsToIngredients["Lemon Twist"] = Ingredients::LemonTwist;
+    stringsToIngredients["Pineapple Wedge"] = Ingredients::PineappleWedge;
+    stringsToIngredients["Cream Of Coconut"] = Ingredients::CreamOfCoconut;
+    stringsToIngredients["Ginger Beer"] = Ingredients::GingerBeer;
+    stringsToIngredients["Mint Leaf"] = Ingredients::MintLeaf;
+    stringsToIngredients["Mint Sprig"] = Ingredients::MintSprig;
+    stringsToIngredients["Cherry"] = Ingredients::Cherry;
+    stringsToIngredients["Green Olive"] = Ingredients::GreenOlive;
+    stringsToIngredients["Celery"] = Ingredients::Celery;
+    stringsToIngredients["Nutmeg"] = Ingredients::Nutmeg;
+    stringsToIngredients["Shake"] = Ingredients::Shake;
+    stringsToIngredients["Stir"] = Ingredients::Stir;
+    stringsToIngredients["Muddle"] = Ingredients::Muddle;
+
     // Add all boxes that don't have none selected.
     for (int i = 0; i < MAXINGREDIENTS; i++)
     {
@@ -74,95 +129,7 @@ void CustomDrinkImporter::on_buttonBox_accepted()
         if (currentText != "none")
         {
             totalOfSteps.append(amountBoxes[i]->value());
-
-            if (currentText == "Vodka")
-            {
-                includedSteps.append(Ingredients::Vodka);
-            }
-            else if (currentText == "Tequila")
-            {
-                includedSteps.append(Ingredients::Tequila);
-            }
-            else if (currentText == "Bourbon")
-            {
-                includedSteps.append(Ingredients::Bourbon);
-            }
-            else if (currentText == "Salt")
-            {
-                includedSteps.append(Ingredients::Salt);
-            }
-            else if (currentText == "Grand Marnier")
-            {
-                includedSteps.append(Ingredients::GrandMarnier);
-            }
-            else if (currentText == "Simple Syrup")
-            {
-                includedSteps.append(Ingredients::SimpleSyrup);
-            }
-            else if (currentText == "Angustura")
-            {
-                includedSteps.append(Ingredients::Angustura);
-            }
-            else if (currentText == "Orange Twist")
-            {
-                includedSteps.append(Ingredients::OrangeTwist);
-            }
-            else if (currentText == "Lime Juice")
-            {
-                includedSteps.append(Ingredients::LimeJuice);
-            }
-            else if (currentText == "Mint Leaf")
-            {
-                includedSteps.append(Ingredients::MintLeaf);
-            }
-            else if (currentText == "White Rum")
-            {
-                includedSteps.append(Ingredients::WhiteRum);
-            }
-            else if (currentText == "Sparkling Water")
-            {
-                includedSteps.append(Ingredients::SparklingWater);
-            }
-            else if (currentText == "Gin")
-            {
-                includedSteps.append(Ingredients::Gin);
-            }
-            else if (currentText == "Tonic Water")
-            {
-                includedSteps.append(Ingredients::TonicWater);
-            }
-            else if (currentText == "Orange Juice")
-            {
-                includedSteps.append(Ingredients::OrangeJuice);
-            }
-            else if (currentText == "Orange Wedge")
-            {
-                includedSteps.append(Ingredients::OrangeWedge);
-            }
-            else if (currentText == "Angostura Bitters")
-            {
-                includedSteps.append(Ingredients::AngosturaBitters);
-            }
-            else if (currentText == "Sweet Vermouth")
-            {
-                includedSteps.append(Ingredients::SweetVermouth);
-            }
-            else if (currentText == "Lemon Twist")
-            {
-                includedSteps.append(Ingredients::LemonTwist);
-            }
-            else if (currentText == "Cherry")
-            {
-                includedSteps.append(Ingredients::Cherry);
-            }
-            else if (currentText == "Dry Vermouth")
-            {
-                includedSteps.append(Ingredients::DryVermouth);
-            }
-            else if (currentText == "Green Olive")
-            {
-                includedSteps.append(Ingredients::GreenOlive);
-            }
+            includedSteps.append(stringsToIngredients[currentText]);
         }
     }
 
