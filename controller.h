@@ -20,10 +20,12 @@ public:
 
 public slots:
         void receiveRecipe(Drink newDrink);
+        void getAllRecipes(QVector<Drink> drinks);
 
 private:
 
 signals:
+        void submitNewRecipes(QVector<Drink> newDrinks);
 
 };
 
