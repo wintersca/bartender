@@ -37,6 +37,7 @@ namespace Ingredients {
         Pepper,
         Nutmeg,
         Ice,
+        MargaritaSalt,
 
         // Non alcoholic liquids
         TonicWater,
@@ -163,7 +164,6 @@ namespace Ingredients {
             "Light Rum",
             Action::PourAction
         },
-
         // Liquors
         // Grand Marnier
         {
@@ -287,7 +287,6 @@ namespace Ingredients {
             "Ice",
             Action::PourAction
         },
-
         // Non alcoholic liquids
         // Tonic Water
         {
@@ -536,6 +535,7 @@ namespace Ingredients {
             Action::MuddleAction
         },
     };
+
 }
 
 #endif // INGREDIENTS_H

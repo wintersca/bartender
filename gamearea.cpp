@@ -27,13 +27,18 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
 void GameArea::OnInit()
 {
 
-    myTexture.loadFromFile("Images/Cherries.png");
-    mySprite.ingredient = Ingredients::DarkRum;
+    myTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/cherry.png");
+    mySprite.ingredient = Ingredients::Angustura;
+
     mySprite.setTexture(myTexture);
     mySprite.setPosition(250.f, 250.f);
     mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
 
-    backgroundTexture.loadFromFile("Images/gamePlayBackground.png");
+    if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gamePlayBackground.png"))
+    {
+        qDebug() << "Couldn't load background.";
+    }
+  
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setPosition(0.f, 0.f);
 

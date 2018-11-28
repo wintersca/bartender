@@ -34,7 +34,8 @@ SOURCES += \
     drink.cpp \
     spritesheet.cpp \
     xmldrinkparser.cpp \
-    ingredientsmap.cpp
+    ingredientsmap.cpp \
+    step.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -47,7 +48,8 @@ HEADERS += \
     ingredientsprite.h \
     spritesheet.h \
     xmldrinkparser.h \
-    ingredientsmap.h
+    ingredientsmap.h \
+    step.h
 
 FORMS += \
         mainwindow.ui \
