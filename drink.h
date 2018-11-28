@@ -17,22 +17,23 @@ public:
     QVector<QString> Trivia;
     QMap<Ingredients::Ingredients, double> IngredientsMap;
 
+
     void setName(QString name);
     void addTrivia(QString triv);
     void addIngredient(Ingredients::Ingredients ingredient, double amount);
-    void addAction(QString instruction, Ingredients::Ingredients ingredient, double amount);
+    void addStep(QString instruction, Ingredients::Ingredients ingredient, double amount);
     void setSelected(bool select);
     QString getName();
     QVector<QString> getTrivia();
     QMap<Ingredients::Ingredients, double> getTngredients();
-    QVector<Step> getActions();
+    QVector<Step> getSteps();
     bool getSelected();
-
+    void print();
     
+
+private:
     QVector<Step> Steps;
     bool userSelected;
-private:
-
 
 };
 

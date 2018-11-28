@@ -7,12 +7,13 @@ class Step
 {
 public:
     Step();
-    void setInstruction(QString inst);
-    void setItem(Ingredients::Ingredients itm);
+    Step(QString inst, Ingredients::Ingredients ingred, double amt);
+    void setInstruction(QString inst) ;
+    void setItem(Ingredients::Ingredients itm) ;
     void setAmount(double amt);
-    QString getInstruction();
-    Ingredients::Ingredients getItem();
-    double getAmount();
+    QString getInstruction() const;
+    Ingredients::Ingredients getItem() const;
+    double getAmount() const;
 private:
     QString instruction;
     Ingredients::Ingredients item;
