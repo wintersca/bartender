@@ -43,6 +43,7 @@ QVector<Drink> getAllRecipes();
 
 
 /* template signals TO controller
+ * all of these go in the class you are connecting with, not the controller.
  *
    QObject::connect(ui->uiElement, &QElementType::action,
                     controller, &Controller::socketName);
