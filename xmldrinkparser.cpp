@@ -17,7 +17,6 @@ XMLDrinkParser::XMLDrinkParser()
         stringsToIngredients["Grand Marnier"] = Ingredients::GrandMarnier;
         stringsToIngredients["Sweet Vermouth"] = Ingredients::SweetVermouth;
         stringsToIngredients["Dry Vermouth"] = Ingredients::DryVermouth;
-        stringsToIngredients["Angustura"] = Ingredients::Angustura;
         stringsToIngredients["Tripple Sec"] = Ingredients::TrippleSec;
         stringsToIngredients["Kahlua"] = Ingredients::Kahlua;
         stringsToIngredients["Jagermeister"] = Ingredients::Jagermeister;
@@ -63,7 +62,7 @@ XMLDrinkParser::XMLDrinkParser()
 
 }
 
-QVector<Drink> XMLDrinkParser::parseXMLDatabase()
+QVector<Drink*> XMLDrinkParser::parseXMLDatabase()
 {
     std::cout <<QDir::currentPath().toStdString()<<std::endl;
     //QVector<Drink> result;
@@ -95,7 +94,7 @@ void XMLDrinkParser::read(){
 void XMLDrinkParser::readDrinkDatabase(){
     while(reader.readNextStartElement()){
         if(reader.name()=="drink"){
-            std::cout<<"Drink found"<<std::endl;
+            //std::cout<<"Drink found"<<std::endl;
             readDrink();
         }
         else{
@@ -121,34 +120,34 @@ void XMLDrinkParser::readDrink(){
             reader.skipCurrentElement();
         }
     }
-    //addDrink(drink);
+    addDrink(drink);
 }
 
 void XMLDrinkParser::readName(Drink* drink){
     reader.readNextStartElement();
     QString name = reader.readElementText();
-    std::cout<<"Name found "<<name.toStdString()<<std::endl;
-    //drink->setName(name);
+    //std::cout<<"Name found "<<name.toStdString()<<std::endl;
+    drink->setName(name);
 }
 
 void XMLDrinkParser::readIngredients(Drink* drink){
     bool test=reader.readNextStartElement();
     while(test){
-        std::cout<<"Top of while: "<< test <<std::endl;
+        //std::cout<<"Top of while: "<< test <<std::endl;
         QString skip = reader.name().toString();
-        std::cout<<"Start Element Name "<<skip.toStdString()<<std::endl;
+        //std::cout<<"Start Element Name "<<skip.toStdString()<<std::endl;
         if(reader.name()=="ingredient"){
             const QString name = reader.attributes().value("name").toString();
-            std::cout<<"Ingredient found "<<name.toStdString()<<std::endl;
+            //std::cout<<"Ingredient found "<<name.toStdString()<<std::endl;
             double amt = reader.attributes().value("amount").toDouble();
-            std::cout<<"Ingredient found "<<amt<<std::endl;
-            //drink->addIngredient(stringsToIngredients.find(name), amt);
+            //std::cout<<"Ingredient found "<<amt<<std::endl;
+            drink->addIngredient(stringsToIngredients.value(name), amt);
         }
         reader.skipCurrentElement();
         test=reader.readNextStartElement();
         skip = reader.name().toString();
-        std::cout<<"Reader Name "<<skip.toStdString()<<std::endl;
-        std::cout<<"Bottom of while: "<< test <<std::endl;
+        //std::cout<<"Reader Name "<<skip.toStdString()<<std::endl;
+        //std::cout<<"Bottom of while: "<< test <<std::endl;
     }
 }
 
@@ -156,12 +155,12 @@ void XMLDrinkParser::readSteps(Drink* drink){
     while(reader.readNextStartElement()){
         if(reader.name()=="action"){
             QString inst = reader.attributes().value("instruction").toString();
-            std::cout<<"Step found "<<inst.toStdString()<<std::endl;
+            //std::cout<<"Step found "<<inst.toStdString()<<std::endl;
             const QString item = reader.attributes().value("item").toString();
-            std::cout<<"Step found "<<item.toStdString()<<std::endl;
+            //std::cout<<"Step found "<<item.toStdString()<<std::endl;
             double amt = reader.attributes().value("amount").toDouble();
-            std::cout<<"Step found "<<amt<<std::endl;
-            //drink->addAction(inst, stringsToIngredients.find(item), amt);
+            //std::cout<<"Step found "<<amt<<std::endl;
+            drink->addStep(inst, stringsToIngredients.value(item), amt);
         }
         reader.skipCurrentElement();
     }
@@ -171,20 +170,19 @@ void XMLDrinkParser::readTrivia(Drink* drink){
     while(reader.readNextStartElement()){
         if(reader.name()=="trivia"){
             QString triv = reader.attributes().value("description").toString();
-            std::cout<<"Trivia found "<<triv.toStdString()<<std::endl;
-            //drink->addTrivia(triv);
+            //std::cout<<"Trivia found "<<triv.toStdString()<<std::endl;
+            drink->addTrivia(triv);
         }
         reader.skipCurrentElement();
     }
 }
 
 void XMLDrinkParser::addDrink(Drink* drink){
-
+    drinkDatabase.push_back(drink);
+    drink->print();
 }
 
-
-
-void XMLDrinkParser::updateXMLDatabase(QVector<Drink> newDrinks)
+void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
 {
 
 }

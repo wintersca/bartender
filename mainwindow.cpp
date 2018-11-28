@@ -46,12 +46,10 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     tipsFrame->update();
 
     // Controller set up.
-    if (controller == nullptr)
-       {
-           controller = new Controller();
-       }
-       else
-           controller = controllerPtr;
+    controller = controllerPtr;
+
+    QObject::connect(controller, &Controller::menuToGame,
+                     this, &MainWindow::receiveMenu);
 }
 
 MainWindow::~MainWindow()
@@ -66,4 +64,13 @@ void MainWindow::on_addCustomDrink_clicked()
     window->show();
     window->raise();
     window->activateWindow();
+}
+
+void MainWindow::receiveMenu(QVector<Drink*> menu)
+{
+    // this is for testing
+    for (Drink* d : menu)
+    {
+        qDebug() << d->Name;
+    }
 }

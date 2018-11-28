@@ -26,6 +26,7 @@ public :
 
 private :
 
+    QVector<IngredientSprite> ingredientSprites;
 
     sf::Image  myImage;
     IngredientSprite mySprite;

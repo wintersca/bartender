@@ -32,9 +32,9 @@ SOURCES += \
     customdrinkimporter.cpp \
     gamearea.cpp \
     drink.cpp \
-    ingredientsprite.cpp \
     spritesheet.cpp \
     xmldrinkparser.cpp \
+    ingredientsmap.cpp \
     step.cpp
 
 HEADERS += \
@@ -48,6 +48,7 @@ HEADERS += \
     ingredientsprite.h \
     spritesheet.h \
     xmldrinkparser.h \
+    ingredientsmap.h \
     step.h
 
 FORMS += \
