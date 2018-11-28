@@ -1,5 +1,6 @@
 #include <QVector>
 #include <QFile>
+#include <QDir>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
 #include "drink.h"

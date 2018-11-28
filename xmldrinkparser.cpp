@@ -1,6 +1,5 @@
 #include "xmldrinkparser.h"
 #include <iostream>
-#include <QDir>
 
 XMLDrinkParser::XMLDrinkParser()
 {
@@ -64,12 +63,10 @@ XMLDrinkParser::XMLDrinkParser()
 
 QVector<Drink*> XMLDrinkParser::parseXMLDatabase()
 {
-    std::cout <<QDir::currentPath().toStdString()<<std::endl;
-    //QVector<Drink> result;
     QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/DrinkDatabase.xml");
-    if(!file.open(QFile::ReadOnly | QFile::Text)){
-        std::cout << "Cannot read file: " << file.errorString().toStdString() <<std::endl;
-        return drinkDatabase;
+    if(!file.open(QFile::ReadOnly | QFile::Text))
+    {
+        throw -1;
     }
     else
     {
@@ -77,107 +74,122 @@ QVector<Drink*> XMLDrinkParser::parseXMLDatabase()
         read();
     }
 
-return drinkDatabase;
+    return drinkDatabase;
 }
 
-void XMLDrinkParser::read(){
-    if(reader.readNextStartElement()){
-        if(reader.name()=="collection"){
+void XMLDrinkParser::read()
+{
+    if(reader.readNextStartElement())
+    {
+        if(reader.name()=="collection")
+        {
             readDrinkDatabase();
         }
-        else{
-            std::cout<<"Not a drink database"<<std::endl;
+        else
+        {
+            throw -1;
         }
     }
 }
 
-void XMLDrinkParser::readDrinkDatabase(){
-    while(reader.readNextStartElement()){
-        if(reader.name()=="drink"){
-            //std::cout<<"Drink found"<<std::endl;
+void XMLDrinkParser::readDrinkDatabase()
+{
+    while(reader.readNextStartElement())
+    {
+        if(reader.name()=="drink")
+        {
             readDrink();
         }
-        else{
+        else
+        {
             reader.skipCurrentElement();
         }
     }
 }
 
-void XMLDrinkParser::readDrink(){
+void XMLDrinkParser::readDrink()
+{
     Drink* drink = new Drink();
     readName(drink);
-    while(reader.readNextStartElement()){
-        if(reader.name()=="ingredients"){
+
+    while(reader.readNextStartElement())
+    {
+        if(reader.name()=="ingredients")
+        {
             readIngredients(drink);
         }
-        else if(reader.name()=="actions"){
+        else if(reader.name()=="actions")
+        {
             readSteps(drink);
         }
-        else if(reader.name()=="trivia_details"){
+        else if(reader.name()=="trivia_details")
+        {
             readTrivia(drink);
         }
-        else{
+        else
+        {
             reader.skipCurrentElement();
         }
     }
+
     addDrink(drink);
 }
 
-void XMLDrinkParser::readName(Drink* drink){
+void XMLDrinkParser::readName(Drink* drink)
+{
     reader.readNextStartElement();
     QString name = reader.readElementText();
-    //std::cout<<"Name found "<<name.toStdString()<<std::endl;
     drink->setName(name);
 }
 
-void XMLDrinkParser::readIngredients(Drink* drink){
+void XMLDrinkParser::readIngredients(Drink* drink)
+{
     bool test=reader.readNextStartElement();
-    while(test){
-        //std::cout<<"Top of while: "<< test <<std::endl;
+    while(test)
+    {
         QString skip = reader.name().toString();
-        //std::cout<<"Start Element Name "<<skip.toStdString()<<std::endl;
-        if(reader.name()=="ingredient"){
+        if(reader.name()=="ingredient")
+        {
             const QString name = reader.attributes().value("name").toString();
-            //std::cout<<"Ingredient found "<<name.toStdString()<<std::endl;
             double amt = reader.attributes().value("amount").toDouble();
-            //std::cout<<"Ingredient found "<<amt<<std::endl;
             drink->addIngredient(stringsToIngredients.value(name), amt);
         }
         reader.skipCurrentElement();
         test=reader.readNextStartElement();
         skip = reader.name().toString();
-        //std::cout<<"Reader Name "<<skip.toStdString()<<std::endl;
-        //std::cout<<"Bottom of while: "<< test <<std::endl;
     }
 }
 
-void XMLDrinkParser::readSteps(Drink* drink){
-    while(reader.readNextStartElement()){
-        if(reader.name()=="action"){
+void XMLDrinkParser::readSteps(Drink* drink)
+{
+    while(reader.readNextStartElement())
+    {
+        if(reader.name()=="action")
+        {
             QString inst = reader.attributes().value("instruction").toString();
-            //std::cout<<"Step found "<<inst.toStdString()<<std::endl;
             const QString item = reader.attributes().value("item").toString();
-            //std::cout<<"Step found "<<item.toStdString()<<std::endl;
             double amt = reader.attributes().value("amount").toDouble();
-            //std::cout<<"Step found "<<amt<<std::endl;
             drink->addStep(inst, stringsToIngredients.value(item), amt);
         }
         reader.skipCurrentElement();
     }
 }
 
-void XMLDrinkParser::readTrivia(Drink* drink){
-    while(reader.readNextStartElement()){
-        if(reader.name()=="trivia"){
+void XMLDrinkParser::readTrivia(Drink* drink)
+{
+    while(reader.readNextStartElement())
+    {
+        if(reader.name()=="trivia")
+        {
             QString triv = reader.attributes().value("description").toString();
-            //std::cout<<"Trivia found "<<triv.toStdString()<<std::endl;
             drink->addTrivia(triv);
         }
         reader.skipCurrentElement();
     }
 }
 
-void XMLDrinkParser::addDrink(Drink* drink){
+void XMLDrinkParser::addDrink(Drink* drink)
+{
     drinkDatabase.push_back(drink);
     drink->print();
 }
