@@ -3,10 +3,13 @@
 
 #include <QObject>
 #include <QString>
-
+#include <QColor>
+#include <QMap>
 
 namespace Ingredients {
+
     enum Ingredients {
+
         // Core boozes
         Vodka,
         Tequila,
@@ -74,7 +77,56 @@ namespace Ingredients {
 
     };
 
-    const int TOTALINGREDIENTS = 52;
+    enum Action {
+
+        PourAction,
+        ShakeAction,
+        StirAction,
+        MuddleAction,
+        AddAction
+
+    };
+
+    struct IngredientData {
+
+      QColor color;
+      QString unit;
+      QString imageFilename;
+      QString displayString;
+      Action action;
+
+    };
+
+
+    const int TOTALINGREDIENTS = 51;
+
+    //You index into this by ingredientData[Ingredient::Ingredient].
+    // ingredientData[Ingredient::Ingredient].displayString, etc.
+    const IngredientData ingredientData[]
+    {
+
+        //First - vodka.
+        {
+            Qt::white,
+            "oz",
+            "Vodka.png",
+            "Vodka",
+            Action::PourAction
+        },
+
+        //Second - tequila.
+        {
+
+        },
+
+        //Third - bourbon.
+        {
+
+        },
+
+        //Etc, in order of enum list.
+    };
+
     static const QString All[] = {
         // Core boozes
         "Vodka",
@@ -141,6 +193,7 @@ namespace Ingredients {
         "Stir",
         "Muddle"
     };
+
 }
 
 #endif // INGREDIENTS_H
