@@ -12,7 +12,7 @@ namespace Ingredients {
         Tequila,
         Bourbon,
         Gin,
-        Rum,
+        DarkRum,
         WhiteRum,
         LightRum,
 
@@ -33,6 +33,7 @@ namespace Ingredients {
         Salt,
         Pepper,
         Ice,
+        MargaritaSalt,
 
         // Non alcoholic liquids
         SimpleSyrup,
@@ -82,7 +83,7 @@ namespace Ingredients {
         "Tequila",
         "Bourbon",
         "Gin",
-        "Rum",
+        "Dark Rum",
         "White Rum",
         "Light Rum",
 
@@ -103,6 +104,7 @@ namespace Ingredients {
         "Salt",
         "Pepper",
         "Ice",
+        "Margarita Salt",
 
         // Non alcoholic liquids
         "Simple Syrup",
@@ -143,6 +145,7 @@ namespace Ingredients {
         "Stir",
         "Muddle"
     };
+
 }
 
 #endif // INGREDIENTS_H
