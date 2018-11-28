@@ -140,14 +140,14 @@ void CustomDrinkImporter::on_buttonBox_accepted()
 
     // Convert to a drink object.
 
-    drink->Name = ui->drinkName->text();
-    drink->Trivia.append(ui->drinkTrivia->toPlainText());
+    drink.Name = ui->drinkName->text();
+    drink.Trivia.append(ui->drinkTrivia->toPlainText());
     for (int i = 0; i < includedSteps.count(); i++)
 
     {
-        drink->IngredientsMap.insert(includedSteps[i], totalOfSteps[i]);
+        drink.IngredientsMap.insert(includedSteps[i], totalOfSteps[i]);
     }
-    emit sendNewRecipe(drink);
+    emit sendNewRecipe(&drink);
 }
 
 void CustomDrinkImporter::on_buttonBox_rejected()
@@ -157,6 +157,6 @@ void CustomDrinkImporter::on_buttonBox_rejected()
 
 void CustomDrinkImporter::on_addAdditionalTrivia_clicked()
 {
-    drink->Trivia.append(ui->drinkTrivia->toPlainText());
+    drink.Trivia.append(ui->drinkTrivia->toPlainText());
     ui->drinkTrivia->setText("");
 }
