@@ -3,9 +3,10 @@
 	<drink>
 		<name>Americano</name>
 		<ingredients>
-			<ingredient name="1.5" amount="oz" unit="Campari"/>
-			<ingredient name="3" amount="oz" unit="Club Soda"/>
-			<ingredient name="1" amount="" unit="Orange Twist"/>
+			<ingredient name="Sweet Vermouth" amount="1.5" />
+			<ingredient name="Campari" amount="1.5" />
+			<ingredient name="Club Soda" amount="3" />
+			<ingredient name="Orange Twist" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Add ice" item = "Ice" amount = "1" />
@@ -24,8 +25,8 @@
 	<drink>
 		<name>Black Russian</name>
 		<ingredients>
-			<ingredient name="2" amount="oz" unit="Vodka"/>
-			<ingredient name="1" amount="oz" unit="Kahlua"/>
+			<ingredient name="Vodka" amount="2" />
+			<ingredient name="Kahlua" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1.Add ice" item = "Ice" amount = "1" />
@@ -41,9 +42,14 @@
 	<drink>
 		<name>Bloody Mary</name>
 		<ingredients>
-			<ingredient name="3" amount="oz" unit="Tomato Juice"/>
-			<ingredient name="1.5" amount="oz" unit="Vodka"/>
-			<ingredient name="1" amount="" unit="Margarita Salt"/>
+			<ingredient name="Tomato Juice" amount="3" />
+			<ingredient name="Vodka" amount="1.5" />
+			<ingredient name="Lemon Juice" amount="1" />
+			<ingredient name="Worcestershire Sauce" amount="1" />
+			<ingredient name="Salt" amount="1" />
+			<ingredient name="Pepper" amount="1" />
+			<ingredient name="Celery" amount="1" />
+			<ingredient name="Margarita Salt" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Rim the glass wih margarita salt" item = "Margarita Salt" amount = "1" />
@@ -67,10 +73,11 @@
 	<drink>
 		<name>Cosmopolitan</name>
 		<ingredients>
-			<ingredient name="2" amount="oz" unit="Vodka"/>
-			<ingredient name="0.75" amount="oz" unit="Tripple Sec"/>
-			<ingredient name="0.5" amount="oz" unit="Cranberry Juice"/>
-			<ingredient name="1" amount="" unit="Orange Twist"/>
+			<ingredient name="Vodka" amount="2" />
+			<ingredient name="Tripple Sec" amount="0.75" />
+			<ingredient name="Lime Juice" amount="0.5" />
+			<ingredient name="Cranberry Juice" amount="0.5" />
+			<ingredient name="Orange Twist" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Pour 2 oz of Vodka" item = "Vodka" amount = "2" />
@@ -90,10 +97,10 @@
 	<drink>
 		<name>Cuba Libre</name>
 		<ingredients>
-			<ingredient name="2" amount="oz" unit="Dark Rum"/>
-			<ingredient name="4" amount="oz" unit="Cola"/>
-			<ingredient name="0.5" amount="oz" unit="Lime Juice"/>
-			<ingredient name="1" amount="" unit="Lime Twist"/>
+			<ingredient name="Dark Rum" amount="2" />
+			<ingredient name="Cola" amount="4" />
+			<ingredient name="Lime Juice" amount="0.5" />
+			<ingredient name="Lime Twist" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Add ice to glass" item = "Ice" amount = "1" />
@@ -106,14 +113,14 @@
 		<trivia_details>
 			<trivia description="Cuba Libres were first drank in Cuba in 1900, when Coca Cola was first imported to Cuba."/>
 			<trivia description="Its popularity derives from the low cost of the main ingredients, and the fact that it is very easy to make. As it can be made with any quantity or style of rum, it is simple to prepare and difficult to ruin."/>
-			<trivia description="Charles A. Coulombe considers the Cuba Libre a historically important drink, writing that it is 'a potent symbol of a changing world order - the marriage of rum, lubricant of the old colonial empires, and Coca-Cola, icon of modern American global capitalism'."/>
+			<trivia description="Charles A. Coulombe considers the Cuba Libre a historically important drink, writing that it is 'a potent symbol of a changing world order – the marriage of rum, lubricant of the old colonial empires, and Coca-Cola, icon of modern American global capitalism'."/>
 		</trivia_details>
 	</drink>
 	<drink>
 		<name>Gin and Tonic</name>
 		<ingredients>
-			<ingredient name="2" amount="oz" unit="Gin"/>
-			<ingredient name="6" amount="oz" unit="Tonic Water"/>
+			<ingredient name="Gin" amount="2" />
+			<ingredient name="Tonic Water" amount="6" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Pour 2 oz" item = "Gin" amount = "2" />
@@ -130,8 +137,9 @@
 	<drink>
 		<name>Grasshopper</name>
 		<ingredients>
-			<ingredient name="1.5" amount="oz" unit="Creme de Cacao"/>
-			<ingredient name="1" amount="oz" unit="Cream"/>
+			<ingredient name="Green Creme de Menthe" amount="1.5" />
+			<ingredient name="Creme de Cacao" amount="1.5" />
+			<ingredient name="Cream" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Add ice" item = "Ice" amount = "1" />
@@ -148,9 +156,11 @@
 	<drink>
 		<name>Manhattan</name>
 		<ingredients>
-			<ingredient name="2" amount="oz" unit="Bourbon"/>
-			<ingredient name="0.75" amount="oz" unit="Sweet Vermouth"/>
-			<ingredient name="1" amount="" unit="Cherry"/>
+			<ingredient name="Angostura Bitters" amount="2" />
+			<ingredient name="Sweet Vermouth" amount="0.75" />
+			<ingredient name="Bourbon" amount="2" />
+			<ingredient name="Lemon Twist" amount="1" />
+			<ingredient name="Cherry" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Add 4 dashes of Anostura Bitters" item = "Angustura Bitters" amount = "2" />
@@ -170,8 +180,10 @@
 	<drink>
 		<name>Margarita</name>
 		<ingredients>
-			<ingredient name="1" amount="rim" unit="Margarita Salt"/>
-			<ingredient name="2" amount="oz" unit="Tequila"/>
+			<ingredient name="Lime Juice" amount="1" />
+			<ingredient name="Tequila" amount="2" />
+			<ingredient name="Grand Marnier" amount="1" />
+			<ingredient name="Margarita Salt" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Rim glass with margarita salt" item = "Margarita Salt" amount = "1" />
@@ -183,7 +195,7 @@
 		</actions>
 		<trivia_details>
 			<trivia description="Use of Grand Marnier makes this a Cadalliac Margarita. It has a less bitter flavor and doesn't require a salted rim on the glass."/>
-			<trivia description="A commonly accepted origin story of the Margarita is that it was invented in October 1941, at Hussong's Cantina in Ensenada, Mexico, by bartender Don Carlos Orozco."/>
+			<trivia description="A commonly accepted origin story of the Margarita is that it was invented in October 1941, at Hussong’s Cantina in Ensenada, Mexico, by bartender Don Carlos Orozco."/>
 			<trivia description="Margarita is Spanish for Daisy, which is a nickname for Margaret."/>
 			<trivia description="The Margarita was the most popularly ordered drink in 2008, representing 18 percent of all mixed drink sales in the U.S."/>
 		</trivia_details>
@@ -191,14 +203,13 @@
 	<drink>
 		<name>Martini</name>
 		<ingredients>
-			<ingredient name="0.75" amount="oz" unit="Dry Vermouth"/>
-			<ingredient name="2" amount="oz" unit="Gin"/>
-			<ingredient name="1" amount="" unit="Green Olive"/>
+			<ingredient name="Dry Vermouth" amount="0.75" />
+			<ingredient name="Gin" amount="2" />
+			<ingredient name="Green Olive" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Pour 0.75 oz Dry Vermouh" item = "Dry Vermouth" amount = "0.75" />
-			<action instruction="2. Pour 2 oz Gin
-" item = "Gin" amount = "2" />
+			<action instruction="2. Pour 2 oz Gin" item = "Gin" amount = "2" />
 			<action instruction="4. Add ice" item = "Ice" amount = "1" />
 			<action instruction="5. Stir" item = "Stir" amount = "0" />
 			<action instruction="7. Garnish with Green olive" item = "Green Olive" amount = "1" />
@@ -213,9 +224,10 @@
 	<drink>
 		<name>Mint Julep</name>
 		<ingredients>
-			<ingredient name="1" amount="" unit="Mint Sprig"/>
-			<ingredient name="0.5" amount="oz" unit="Simple Syrup"/>
-			<ingredient name="10" amount="" unit="Mint Leaf"/>
+			<ingredient name="Bourbon" amount="1" />
+			<ingredient name="Simple Syrup" amount="0.5" />
+			<ingredient name="Mint Leaf" amount="10" />
+			<ingredient name="Mint Sprig" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Add 10 Mint Leaves" item = "Mint Leaf" amount = "10" />
@@ -235,10 +247,11 @@
 	<drink>
 		<name>Mojito</name>
 		<ingredients>
-			<ingredient name="0.75" amount="oz" unit="Simple Syrup"/>
-			<ingredient name="10" amount="" unit="Mint Leaf"/>
-			<ingredient name="2" amount="oz" unit="White Rum"/>
-			<ingredient name="3" amount="oz" unit="Sparkling Water"/>
+			<ingredient name="Lime Juice" amount="0.75" />
+			<ingredient name="Mint Leaf" amount="10" />
+			<ingredient name="Simple Syrup" amount="0.75" />
+			<ingredient name="White Rum" amount="2" />
+			<ingredient name="Sparkling Water" amount="3" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Add 0.75 oz lime juice" item = "Lime Juice" amount = "0.75" />
@@ -261,32 +274,32 @@
 	<drink>
 		<name>Moscow Mule</name>
 		<ingredients>
-			<ingredient name="4" amount="oz" unit="Ginger Beer"/>
-			<ingredient name="2" amount="oz" unit="Vodka"/>
-			<ingredient name="0.5" amount="oz" unit="Lime Juice"/>
-			<ingredient name="1" amount="" unit="Lime Wedge"/>
+			<ingredient name="Vodka" amount="2" />
+			<ingredient name="Ginger Beer" amount="4" />
+			<ingredient name="Lime Juice" amount="0.5" />
+			<ingredient name="Lime Wedge" amount="1" />
 		</ingredients>
 		<actions>
-			<action instruction="1. Add ice" item = "Ice" amount = "1" />
 			<action instruction="2. Pour 2 oz Vodka" item = "Vodka" amount = "2" />
+			<action instruction="1. Add ice" item = "Ice" amount = "1" />
 			<action instruction="3. Pour 0.5 oz Lime Juice" item = "Lime Juice" amount = "0.5" />
 			<action instruction="4. Pour 4 oz Ginger Beer" item = "Ginger Beer" amount = "4" />
 			<action instruction="5. Stir" item = "Stir" amount = "0" />
 			<action instruction="6. Garnish with Lime Wedge" item = "Lime Wedge" amount = "1" />
 		</actions>
 		<trivia_details>
-			<trivia description="The Moscow mule is almost always served in a copper mug."/>
 			<trivia description="The Mule was invented in 1941 at a Hollywood bar called the Cock 'n Bull-not Mother Russia. The cocktail was originally named the Smirnoff Mule, after the vodka that was used at its base."/>
-			<trivia description="The Moscow Mule was created by bartender Wes Price, who was merely combining two ingredients that wouldn't sell on their own."/>
+			<trivia description="The Moscow mule is almost always served in a copper mug."/>
+			<trivia description="The Moscow Mule was created by bartender Wes Price, who was merely combining two ingredients that wouldn’t sell on their own."/>
 		</trivia_details>
 	</drink>
 	<drink>
 		<name>Old Fashioned</name>
 		<ingredients>
-			<ingredient name="0.25" amount="oz" unit="Simple Syrup"/>
-			<ingredient name="4" amount="dash(es)" unit="Angustura Bitters"/>
-			<ingredient name="2" amount="oz" unit="Bourbon"/>
-			<ingredient name="1" amount="twist" unit="Orange Twist"/>
+			<ingredient name="Simple Syrup" amount="0.25" />
+			<ingredient name="Angustura Bitters" amount="4" />
+			<ingredient name="Bourbon" amount="2" />
+			<ingredient name="Orange Twist" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Add 4 dashes of Angustura Bitters" item = "Angustura Bitters" amount = "4" />
@@ -306,8 +319,12 @@
 	<drink>
 		<name>Pina Colada</name>
 		<ingredients>
-			<ingredient name="2" amount="" unit="Cherry"/>
-			<ingredient name="1" amount="" unit="Pineapple Wedge"/>
+			<ingredient name="Pinapple Juice" amount="2" />
+			<ingredient name="Light Rum" amount="2" />
+			<ingredient name="Cream of Coconut" amount="2" />
+			<ingredient name="Nutmeg" amount="1" />
+			<ingredient name="Pineapple Wedge" amount="1" />
+			<ingredient name="Cherry" amount="2" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Pour 2 oz Light Rum" item = "Light Rum" amount = "2" />
@@ -322,16 +339,16 @@
 		<trivia_details>
 			<trivia description="Pina Colada means 'strained pineapple' in Spanish."/>
 			<trivia description="Is the national drink of Puerto Rico."/>
-			<trivia description="Puerto Rican pirate Robert Cofres is said to have served his crew the mix in the early 1800s in order to boost morale."/>
+			<trivia description="Puerto Rican pirate Robert Cofresí is said to have served his crew the mix in the early 1800s in order to boost morale."/>
 			<trivia description="Escape,' the famous song from Rupert Holmes more commonly known as 'The Pina Colada Song,' nearly left out any mention of the cocktail. The original lyrics were: 'If you like Humphrey Bogart and getting caught in the rain.'"/>
 		</trivia_details>
 	</drink>
 	<drink>
 		<name>Screwdriver</name>
 		<ingredients>
-			<ingredient name="2" amount="oz" unit="Vodka"/>
-			<ingredient name="6" amount="oz" unit="Orange Juice"/>
-			<ingredient name="1" amount="" unit="Orange Wedge"/>
+			<ingredient name="Vodka" amount="2" />
+			<ingredient name="Orange Juice" amount="6" />
+			<ingredient name="Orange Wedge" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Pour 6 oz Orange Juice" item = "Orange Juice" amount = "6" />
@@ -349,8 +366,11 @@
 	<drink>
 		<name>Sex on the Beach</name>
 		<ingredients>
-			<ingredient name="2" amount="oz" unit="Orange Juice"/>
-			<ingredient name="1" amount="" unit="Orange Twist"/>
+			<ingredient name="Vodka" amount="2" />
+			<ingredient name="Peach Schnapps" amount="1" />
+			<ingredient name="Cranberry Juice" amount="2" />
+			<ingredient name="Orange Juice" amount="2" />
+			<ingredient name="Orange Twist" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Add ice" item = "Ice" amount = "1" />
@@ -362,14 +382,16 @@
 			<action instruction="7. Garnish with an Orange Twist" item = "Orange Twist" amount = "1" />
 		</actions>
 		<trivia_details>
-			<trivia description="The cocktail was invented by a bartender named Ted who was working at Confetti's Bar. Inspired by a promotion from a peach schnapps company to sell the most of this spirit, he invented a cocktail featuring it."/>
+			<trivia description="The cocktail was invented by a bartender named Ted who was working at Confetti’s Bar. Inspired by a promotion from a peach schnapps company to sell the most of this spirit, he invented a cocktail featuring it."/>
 			<trivia description="Presumably the drink was named after spring breakers in Florida."/>
 		</trivia_details>
 	</drink>
 	<drink>
 		<name>Surfer on Acid</name>
 		<ingredients>
-			<ingredient name="0.5" amount="oz" unit="Pineapple Juice"/>
+			<ingredient name="Jagermeister" amount="0.5" />
+			<ingredient name="Peach Schnapps" amount="0.5" />
+			<ingredient name="Pineapple Juice" amount="0.5" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Add ice" item = "Ice" amount = "1" />
@@ -386,10 +408,10 @@
 	<drink>
 		<name>Whiskey Sour</name>
 		<ingredients>
-			<ingredient name="2" amount="oz" unit="Bourbon"/>
-			<ingredient name="0.75" amount="oz" unit="Lemon Juice"/>
-			<ingredient name="0.5" amount="oz" unit="Simple Syrup"/>
-			<ingredient name="1" amount="" unit="Cherry"/>
+			<ingredient name="Bourbon" amount="2" />
+			<ingredient name="Lemon Juice" amount="0.75" />
+			<ingredient name="Simple Syrup" amount="0.5" />
+			<ingredient name="Cherry" amount="1" />
 		</ingredients>
 		<actions>
 			<action instruction="1. Pour 0.75 oz Lemon Juice" item = "Lemon Juice" amount = "0.75" />
