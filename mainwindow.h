@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include "controller.h"
 
+extern Controller *controller;
 namespace Ui {
 class MainWindow;
 }
@@ -18,6 +19,7 @@ public:
 
 private slots:
     void on_addCustomDrink_clicked();
+    void receiveMenu(QVector<Drink> menu);
 
 private:
     Ui::MainWindow *ui;

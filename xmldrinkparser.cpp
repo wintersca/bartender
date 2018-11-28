@@ -183,8 +183,6 @@ void XMLDrinkParser::addDrink(Drink* drink){
     drink->print();
 }
 
-
-
 void XMLDrinkParser::updateXMLDatabase(QVector<Drink> newDrinks)
 {
 

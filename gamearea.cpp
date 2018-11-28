@@ -10,7 +10,7 @@ void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
     {
         selected = &mySprite;
 
-        qDebug() << "Mouse is on Sprite: " << Ingredients::All[mySprite.ingredient];
+        qDebug() << "Mouse is on Sprite: " << Ingredients::ingredientData[mySprite.ingredient].displayString;
         emit ingredientAdded(Ingredients::Tequila);
 
     }
@@ -29,17 +29,16 @@ void GameArea::OnInit()
 
     myTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/cherry.png");
     mySprite.ingredient = Ingredients::Angustura;
+
     mySprite.setTexture(myTexture);
     mySprite.setPosition(250.f, 250.f);
     mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
-
-
 
     if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gamePlayBackground.png"))
     {
         qDebug() << "Couldn't load background.";
     }
-
+  
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setPosition(0.f, 0.f);
 

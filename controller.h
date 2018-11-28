@@ -10,26 +10,50 @@
 #include "ingredients.h"
 #include "ingredientsprite.h"
 #include "qsfmlcanvas.h"
+#include "xmldrinkparser.h"
 
-extern QMap<int, Drink> menu;
-
+extern QVector<Drink> menu;
+extern XMLDrinkParser parser;
 class Controller : public QObject
 {
-public:
-    explicit Controller(QObject *parent = nullptr);
+    Q_OBJECT
 
+public:
+    explicit Controller(XMLDrinkParser parser, QObject *parent = nullptr);
 public slots:
-        void receiveRecipe(Drink newDrink);
+    void updateRecipes(Drink newRecipe);
+    void newCustomer();
+    void addedIngredient(Ingredients::Ingredients ingredient);
+    void decreaseHappiness();
+signals:
+    void submitNewRecipes(Drink newDrink);
+    void recipesToGame(QVector<Drink> menu);
+    void newCustomerToGame(int happinessLevel, Drink drink);
+    void customerHappinessToGame(int happinessLevel);
+    void customerLeft();
+    void customerDrinkToGame(Drink drink);
 
 private:
+    Drink currentDrink;
+    int customerPatience;
+    int currentHappiness;
 
-signals:
+    QVector<Drink> sortRecipes(QVector<Drink> recipes);
+    QVector<Drink> getAllRecipes();
 
 };
 
 #endif // CONTROLLER_H
 
+
+
+
+
+
+
+
 /* template signals TO controller
+ * all of these go in the class you are connecting with, not the controller.
  *
    QObject::connect(ui->uiElement, &QElementType::action,
                     controller, &Controller::socketName);
