@@ -98,7 +98,7 @@ namespace Ingredients {
 
     };
 
-    const int TOTALINGREDIENTS = 51;
+    const int TOTALINGREDIENTS = 52;
 
     //You index into this by ingredientData[Ingredient::Ingredient].
     // ingredientData[Ingredient::Ingredient].displayString, etc.
@@ -535,78 +535,7 @@ namespace Ingredients {
             "Muddle",
             Action::MuddleAction
         },
-
-        //Etc, in order of enum list.
     };
-
-    static const QString All[] = {
-        // Core boozes
-        "Vodka",
-        "Tequila",
-        "Bourbon",
-        "Gin",
-        "Dark Rum",
-        "White Rum",
-        "Light Rum",
-
-        // Liquors
-        "Grand Marnier",
-        "Sweet Vermouth",
-        "Dry Vermouth",
-        "Tripple Sec",
-        "Kahlua",
-        "Jagermeister",
-        "Campari",
-        "Green Creme de Menthe",
-        "Creme de Cacao",
-        "Peach Schnapps",
-
-        // Kitchen basics
-        "Salt",
-        "Margarita Salt",
-        "Pepper",
-        "Nutmeg",
-        "Ice",
-
-        // Non alcoholic liquids
-        "Tonic Water",
-        "Sparkling Water",
-        "Club Soda",
-        "Cola",
-        "Simple Syrup",
-        "Cream",
-        "Angostura Bitters",
-        "Worcestershire Sauce",
-        "Cream Of Coconut",
-        "Ginger Beer",
-
-        // Fruit juices.
-        "Orange Juice",
-        "Lime Juice",
-        "Lemon Juice",
-        "Pineapple Juice",
-        "Tomato Juice",
-        "Cranberry Juice",
-
-        // Fruits and Vegetables.
-        "Orange Wedge",
-        "Orange Twist",
-        "Lime Wedge",
-        "Lime Twist",
-        "Lemon Twist",
-        "Pineapple Wedge",
-        "Mint Leaf",
-        "Mint Sprig",
-        "Cherry",
-        "Green Olive",
-        "Celery",
-
-        // Actions
-        "Shake",
-        "Stir",
-        "Muddle"
-    };
-
 }
 
 #endif // INGREDIENTS_H

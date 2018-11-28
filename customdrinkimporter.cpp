@@ -44,13 +44,16 @@ CustomDrinkImporter::CustomDrinkImporter(Controller *controller,QWidget *parent)
         amountBoxes[i]->setValue(1.0);
     }
 
+    // Add all ingredients to the selection boxes.
     int totalIngredients = Ingredients::TOTALINGREDIENTS;
     for (int box = 0; box < MAXINGREDIENTS; box++)
     {
         stepBoxes[box]->addItem("none");
         for (int ingredient = 0; ingredient < totalIngredients; ingredient++)
         {
-            stepBoxes[box]->addItem(Ingredients::All[ingredient]);
+            QString ingredientName = Ingredients::ingredientData[ingredient].displayString;
+            stepBoxes[box]->addItem(ingredientName);
+            //stepBoxes[box]->addItem(Ingredients::All[ingredient]);
         }
     }
 
