@@ -19,7 +19,7 @@ public:
 
 private slots:
     void on_addCustomDrink_clicked();
-    void receiveMenu(QVector<Drink> menu);
+    void receiveMenu(QVector<Drink*> menu);
 
 private:
     Ui::MainWindow *ui;

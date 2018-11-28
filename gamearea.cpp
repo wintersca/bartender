@@ -28,7 +28,7 @@ void GameArea::OnInit()
 {
 
     myTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/cherry.png");
-    mySprite.ingredient = Ingredients::Angustura;
+    mySprite.ingredient = Ingredients::DarkRum;
 
     mySprite.setTexture(myTexture);
     mySprite.setPosition(250.f, 250.f);

@@ -17,7 +17,6 @@ XMLDrinkParser::XMLDrinkParser()
         stringsToIngredients["Grand Marnier"] = Ingredients::GrandMarnier;
         stringsToIngredients["Sweet Vermouth"] = Ingredients::SweetVermouth;
         stringsToIngredients["Dry Vermouth"] = Ingredients::DryVermouth;
-        stringsToIngredients["Angustura"] = Ingredients::Angustura;
         stringsToIngredients["Tripple Sec"] = Ingredients::TrippleSec;
         stringsToIngredients["Kahlua"] = Ingredients::Kahlua;
         stringsToIngredients["Jagermeister"] = Ingredients::Jagermeister;
@@ -183,7 +182,7 @@ void XMLDrinkParser::addDrink(Drink* drink){
     drink->print();
 }
 
-void XMLDrinkParser::updateXMLDatabase(QVector<Drink> newDrinks)
+void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
 {
 
 }

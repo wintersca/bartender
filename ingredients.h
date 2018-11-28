@@ -37,7 +37,6 @@ namespace Ingredients {
         Pepper,
         Nutmeg,
         Ice,
-        MargaritaSalt,
 
         // Non alcoholic liquids
         TonicWater,
