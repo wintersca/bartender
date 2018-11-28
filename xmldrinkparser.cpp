@@ -204,6 +204,19 @@ void XMLDrinkParser::addDrink(Drink* drink)
 
 void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
 {
+
+        //xmlWriter.setAutoFormatting(true);
+        //xmlWriter.writeStartDocument();
+
+        //xmlWriter.writeStartElement("LAMPS");
+
+        //xmlWriter.writeStartElement("LIGHT1");
+        //xmlWriter.writeTextElement("State", "statevalue" );
+        //xmlWriter.writeTextElement("Room", "roomvalue");
+        //xmlWriter.writeTextElement("Potencial", "potencialvalue");
+
+    //xmlWriter.writeEndElement();
+
     QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/DrinkDatabase.xml");
     if(!file.open(QFile::WriteOnly | QFile::Text))
     {
@@ -211,8 +224,8 @@ void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
     }
     else
     {
-        reader.setDevice(&file);
-        read();
+        writer.setDevice(&file);
+        writer.setAutoFormatting(true);
     }
 
 }
