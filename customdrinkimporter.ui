@@ -84,12 +84,9 @@
       <item row="9" column="0">
        <widget class="QLabel" name="label_11">
         <property name="text">
-         <string>Ingredient 10:</string>
+         <string>Step 10:</string>
         </property>
        </widget>
-      </item>
-      <item row="2" column="4">
-       <widget class="QSpinBox" name="amountBox3"/>
       </item>
       <item row="3" column="2">
        <spacer name="horizontalSpacer_4">
@@ -127,18 +124,12 @@
       <item row="4" column="0">
        <widget class="QLabel" name="label_6">
         <property name="text">
-         <string>Ingredient 5:</string>
+         <string>Step 5:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="1">
-       <widget class="QComboBox" name="ingredientBox1"/>
-      </item>
-      <item row="0" column="4">
-       <widget class="QSpinBox" name="amountBox1"/>
-      </item>
-      <item row="3" column="4">
-       <widget class="QSpinBox" name="amountBox4"/>
+       <widget class="QComboBox" name="stepBox1"/>
       </item>
       <item row="1" column="3">
        <widget class="QLabel" name="label_12">
@@ -148,29 +139,29 @@
        </widget>
       </item>
       <item row="6" column="1">
-       <widget class="QComboBox" name="ingredientBox7"/>
+       <widget class="QComboBox" name="stepBox7"/>
       </item>
       <item row="4" column="1">
-       <widget class="QComboBox" name="ingredientBox5"/>
+       <widget class="QComboBox" name="stepBox5"/>
       </item>
       <item row="8" column="0">
        <widget class="QLabel" name="label_10">
         <property name="text">
-         <string>Ingredient 9:</string>
+         <string>Step 9:</string>
         </property>
        </widget>
       </item>
       <item row="7" column="0">
        <widget class="QLabel" name="label_9">
         <property name="text">
-         <string>Ingredient 8:</string>
+         <string>Step 8:</string>
         </property>
        </widget>
       </item>
       <item row="2" column="0">
        <widget class="QLabel" name="label_4">
         <property name="text">
-         <string>Ingredient 3:</string>
+         <string>Step 3:</string>
         </property>
        </widget>
       </item>
@@ -186,9 +177,6 @@
          </size>
         </property>
        </spacer>
-      </item>
-      <item row="7" column="4">
-       <widget class="QSpinBox" name="amountBox8"/>
       </item>
       <item row="0" column="2">
        <spacer name="horizontalSpacer">
@@ -206,19 +194,16 @@
       <item row="1" column="0">
        <widget class="QLabel" name="label_3">
         <property name="text">
-         <string>Ingredient 2:</string>
+         <string>Step 2:</string>
         </property>
        </widget>
       </item>
       <item row="0" column="0">
        <widget class="QLabel" name="label">
         <property name="text">
-         <string>Ingredient 1:</string>
+         <string>Step 1:</string>
         </property>
        </widget>
-      </item>
-      <item row="9" column="4">
-       <widget class="QSpinBox" name="amountBox10"/>
       </item>
       <item row="8" column="2">
        <spacer name="horizontalSpacer_9">
@@ -234,7 +219,7 @@
        </spacer>
       </item>
       <item row="2" column="1">
-       <widget class="QComboBox" name="ingredientBox3"/>
+       <widget class="QComboBox" name="stepBox3"/>
       </item>
       <item row="3" column="3">
        <widget class="QLabel" name="label_14">
@@ -243,18 +228,15 @@
         </property>
        </widget>
       </item>
-      <item row="8" column="4">
-       <widget class="QSpinBox" name="amountBox9"/>
-      </item>
       <item row="5" column="0">
        <widget class="QLabel" name="label_7">
         <property name="text">
-         <string>Ingredient 6:</string>
+         <string>Step 6:</string>
         </property>
        </widget>
       </item>
       <item row="8" column="1">
-       <widget class="QComboBox" name="ingredientBox9"/>
+       <widget class="QComboBox" name="stepBox9"/>
       </item>
       <item row="8" column="3">
        <widget class="QLabel" name="label_19">
@@ -262,9 +244,6 @@
          <string>Amount:</string>
         </property>
        </widget>
-      </item>
-      <item row="6" column="4">
-       <widget class="QSpinBox" name="amountBox7"/>
       </item>
       <item row="1" column="2">
        <spacer name="horizontalSpacer_2">
@@ -305,9 +284,6 @@
         </property>
        </spacer>
       </item>
-      <item row="4" column="4">
-       <widget class="QSpinBox" name="amountBox5"/>
-      </item>
       <item row="5" column="3">
        <widget class="QLabel" name="label_16">
         <property name="text">
@@ -316,7 +292,7 @@
        </widget>
       </item>
       <item row="7" column="1">
-       <widget class="QComboBox" name="ingredientBox8"/>
+       <widget class="QComboBox" name="stepBox8"/>
       </item>
       <item row="7" column="3">
        <widget class="QLabel" name="label_18">
@@ -326,7 +302,7 @@
        </widget>
       </item>
       <item row="5" column="1">
-       <widget class="QComboBox" name="ingredientBox6"/>
+       <widget class="QComboBox" name="stepBox6"/>
       </item>
       <item row="5" column="2">
        <spacer name="horizontalSpacer_6">
@@ -362,24 +338,18 @@
         </property>
        </widget>
       </item>
-      <item row="5" column="4">
-       <widget class="QSpinBox" name="amountBox6"/>
-      </item>
-      <item row="1" column="4">
-       <widget class="QSpinBox" name="amountBox2"/>
-      </item>
       <item row="6" column="0">
        <widget class="QLabel" name="label_8">
         <property name="text">
-         <string>Ingredient 7:</string>
+         <string>Step 7:</string>
         </property>
        </widget>
       </item>
       <item row="3" column="1">
-       <widget class="QComboBox" name="ingredientBox4"/>
+       <widget class="QComboBox" name="stepBox4"/>
       </item>
       <item row="9" column="1">
-       <widget class="QComboBox" name="ingredientBox10"/>
+       <widget class="QComboBox" name="stepBox10"/>
       </item>
       <item row="9" column="2">
        <spacer name="horizontalSpacer_10">
@@ -397,7 +367,7 @@
       <item row="3" column="0">
        <widget class="QLabel" name="label_5">
         <property name="text">
-         <string>Ingredient 4:</string>
+         <string>Step 4:</string>
         </property>
        </widget>
       </item>
@@ -409,7 +379,37 @@
        </widget>
       </item>
       <item row="1" column="1">
-       <widget class="QComboBox" name="ingredientBox2"/>
+       <widget class="QComboBox" name="stepBox2"/>
+      </item>
+      <item row="0" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox1"/>
+      </item>
+      <item row="1" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox2"/>
+      </item>
+      <item row="2" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox3"/>
+      </item>
+      <item row="3" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox4"/>
+      </item>
+      <item row="4" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox5"/>
+      </item>
+      <item row="5" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox6"/>
+      </item>
+      <item row="6" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox7"/>
+      </item>
+      <item row="7" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox8"/>
+      </item>
+      <item row="8" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox9"/>
+      </item>
+      <item row="9" column="4">
+       <widget class="QDoubleSpinBox" name="amountBox10"/>
       </item>
      </layout>
     </widget>

@@ -144,7 +144,8 @@ namespace Ingredients {
         "Shake",
         "Stir",
         "Muddle"
-};
+    };
+
 }
 
 #endif // INGREDIENTS_H

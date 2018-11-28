@@ -3,25 +3,28 @@
 #include "ingredients.h"
 #include <QMetaEnum>
 
-CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
+CustomDrinkImporter::CustomDrinkImporter(Controller *controller,QWidget *parent) :
     QDialog(parent),
     ui(new Ui::CustomDrinkImporter)
 {
+    //signal to controller
+    QObject::connect(this, &CustomDrinkImporter::sendNewRecipe,
+                     controller, &Controller::receiveRecipe);
     ui->setupUi(this);
 
-    ingredientBoxes = QVector<QComboBox*>(10);
-    ingredientBoxes[0] = ui->ingredientBox1;
-    ingredientBoxes[1] = ui->ingredientBox2;
-    ingredientBoxes[2] = ui->ingredientBox3;
-    ingredientBoxes[3] = ui->ingredientBox4;
-    ingredientBoxes[4] = ui->ingredientBox5;
-    ingredientBoxes[5] = ui->ingredientBox6;
-    ingredientBoxes[6] = ui->ingredientBox7;
-    ingredientBoxes[7] = ui->ingredientBox8;
-    ingredientBoxes[8] = ui->ingredientBox9;
-    ingredientBoxes[9] = ui->ingredientBox10;
+    stepBoxes = QVector<QComboBox*>(10);
+    stepBoxes[0] = ui->stepBox1;
+    stepBoxes[1] = ui->stepBox2;
+    stepBoxes[2] = ui->stepBox3;
+    stepBoxes[3] = ui->stepBox4;
+    stepBoxes[4] = ui->stepBox5;
+    stepBoxes[5] = ui->stepBox6;
+    stepBoxes[6] = ui->stepBox7;
+    stepBoxes[7] = ui->stepBox8;
+    stepBoxes[8] = ui->stepBox9;
+    stepBoxes[9] = ui->stepBox10;
 
-    amountBoxes = QVector<QSpinBox*>(10);
+    amountBoxes = QVector<QDoubleSpinBox*>(10);
     amountBoxes[0] = ui->amountBox1;
     amountBoxes[1] = ui->amountBox2;
     amountBoxes[2] = ui->amountBox3;
@@ -36,16 +39,18 @@ CustomDrinkImporter::CustomDrinkImporter(QWidget *parent) :
     // Set bounds of quantity boxes.
     for (int i = 0; i < MAXINGREDIENTS; i++)
     {
-        amountBoxes[i]->setMinimum(1);
+        amountBoxes[i]->setMinimum(0.25);
+        amountBoxes[i]->setSingleStep(0.25);
+        amountBoxes[i]->setValue(1.0);
     }
 
     int totalIngredients = Ingredients::TOTALINGREDIENTS;
     for (int box = 0; box < MAXINGREDIENTS; box++)
     {
-        ingredientBoxes[box]->addItem("none");
+        stepBoxes[box]->addItem("none");
         for (int ingredient = 0; ingredient < totalIngredients; ingredient++)
         {
-            ingredientBoxes[box]->addItem(Ingredients::All[ingredient]);
+            stepBoxes[box]->addItem(Ingredients::All[ingredient]);
         }
     }
 
@@ -59,115 +64,85 @@ CustomDrinkImporter::~CustomDrinkImporter()
 
 void CustomDrinkImporter::on_buttonBox_accepted()
 {
-    QVector<Ingredients::Ingredients> includedIngredients = QVector<Ingredients::Ingredients>();
-    QVector<int> totalOfIngredients = QVector<int>();
+    QVector<Ingredients::Ingredients> includedSteps = QVector<Ingredients::Ingredients>();
+    QVector<double> totalOfSteps = QVector<double>();
+
+    // Create a dictionary to map strings to enums.
+    QMap<QString, Ingredients::Ingredients> stringsToIngredients = QMap<QString, Ingredients::Ingredients>();
+    stringsToIngredients["Vodka"] = Ingredients::Vodka;
+    stringsToIngredients["Tequila"] = Ingredients::Tequila;
+    stringsToIngredients["Bourbon"] = Ingredients::Bourbon;
+    stringsToIngredients["Gin"] = Ingredients::Gin;
+    stringsToIngredients["Rum"] = Ingredients::Rum;
+    stringsToIngredients["White Rum"] = Ingredients::WhiteRum;
+    stringsToIngredients["Light Rum"] = Ingredients::LightRum;
+    stringsToIngredients["Grand Marnier"] = Ingredients::GrandMarnier;
+    stringsToIngredients["Sweet Vermouth"] = Ingredients::SweetVermouth;
+    stringsToIngredients["Dry Vermouth"] = Ingredients::DryVermouth;
+    stringsToIngredients["Angustura"] = Ingredients::Angustura;
+    stringsToIngredients["Tripple Sec"] = Ingredients::TrippleSec;
+    stringsToIngredients["Kahlua"] = Ingredients::Kahlua;
+    stringsToIngredients["Jagermeister"] = Ingredients::Jagermeister;
+    stringsToIngredients["Campari"] = Ingredients::Campari;
+    stringsToIngredients["Green Creme de Menthe"] = Ingredients::GreenCremeDeMenthe;
+    stringsToIngredients["Creme de Cacao"] = Ingredients::CremeDeCacao;
+    stringsToIngredients["Peach Schnapps"] = Ingredients::PeachSchnapps;
+    stringsToIngredients["Salt"] = Ingredients::Salt;
+    stringsToIngredients["Pepper"] = Ingredients::Pepper;
+    stringsToIngredients["Ice"] = Ingredients::Ice;
+    stringsToIngredients["Simple Syrup"] = Ingredients::SimpleSyrup;
+    stringsToIngredients["Tonic Water"] = Ingredients::TonicWater;
+    stringsToIngredients["Sparkling Water"] = Ingredients::SparklingWater;
+    stringsToIngredients["Angostura Bitters"] = Ingredients::AngosturaBitters;
+    stringsToIngredients["Cola"] = Ingredients::Cola;
+    stringsToIngredients["Club Soda"] = Ingredients::ClubSoda;
+    stringsToIngredients["Cream"] = Ingredients::Cream;
+    stringsToIngredients["Worcestershire Sauce"] = Ingredients::WorcestershireSauce;
+    stringsToIngredients["Orange Juice"] = Ingredients::OrangeJuice;
+    stringsToIngredients["Lime Juice"] = Ingredients::LimeJuice;
+    stringsToIngredients["Lemon Juice"] = Ingredients::LemonJuice;
+    stringsToIngredients["Pineapple Juice"] = Ingredients::PineappleJuice;
+    stringsToIngredients["Tomato Juice"] = Ingredients::TomatoJuice;
+    stringsToIngredients["Cranberry Juice"] = Ingredients::CranberryJuice;
+    stringsToIngredients["Orange Wedge"] = Ingredients::OrangeWedge;
+    stringsToIngredients["Orange Twist"] = Ingredients::OrangeTwist;
+    stringsToIngredients["Lime Wedge"] = Ingredients::LimeWedge;
+    stringsToIngredients["Lime Twist"] = Ingredients::LimeTwist;
+    stringsToIngredients["Lemon Twist"] = Ingredients::LemonTwist;
+    stringsToIngredients["Pineapple Wedge"] = Ingredients::PineappleWedge;
+    stringsToIngredients["Cream Of Coconut"] = Ingredients::CreamOfCoconut;
+    stringsToIngredients["Ginger Beer"] = Ingredients::GingerBeer;
+    stringsToIngredients["Mint Leaf"] = Ingredients::MintLeaf;
+    stringsToIngredients["Mint Sprig"] = Ingredients::MintSprig;
+    stringsToIngredients["Cherry"] = Ingredients::Cherry;
+    stringsToIngredients["Green Olive"] = Ingredients::GreenOlive;
+    stringsToIngredients["Celery"] = Ingredients::Celery;
+    stringsToIngredients["Nutmeg"] = Ingredients::Nutmeg;
+    stringsToIngredients["Shake"] = Ingredients::Shake;
+    stringsToIngredients["Stir"] = Ingredients::Stir;
+    stringsToIngredients["Muddle"] = Ingredients::Muddle;
 
     // Add all boxes that don't have none selected.
     for (int i = 0; i < MAXINGREDIENTS; i++)
     {
-        QString currentText = ingredientBoxes[i]->currentText();
+        QString currentText = stepBoxes[i]->currentText();
         if (currentText != "none")
         {
-            totalOfIngredients.append(amountBoxes[i]->value());
-
-            if (currentText == "Vodka")
-            {
-                includedIngredients.append(Ingredients::Vodka);
-            }
-            else if (currentText == "Tequila")
-            {
-                includedIngredients.append(Ingredients::Tequila);
-            }
-            else if (currentText == "Salt")
-            {
-                includedIngredients.append(Ingredients::Salt);
-            }
-            else if (currentText == "Grand Marnier")
-            {
-                includedIngredients.append(Ingredients::GrandMarnier);
-            }
-            else if (currentText == "Simple Syrup")
-            {
-                includedIngredients.append(Ingredients::SimpleSyrup);
-            }
-            else if (currentText == "Angustura")
-            {
-                includedIngredients.append(Ingredients::Angustura);
-            }
-            else if (currentText == "Bourbon")
-            {
-                includedIngredients.append(Ingredients::Bourbon);
-            }
-            else if (currentText == "Orange Twist")
-            {
-                includedIngredients.append(Ingredients::OrangeTwist);
-            }
-            else if (currentText == "Lime Juice")
-            {
-                includedIngredients.append(Ingredients::LimeJuice);
-            }
-            else if (currentText == "Mint Leaf")
-            {
-                includedIngredients.append(Ingredients::MintLeaf);
-            }
-            else if (currentText == "White Rum")
-            {
-                includedIngredients.append(Ingredients::WhiteRum);
-            }
-            else if (currentText == "Sparkling Water")
-            {
-                includedIngredients.append(Ingredients::SparklingWater);
-            }
-            else if (currentText == "Gin")
-            {
-                includedIngredients.append(Ingredients::Gin);
-            }
-            else if (currentText == "Tonic Water")
-            {
-                includedIngredients.append(Ingredients::TonicWater);
-            }
-            else if (currentText == "Orange Juice")
-            {
-                includedIngredients.append(Ingredients::OrangeJuice);
-            }
-            else if (currentText == "Orange Wedge")
-            {
-                includedIngredients.append(Ingredients::OrangeWedge);
-            }
-            else if (currentText == "Angostura Bitters")
-            {
-                includedIngredients.append(Ingredients::AngosturaBitters);
-            }
-            else if (currentText == "Sweet Vermouth")
-            {
-                includedIngredients.append(Ingredients::SweetVermouth);
-            }
-            else if (currentText == "Lemon Twist")
-            {
-                includedIngredients.append(Ingredients::LemonTwist);
-            }
-            else if (currentText == "Cherry")
-            {
-                includedIngredients.append(Ingredients::Cherry);
-            }
-            else if (currentText == "Dry Vermouth")
-            {
-                includedIngredients.append(Ingredients::DryVermouth);
-            }
-            else if (currentText == "Green Olive")
-            {
-                includedIngredients.append(Ingredients::GreenOlive);
-            }
+            totalOfSteps.append(amountBoxes[i]->value());
+            includedSteps.append(stringsToIngredients[currentText]);
         }
     }
 
     // Convert to a drink object.
-    drink.name = ui->drinkName->text();
-    drink.trivia.append(ui->drinkTrivia->toPlainText());
-    for (int i = 0; i < includedIngredients.count(); i++)
+
+    drink.Name = ui->drinkName->text();
+    drink.Trivia.append(ui->drinkTrivia->toPlainText());
+    for (int i = 0; i < includedSteps.count(); i++)
+
     {
-        drink.IngredientsMap.insert(includedIngredients[i], totalOfIngredients[i]);
+        drink.IngredientsMap.insert(includedSteps[i], totalOfSteps[i]);
     }
+    emit sendNewRecipe(drink);
 }
 
 void CustomDrinkImporter::on_buttonBox_rejected()

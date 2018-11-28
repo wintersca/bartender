@@ -4,7 +4,8 @@
 #include "customdrinkimporter.h"
 #include "gamearea.h"
 
-MainWindow::MainWindow(QWidget *parent) :
+Controller *controller;
+MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
@@ -14,12 +15,43 @@ MainWindow::MainWindow(QWidget *parent) :
     //ui->verticalLayout->addWidget(SFMLView);
     ui->widgetLayout->addWidget(SFMLView);
 
-    QPixmap recipeAndTips(":/iconImages/images/barBackground.png");
+    QPixmap recipeAndTips(":/iconImages/images/corkBoard.png");
     recipeAndTips = recipeAndTips.scaled(this->size(), Qt::IgnoreAspectRatio);
     QPalette palette;
     palette.setBrush(QPalette::Background, recipeAndTips);
     this->setPalette(palette);
 
+    // Set background color of the recipe area.
+    QFrame* recipeFrame = ui->recipeFrame;
+    QPalette paperPalette = recipeFrame->palette();
+    QColor paperColor = QColor(254, 245, 223);
+    paperPalette.setColor(QPalette::Background, paperColor);
+    recipeFrame->setAutoFillBackground(true);
+    recipeFrame->setPalette(paperPalette);
+    recipeFrame->update();
+
+    // Set background color of the trivia area.
+    QFrame* triviaFrame = ui->triviaFrame;
+    triviaFrame->setAutoFillBackground(true);
+    triviaFrame->setPalette(paperPalette);
+    triviaFrame->update();
+
+    // Set background and text color of tips area.
+    QFrame* tipsFrame = ui->tipsFrame;
+    QPalette tipsPalette = tipsFrame->palette();
+    tipsPalette.setColor(QPalette::Background, QColor(Qt::black));
+    tipsPalette.setColor(QPalette::WindowText, QColor(Qt::yellow));
+    tipsFrame->setAutoFillBackground(true);
+    tipsFrame->setPalette(tipsPalette);
+    tipsFrame->update();
+
+    // Controller set up.
+    if (controller == nullptr)
+       {
+           controller = new Controller();
+       }
+       else
+           controller = controllerPtr;
 }
 
 MainWindow::~MainWindow()
@@ -29,7 +61,7 @@ MainWindow::~MainWindow()
 
 void MainWindow::on_addCustomDrink_clicked()
 {
-    CustomDrinkImporter* window = new CustomDrinkImporter(this);
+    CustomDrinkImporter* window = new CustomDrinkImporter(controller, this);
     window->setModal(true);
     window->show();
     window->raise();

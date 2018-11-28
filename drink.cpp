@@ -3,13 +3,17 @@
 Drink::Drink()
 {
     IngredientsMap = QMap<Ingredients::Ingredients, double>();
-    trivia = QVector<QString>();
+
+    Trivia = QVector<QString>();
+
 }
 
 Drink::Drink(QString name)
 {
-    name = name;
+
+    Name = name;
     IngredientsMap = QMap<Ingredients::Ingredients, double>();
-    trivia = QVector<QString>();
+    Trivia = QVector<QString>();
+
 }
 
