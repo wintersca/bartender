@@ -27,7 +27,7 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
 void GameArea::OnInit()
 {
 
-    myTexture.loadFromFile("cherry.png");
+    myTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/cherry.png");
     mySprite.ingredient = Ingredients::Angustura;
     mySprite.setTexture(myTexture);
     mySprite.setPosition(250.f, 250.f);
@@ -35,7 +35,7 @@ void GameArea::OnInit()
 
 
 
-    if(!backgroundTexture.loadFromFile("gamePlayBackground.png"))
+    if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gamePlayBackground.png"))
     {
         qDebug() << "Couldn't load background.";
     }
