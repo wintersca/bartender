@@ -8,7 +8,7 @@
 
 namespace Ingredients {
 
-    enum Ingredients {
+    enum Ingredients : unsigned int {
 
         // Core boozes
         Vodka,
@@ -77,7 +77,7 @@ namespace Ingredients {
 
     };
 
-    enum Action {
+    enum Action : unsigned int {
 
         PourAction,
         ShakeAction,
@@ -102,7 +102,7 @@ namespace Ingredients {
 
     //You index into this by ingredientData[Ingredient::Ingredient].
     // ingredientData[Ingredient::Ingredient].displayString, etc.
-    const IngredientData ingredientData[]
+    static const IngredientData ingredientData[]
     {
 
         //First - vodka.
