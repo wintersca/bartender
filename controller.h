@@ -37,8 +37,6 @@ private:
     Drink* currentDrink;
     int customerPatience;
     int currentHappiness;
-
-    QVector<Drink*> sortRecipes(QVector<Drink*> recipes);
     QVector<Drink*> getAllRecipes();
 
 };
