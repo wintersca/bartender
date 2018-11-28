@@ -13,7 +13,7 @@ class XMLDrinkParser
 public:
     XMLDrinkParser();
     QVector<Drink> parseXMLDatabase();
-    void updateXMLDatabase(QVector<Drink> newDrinks);
+    void updateXMLDatabase(Drink newDrink);
 };
 
 #endif // XMLDRINKPARSER_H

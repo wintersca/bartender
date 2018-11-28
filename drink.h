@@ -14,6 +14,11 @@ public:
     QString Name;
     QVector<QString> Trivia;
     QMap<Ingredients::Ingredients, double> IngredientsMap;
+
+    bool operator < (const Drink& other) const
+    {
+        return (Name < other.Name);
+    }
 };
 
 #endif // DRINK_H

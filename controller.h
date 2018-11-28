@@ -20,11 +20,11 @@ public:
     explicit Controller(XMLDrinkParser parser, QObject *parent = nullptr);
 public slots:
         void receiveRecipe(Drink newDrink);
-        void getAllRecipes(QVector<Drink> drinks);
 private:
 void updateDatabase(Drink newRecipe);
 QVector<Drink> sortRecipes(QVector<Drink> recipes);
 void sendUpdatedRecipesToGame(QVector<Drink> sortedDrinks);
+void getAllRecipes();
 signals:
     void submitNewRecipes(Drink newDrink);
     void recipesToGame(QVector<Drink>);

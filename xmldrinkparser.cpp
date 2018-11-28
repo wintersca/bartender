@@ -30,7 +30,7 @@ QVector<Drink> XMLDrinkParser::parseXMLDatabase()
     return result;
 }
 
-void XMLDrinkParser::updateXMLDatabase(QVector<Drink> newDrinks)
+void XMLDrinkParser::updateXMLDatabase(Drink newDrink)
 {
 
 }

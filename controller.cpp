@@ -13,13 +13,29 @@ Controller::Controller(XMLDrinkParser parserInit, QObject *parent) : QObject(par
 void Controller::receiveRecipe(Drink newDrink)
 {
     //TODO
+    Drink d1 = Drink();
+    Drink d2 = Drink();
+    Drink d3 = Drink();
+    d1.Name = "aab";
+    d2.Name = "aba";
+    d3.Name = "aaa";
+    QVector<Drink> drinks;
+    drinks.append(d1);
+    drinks.append(d2);
+    drinks.append(d3);
+    std::sort(drinks.begin(), drinks.end());
+    for (int i = 0; i < 3; i++)
+    {
+        qDebug() << drinks[i].Name;
+    }
     qDebug() << "We have received a new recipe";
 }
 
 // receive a vector of recipes from the database parser
-void Controller::getAllRecipes(QVector<Drink> allDrinks)
+void Controller::getAllRecipes()
 {
     //TODO
+    parser.parseXMLDatabase();
     qDebug() << "We have received a vector of recipes from the database";
 }
 
@@ -30,7 +46,7 @@ void Controller::getAllRecipes(QVector<Drink> allDrinks)
 // we already have.
 void Controller::updateDatabase(Drink newRecipe)
 {
-    //TODO
+    parser.updateXMLDatabase(newRecipe);
     qDebug() << "We have sent a recipe to the database";
 }
 
