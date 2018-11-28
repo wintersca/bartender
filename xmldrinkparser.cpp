@@ -61,6 +61,14 @@ XMLDrinkParser::XMLDrinkParser()
 
 }
 
+XMLDrinkParser::~XMLDrinkParser()
+{
+    for(Drink* drink : drinkDatabase)
+    {
+        delete drink;
+    }
+}
+
 QVector<Drink*> XMLDrinkParser::parseXMLDatabase()
 {
     QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/DrinkDatabase.xml");
@@ -196,5 +204,15 @@ void XMLDrinkParser::addDrink(Drink* drink)
 
 void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
 {
+    QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/DrinkDatabase.xml");
+    if(!file.open(QFile::WriteOnly | QFile::Text))
+    {
+        throw -1;
+    }
+    else
+    {
+        reader.setDevice(&file);
+        read();
+    }
 
 }
