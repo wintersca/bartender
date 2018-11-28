@@ -73,7 +73,7 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     stringsToIngredients["Tequila"] = Ingredients::Tequila;
     stringsToIngredients["Bourbon"] = Ingredients::Bourbon;
     stringsToIngredients["Gin"] = Ingredients::Gin;
-    stringsToIngredients["Rum"] = Ingredients::Rum;
+    stringsToIngredients["Dark Rum"] = Ingredients::DarkRum;
     stringsToIngredients["White Rum"] = Ingredients::WhiteRum;
     stringsToIngredients["Light Rum"] = Ingredients::LightRum;
     stringsToIngredients["Grand Marnier"] = Ingredients::GrandMarnier;
@@ -152,6 +152,6 @@ void CustomDrinkImporter::on_buttonBox_rejected()
 
 void CustomDrinkImporter::on_addAdditionalTrivia_clicked()
 {
-    drink.trivia.append(ui->drinkTrivia->toPlainText());
+    drink.Trivia.append(ui->drinkTrivia->toPlainText());
     ui->drinkTrivia->setText("");
 }
