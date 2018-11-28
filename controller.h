@@ -31,6 +31,7 @@ signals:
     void newCustomerToGame(int happinessLevel, Drink drink);
     void customerHappinessToGame(int happinessLevel);
     void customerLeft();
+    void customerDrinkToGame(Drink drink);
 
 private:
     Drink currentDrink;
