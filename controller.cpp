@@ -1,64 +1,42 @@
 #include "controller.h"
 
-
- XMLDrinkParser parser;
+QVector<Drink> menu;
+XMLDrinkParser parser;
 Controller::Controller(XMLDrinkParser parserInit, QObject *parent) : QObject(parent)
 {
     parser = parserInit;
+    menu = sortRecipes(getAllRecipes());
+    emit recipesToGame(menu);
+
 }
 
 /*slots*/
 
-// receive a new recipe from the custom recipe creator
-void Controller::receiveRecipe(Drink newDrink)
+// receive an unsorted vector of recipes from the database parser
+QVector<Drink> Controller::getAllRecipes()
 {
-    //TODO
-    Drink d1 = Drink();
-    Drink d2 = Drink();
-    Drink d3 = Drink();
-    d1.Name = "aab";
-    d2.Name = "aba";
-    d3.Name = "aaa";
-    QVector<Drink> drinks;
-    drinks.append(d1);
-    drinks.append(d2);
-    drinks.append(d3);
-    std::sort(drinks.begin(), drinks.end());
-    for (int i = 0; i < 3; i++)
-    {
-        qDebug() << drinks[i].Name;
-    }
-    qDebug() << "We have received a new recipe";
-}
-
-// receive a vector of recipes from the database parser
-void Controller::getAllRecipes()
-{
-    //TODO
-    parser.parseXMLDatabase();
+    QVector<Drink> unsortedMenu = parser.parseXMLDatabase();
     qDebug() << "We have received a vector of recipes from the database";
+    return unsortedMenu;
 }
 
+// send a new drink to the database and add it to the vector of drinks we already have.
+void Controller::updateRecipes(Drink newRecipe)
+{
+    parser.updateXMLDatabase(newRecipe);
+    menu.append(newRecipe);
+    QVector<Drink> sortedMenu = sortRecipes(menu);
+    emit recipesToGame(sortedMenu);
+    qDebug() << "We have sent a recipe to the database and updated the menu of the game";
+}
 
 /*helpers*/
 
-// send a new drink to the database and add it to the vector of drinks
-// we already have.
-void Controller::updateDatabase(Drink newRecipe)
-{
-    parser.updateXMLDatabase(newRecipe);
-    qDebug() << "We have sent a recipe to the database";
-}
-
 QVector<Drink> Controller::sortRecipes(QVector<Drink> recipes)
 {
-    //TODO
+    std::sort(recipes.begin(), recipes.end());
     qDebug() << "We have sorted the recipes alphabetically";
+    return recipes;
 }
 
-// send a vector of sorted recipes to the game
-void Controller::sendUpdatedRecipesToGame(QVector<Drink> sortedDrinks)
-{
-    //TODO
-    qDebug() << "We have sent the sorted recipes to the game";
-}
+

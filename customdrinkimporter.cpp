@@ -9,7 +9,7 @@ CustomDrinkImporter::CustomDrinkImporter(Controller *controller,QWidget *parent)
 {
     //signal to controller
     QObject::connect(this, &CustomDrinkImporter::sendNewRecipe,
-                     controller, &Controller::receiveRecipe);
+                     controller, &Controller::updateRecipes);
     ui->setupUi(this);
 
     stepBoxes = QVector<QComboBox*>(10);

@@ -12,25 +12,35 @@
 #include "qsfmlcanvas.h"
 #include "xmldrinkparser.h"
 
-extern QMap<int, Drink> menu;
+extern QVector<Drink> menu;
 extern XMLDrinkParser parser;
 class Controller : public QObject
 {
+    Q_OBJECT
+
 public:
     explicit Controller(XMLDrinkParser parser, QObject *parent = nullptr);
 public slots:
-        void receiveRecipe(Drink newDrink);
-private:
-void updateDatabase(Drink newRecipe);
-QVector<Drink> sortRecipes(QVector<Drink> recipes);
-void sendUpdatedRecipesToGame(QVector<Drink> sortedDrinks);
-void getAllRecipes();
+    void updateRecipes(Drink newRecipe);
 signals:
     void submitNewRecipes(Drink newDrink);
-    void recipesToGame(QVector<Drink>);
+    void recipesToGame(QVector<Drink> menu);
+
+private:
+
+QVector<Drink> sortRecipes(QVector<Drink> recipes);
+QVector<Drink> getAllRecipes();
+
 };
 
 #endif // CONTROLLER_H
+
+
+
+
+
+
+
 
 /* template signals TO controller
  *
