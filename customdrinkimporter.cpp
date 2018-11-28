@@ -162,8 +162,8 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     }
 
     // Convert to a drink object.
-    drink.Name = ui->drinkName->text();
-    drink.Trivia.append(ui->drinkTrivia->toPlainText());
+    drink.name = ui->drinkName->text();
+    drink.trivia.append(ui->drinkTrivia->toPlainText());
     for (int i = 0; i < includedIngredients.count(); i++)
     {
         drink.IngredientsMap.insert(includedIngredients[i], totalOfIngredients[i]);
@@ -177,6 +177,6 @@ void CustomDrinkImporter::on_buttonBox_rejected()
 
 void CustomDrinkImporter::on_addAdditionalTrivia_clicked()
 {
-    drink.Trivia.append(ui->drinkTrivia->toPlainText());
+    drink.trivia.append(ui->drinkTrivia->toPlainText());
     ui->drinkTrivia->setText("");
 }
