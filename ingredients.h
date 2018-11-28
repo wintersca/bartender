@@ -33,6 +33,7 @@ namespace Ingredients {
 
         // Kitchen basics
         Salt,
+        MargaritaSalt,
         Pepper,
         Nutmeg,
         Ice,
@@ -253,6 +254,14 @@ namespace Ingredients {
             "Salt.png",
             "Salt",
             Action::PourAction
+        },
+        // Margarita Salt
+        {
+            QColor(237, 237, 237),
+            "rim",
+            "MargaritaSalt.png",
+            "Margarita Salt",
+            Action::AddAction
         },
         // Pepper
         {
@@ -554,6 +563,7 @@ namespace Ingredients {
 
         // Kitchen basics
         "Salt",
+        "Margarita Salt",
         "Pepper",
         "Nutmeg",
         "Ice",

@@ -87,6 +87,7 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     stringsToIngredients["Creme de Cacao"] = Ingredients::CremeDeCacao;
     stringsToIngredients["Peach Schnapps"] = Ingredients::PeachSchnapps;
     stringsToIngredients["Salt"] = Ingredients::Salt;
+    stringsToIngredients["Margarita Salt"] = Ingredients::MargaritaSalt;
     stringsToIngredients["Pepper"] = Ingredients::Pepper;
     stringsToIngredients["Ice"] = Ingredients::Ice;
     stringsToIngredients["Simple Syrup"] = Ingredients::SimpleSyrup;
