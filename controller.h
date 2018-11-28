@@ -22,14 +22,23 @@ public:
     explicit Controller(XMLDrinkParser parser, QObject *parent = nullptr);
 public slots:
     void updateRecipes(Drink newRecipe);
+    void newCustomer();
+    void addedIngredient(Ingredients::Ingredients ingredient);
+    void decreaseHappiness();
 signals:
     void submitNewRecipes(Drink newDrink);
     void recipesToGame(QVector<Drink> menu);
+    void newCustomerToGame(int happinessLevel, Drink drink);
+    void customerHappinessToGame(int happinessLevel);
+    void customerLeft();
 
 private:
+    Drink currentDrink;
+    int customerPatience;
+    int currentHappiness;
 
-QVector<Drink> sortRecipes(QVector<Drink> recipes);
-QVector<Drink> getAllRecipes();
+    QVector<Drink> sortRecipes(QVector<Drink> recipes);
+    QVector<Drink> getAllRecipes();
 
 };
 
