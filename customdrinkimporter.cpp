@@ -58,7 +58,7 @@ CustomDrinkImporter::CustomDrinkImporter(Controller *controller,QWidget *parent)
         }
     }
 
-    drink = Drink();
+    Drink* drink = new Drink();
 }
 
 CustomDrinkImporter::~CustomDrinkImporter()
@@ -85,7 +85,6 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     stringsToIngredients["Grand Marnier"] = Ingredients::GrandMarnier;
     stringsToIngredients["Sweet Vermouth"] = Ingredients::SweetVermouth;
     stringsToIngredients["Dry Vermouth"] = Ingredients::DryVermouth;
-    stringsToIngredients["Angustura"] = Ingredients::Angustura;
     stringsToIngredients["Tripple Sec"] = Ingredients::TrippleSec;
     stringsToIngredients["Kahlua"] = Ingredients::Kahlua;
     stringsToIngredients["Jagermeister"] = Ingredients::Jagermeister;
@@ -141,12 +140,12 @@ void CustomDrinkImporter::on_buttonBox_accepted()
 
     // Convert to a drink object.
 
-    drink.Name = ui->drinkName->text();
-    drink.Trivia.append(ui->drinkTrivia->toPlainText());
+    drink->Name = ui->drinkName->text();
+    drink->Trivia.append(ui->drinkTrivia->toPlainText());
     for (int i = 0; i < includedSteps.count(); i++)
 
     {
-        drink.IngredientsMap.insert(includedSteps[i], totalOfSteps[i]);
+        drink->IngredientsMap.insert(includedSteps[i], totalOfSteps[i]);
     }
     emit sendNewRecipe(drink);
 }
@@ -158,6 +157,6 @@ void CustomDrinkImporter::on_buttonBox_rejected()
 
 void CustomDrinkImporter::on_addAdditionalTrivia_clicked()
 {
-    drink.Trivia.append(ui->drinkTrivia->toPlainText());
+    drink->Trivia.append(ui->drinkTrivia->toPlainText());
     ui->drinkTrivia->setText("");
 }

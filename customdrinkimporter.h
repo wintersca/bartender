@@ -32,10 +32,10 @@ private:
     QVector<QComboBox*> stepBoxes;
     QVector<QDoubleSpinBox*> amountBoxes;
     const int MAXINGREDIENTS = 10;
-    Drink drink;
+    Drink* drink;
 
 signals:
-    void sendNewRecipe(Drink drink);
+    void sendNewRecipe(Drink* drink);
 };
 
 #endif // CUSTOMDRINKIMPORTER_H
