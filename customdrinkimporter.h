@@ -35,7 +35,7 @@ private:
     Drink drink;
 
 signals:
-    void sendNewRecipe(Drink drink);
+    void sendNewRecipe(Drink* drink);
 };
 
 #endif // CUSTOMDRINKIMPORTER_H

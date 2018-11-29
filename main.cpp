@@ -5,14 +5,11 @@
 #include "xmldrinkparser.h"
 int main(int argc, char *argv[])
 {
-    XMLDrinkParser xml;
-    xml.parseXMLDatabase();
+    XMLDrinkParser* xml = new XMLDrinkParser();
+    xml->parseXMLDatabase();
     QApplication a(argc, argv);
-    Controller *c = new Controller();
+    Controller *c = new Controller(xml);
     MainWindow w(c);
     w.show();
-
     return a.exec();
 }
-
-
