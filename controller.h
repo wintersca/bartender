@@ -5,6 +5,8 @@
 #include <QString>
 #include <QVector>
 #include <QMap>
+#include <QRandomGenerator>
+#include <QtMath>
 #include "drink.h"
 #include "gamearea.h"
 #include "ingredients.h"
@@ -12,8 +14,7 @@
 #include "qsfmlcanvas.h"
 #include "xmldrinkparser.h"
 
-extern QVector<Drink*> menu;
-extern XMLDrinkParser *parser;
+
 class Controller : public QObject
 {
     Q_OBJECT
@@ -26,16 +27,19 @@ public slots:
     void addedIngredient(Ingredients::Ingredients ingredient, double amount);
     void decreaseHappiness();
     void calculateTip(); //when drink is served
+    void startGame();
 signals:
     void submitNewRecipes(Drink* newDrink);
     void menuToGame(QVector<Drink*> menu);
     void newCustomerToGame(int happinessLevel, Drink* drink);
     void customerHappinessToGame(int happinessLevel);
     void customerLeft();
-    void customerDrinkToGame(Drink* drink);
+    void sendDrink(Drink* drink);
     void triviaToGame(QString trivia);
     void ingredientVerificationToGame(bool isCorrect);
     void tipAmountToGame(double tip);
+    void sendTime(int currentTime);
+
 
 private:
     Drink* currentDrink;
@@ -43,7 +47,10 @@ private:
     int currentHappiness;
     int stepCount;
     int errorCount;
+    QVector<Drink*> menu;
+    XMLDrinkParser *parser;
     QVector<Drink*> getAllRecipes();
+    void updateTimer(int currentTime);
 
 };
 

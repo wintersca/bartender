@@ -1,7 +1,5 @@
 #include "controller.h"
 
-QVector<Drink*> menu;
-XMLDrinkParser *parser;
 Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(parent)
 {
     parser = parserInit;
@@ -10,8 +8,6 @@ Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(pa
 
 }
 
-/*slots*/
-
 // receive a vector of recipes from the database parser
 QVector<Drink*> Controller::getAllRecipes()
 {
@@ -19,6 +15,7 @@ QVector<Drink*> Controller::getAllRecipes()
     qDebug() << "We have received a vector of recipes from the database";
     return menu;
 }
+
 
 // send a new drink to the database and add it to the vector of drinks we already have.
 void Controller::updateRecipes(Drink* newRecipe)
@@ -33,11 +30,11 @@ void Controller::newCustomer()
     qDebug() << "Received request for a new customer";
     srand(static_cast<unsigned int>(time(nullptr)));
     stepCount = 0;
-    currentHappiness = rand()%5 + 4; // start at happiness of 4 - 8
-    currentDrink = menu.at(rand()%(menu.length()));
+    currentHappiness = QRandomGenerator::global()->generate()%5 + 4; // start at happiness of 4 - 8
+    currentDrink = menu.at(QRandomGenerator::global()->generate()%(menu.length()));
     int drinkComplexity = currentDrink->IngredientsMap.size();
     emit customerHappinessToGame(currentHappiness);
-    emit customerDrinkToGame(currentDrink);
+    emit sendDrink(currentDrink);
     QVector<QString> trivia = currentDrink->getTrivia();
     QString currentTrivia = trivia.at(rand()%trivia.length());
     emit triviaToGame(currentTrivia);
@@ -68,7 +65,8 @@ void Controller::addedIngredient(Ingredients::Ingredients ingredient, double amo
     QVector<Step> steps = currentDrink->getSteps();
     Step currentStep = steps.at(stepCount);
     bool isCorrectIngredient = false;
-    if(currentStep.getItem() == ingredient && currentStep.getAmount() == amount)
+    bool equalAmts = qFabs(amount - currentStep.getAmount()) < 0.01;
+    if(currentStep.getItem() == ingredient && equalAmts)
         isCorrectIngredient = true;
     stepCount++;
     emit ingredientVerificationToGame(isCorrectIngredient);
@@ -81,9 +79,12 @@ void Controller::calculateTip()
     double tip = (drinkComplexity - errorCount) * .25; //you get 25 cent tip per correct step
 }
 
+void Controller::startGame()
+{
 
-/*helpers*/
+}
 
-
-
-
+void Controller::updateTimer(int currentTime)
+{
+    emit sendTime(currentTime);
+}

@@ -48,8 +48,14 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     // Controller set up.
     controller = controllerPtr;
 
-    QObject::connect(controller, &Controller::menuToGame,
-                     this, &MainWindow::receiveMenu);
+    // to controller
+    QObject::connect(this, &MainWindow::start,
+                     controller, &Controller::startGame);
+    // from controller
+    QObject::connect(controller, &Controller::sendDrink,
+                     this, &MainWindow::receiveDrink);
+    QObject::connect(controller, &Controller::sendTime,
+                     this, &MainWindow::receiveTime);
 }
 
 MainWindow::~MainWindow()
@@ -66,11 +72,16 @@ void MainWindow::on_addCustomDrink_clicked()
     window->activateWindow();
 }
 
-void MainWindow::receiveMenu(QVector<Drink*> menu)
+void MainWindow::receiveDrink(Drink* drink)
 {
-    // this is for testing
-    for (Drink* d : menu)
-    {
-        qDebug() << d->Name;
-    }
+    //this is for testing and should be removed
+    qDebug() << drink->Name;
 }
+
+void MainWindow::receiveTime(int currentTime)
+{
+    //this is for testing and should be removed
+    qDebug() << currentTime;
+}
+
+// need to emit the startGame signal;

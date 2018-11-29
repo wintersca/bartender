@@ -19,7 +19,13 @@ public:
 
 private slots:
     void on_addCustomDrink_clicked();
-    void receiveMenu(QVector<Drink*> menu);
+    void receiveDrink(Drink* drink);
+    void receiveTime(int currentTime);
+
+signals:
+    void start(); //TODO put an enum as the parameter
+
+
 
 private:
     Ui::MainWindow *ui;
