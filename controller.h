@@ -23,8 +23,9 @@ public:
 public slots:
     void updateRecipes(Drink* newRecipe);
     void newCustomer();
-    void addedIngredient(Ingredients::Ingredients ingredient);
+    void addedIngredient(Ingredients::Ingredients ingredient, double amount);
     void decreaseHappiness();
+    void calculateTip(); //when drink is served
 signals:
     void submitNewRecipes(Drink* newDrink);
     void menuToGame(QVector<Drink*> menu);
@@ -32,11 +33,16 @@ signals:
     void customerHappinessToGame(int happinessLevel);
     void customerLeft();
     void customerDrinkToGame(Drink* drink);
+    void triviaToGame(QString trivia);
+    void ingredientVerificationToGame(bool isCorrect);
+    void tipAmountToGame(double tip);
 
 private:
     Drink* currentDrink;
     int customerPatience;
     int currentHappiness;
+    int stepCount;
+    int errorCount;
     QVector<Drink*> getAllRecipes();
 
 };

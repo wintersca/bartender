@@ -30,15 +30,20 @@ void Controller::updateRecipes(Drink* newRecipe)
 
 void Controller::newCustomer()
 {
-    currentHappiness = qrand()%5 + 4; // start at happiness of 4 - 8
-    currentDrink = menu.at(qrand()%(menu.length()));
+    qDebug() << "Received request for a new customer";
+    srand(static_cast<unsigned int>(time(nullptr)));
+    stepCount = 0;
+    currentHappiness = rand()%5 + 4; // start at happiness of 4 - 8
+    currentDrink = menu.at(rand()%(menu.length()));
     int drinkComplexity = currentDrink->IngredientsMap.size();
     emit customerHappinessToGame(currentHappiness);
     emit customerDrinkToGame(currentDrink);
-    // TODO: pick a trivia, ^^^ parse and send separately?
-    customerPatience = drinkComplexity * 5000 / currentHappiness; //how long before happiness level drops
+    QVector<QString> trivia = currentDrink->getTrivia();
+    QString currentTrivia = trivia.at(rand()%trivia.length());
+    emit triviaToGame(currentTrivia);
+    customerPatience = drinkComplexity * 5000 / currentHappiness; //how long before happiness level drops. I gave each step 5 sec
     QTimer::singleShot(customerPatience, this, SLOT(decreaseHappiness()));
-    qDebug() << "Received request for a new customer";
+
 }
 
 void Controller::decreaseHappiness()
@@ -58,12 +63,22 @@ void Controller::decreaseHappiness()
 
 }
 
-void Controller::addedIngredient(Ingredients::Ingredients ingredient)
+void Controller::addedIngredient(Ingredients::Ingredients ingredient, double amount)
 {
-    if(currentDrink->IngredientsMap.contains(ingredient))
-    {
-        //TODO: check amount
-    }
+    QVector<Step> steps = currentDrink->getSteps();
+    Step currentStep = steps.at(stepCount);
+    bool isCorrectIngredient = false;
+    if(currentStep.getItem() == ingredient && currentStep.getAmount() == amount)
+        isCorrectIngredient = true;
+    stepCount++;
+    emit ingredientVerificationToGame(isCorrectIngredient);
+
+}
+
+void Controller::calculateTip()
+{
+    int drinkComplexity = currentDrink->IngredientsMap.size();
+    double tip = (drinkComplexity - errorCount) * .25; //you get 25 cent tip per correct step
 }
 
 
