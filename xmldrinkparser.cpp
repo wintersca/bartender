@@ -226,6 +226,18 @@ void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
     {
         writer.setDevice(&file);
         writer.setAutoFormatting(true);
+
+        writer.writeStartDocument();
+        writer.writeStartElement("collection");
+        for(Drink* current: drinkDatabase)
+        {
+            writer.writeStartElement("drink");
+            writer.writeTextElement("name", current->getName());
+            writer.writeStartElement("ingredients");
+            //current->getTngredients()
+            //writer.writeStartElement("ingredient");
+            //writer.writeTextElement("name", );
+        }
     }
 
 }
