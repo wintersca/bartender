@@ -3,6 +3,9 @@
 #include <QDir>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QMap>
+#include <ingredients.h>
+#include "ingredientsmap.h"
 #include "drink.h"
 
 #ifndef XMLDRINKPARSER_H

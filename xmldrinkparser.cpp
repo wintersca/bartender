@@ -1,8 +1,4 @@
 #include "xmldrinkparser.h"
-#include <QMap>
-#include <iostream>
-#include <ingredients.h>
-#include "ingredientsmap.h"
 
 XMLDrinkParser::XMLDrinkParser()
 {
@@ -201,7 +197,6 @@ void XMLDrinkParser::readTrivia(Drink* drink)
 void XMLDrinkParser::addDrink(Drink* drink)
 {
     drinkDatabase.push_back(drink);
-    drink->print();
 }
 
 void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)

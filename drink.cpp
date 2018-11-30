@@ -70,11 +70,10 @@ void Drink::print(){
     std::cout<<output.toStdString()<<std::endl;
     for (it = IngredientsMap.begin(); it != IngredientsMap.end(); ++it) {
         // Format output here.
-        //output += QString("%1 : %2, ").arg(it.key().arg(it.value());
         output="";
-        output+=it.key();
+        output+= Ingredients::ingredientData[it.key()].displayString;
         output+=" ";
-        output+=it.value();
+        output+= QString::number(IngredientsMap.value(it.key()));
         output+=" ";
         std::cout<<output.toStdString()<<std::endl;
     }
@@ -85,10 +84,10 @@ void Drink::print(){
     {
 
         output += Steps.at(i).getInstruction();
-        output +=" Item: ";
-        output += Steps.at(i).getItem();
-        output +=" Amount: ";
-        output +=Steps.at(i).getAmount();
+        output +="\nItem: ";
+        output += Ingredients::ingredientData[Steps.at(i).getItem()].displayString;
+        output +="\nAmount: ";
+        output += QString::number(Steps.at(i).getAmount());
         std::cout<<output.toStdString()<<std::endl;
         output="";
     }
