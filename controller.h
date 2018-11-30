@@ -27,7 +27,7 @@ public slots:
     void addedIngredient(Ingredients::Ingredients ingredient, double amount);
     void decreaseHappiness();
     void calculateTip(); //when drink is served
-    void startGame();
+    void startGame(unsigned int difficulty);
 signals:
     void submitNewRecipes(Drink* newDrink);
     void menuToGame(QVector<Drink*> menu);

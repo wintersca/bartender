@@ -79,9 +79,9 @@ void Controller::calculateTip()
     double tip = (drinkComplexity - errorCount) * .25; //you get 25 cent tip per correct step
 }
 
-void Controller::startGame()
+void Controller::startGame(unsigned int difficulty)
 {
-
+    qDebug() << "current difficulty is " << difficulty << "\n";
 }
 
 void Controller::updateTimer(int currentTime)

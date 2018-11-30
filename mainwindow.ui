@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1334</width>
-    <height>796</height>
+    <width>1342</width>
+    <height>881</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -363,63 +363,6 @@
       </layout>
      </widget>
     </item>
-    <item row="0" column="0">
-     <widget class="QFrame" name="frame">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>1050</width>
-        <height>30</height>
-       </size>
-      </property>
-      <property name="frameShape">
-       <enum>QFrame::NoFrame</enum>
-      </property>
-      <property name="frameShadow">
-       <enum>QFrame::Raised</enum>
-      </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <item>
-        <spacer name="horizontalSpacer">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-       <item>
-        <widget class="QPushButton" name="addCustomDrink">
-         <property name="text">
-          <string>Add Custom Drink</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <spacer name="horizontalSpacer_2">
-         <property name="orientation">
-          <enum>Qt::Horizontal</enum>
-         </property>
-         <property name="sizeHint" stdset="0">
-          <size>
-           <width>40</width>
-           <height>20</height>
-          </size>
-         </property>
-        </spacer>
-       </item>
-      </layout>
-     </widget>
-    </item>
     <item row="1" column="0">
      <widget class="QFrame" name="frame_3">
       <property name="sizePolicy">
@@ -430,8 +373,8 @@
       </property>
       <property name="minimumSize">
        <size>
-        <width>1050</width>
-        <height>700</height>
+        <width>1069</width>
+        <height>710</height>
        </size>
       </property>
       <property name="frameShape">
@@ -462,9 +405,74 @@
    </layout>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>1342</width>
+     <height>22</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuStart_Game">
+    <property name="title">
+     <string>Start Game</string>
+    </property>
+    <addaction name="actionStart"/>
+   </widget>
+   <widget class="QMenu" name="menuDifficulty">
+    <property name="title">
+     <string>Difficulty</string>
+    </property>
+    <addaction name="actionEasy"/>
+    <addaction name="actionMedium"/>
+    <addaction name="actionHard"/>
+   </widget>
+   <widget class="QMenu" name="menuModify_Menu">
+    <property name="title">
+     <string>Modify Menu</string>
+    </property>
+    <addaction name="separator"/>
+    <addaction name="actionEdit_Available_Drinks"/>
+    <addaction name="actionCreat_Custom_Drink"/>
+   </widget>
+   <addaction name="menuStart_Game"/>
+   <addaction name="menuDifficulty"/>
+   <addaction name="menuModify_Menu"/>
+  </widget>
   <action name="actionAdd_New_Drink">
    <property name="text">
     <string>Add New Drink</string>
+   </property>
+  </action>
+  <action name="actionStart">
+   <property name="text">
+    <string>Start</string>
+   </property>
+  </action>
+  <action name="actionEasy">
+   <property name="text">
+    <string>Easy</string>
+   </property>
+  </action>
+  <action name="actionMedium">
+   <property name="text">
+    <string>Medium</string>
+   </property>
+  </action>
+  <action name="actionHard">
+   <property name="text">
+    <string>Hard</string>
+   </property>
+  </action>
+  <action name="actionEdit_Available_Drinks">
+   <property name="text">
+    <string>Edit Available Drinks</string>
+   </property>
+  </action>
+  <action name="actionCreat_Custom_Drink">
+   <property name="text">
+    <string>Create Custom Drink</string>
    </property>
   </action>
  </widget>

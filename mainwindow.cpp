@@ -45,6 +45,12 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     tipsFrame->setPalette(tipsPalette);
     tipsFrame->update();
 
+    // Set defaul difficulty
+    currentDifficulty = Difficulty::medium;
+    ui->menuDifficulty->actions().at(0)->setEnabled(true);
+    ui->menuDifficulty->actions().at(1)->setEnabled(false);
+    ui->menuDifficulty->actions().at(2)->setEnabled(true);
+
     // Controller set up.
     controller = controllerPtr;
 
@@ -63,15 +69,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_addCustomDrink_clicked()
-{
-    CustomDrinkImporter* window = new CustomDrinkImporter(controller, this);
-    window->setModal(true);
-    window->show();
-    window->raise();
-    window->activateWindow();
-}
-
 void MainWindow::receiveDrink(Drink* drink)
 {
     //this is for testing and should be removed
@@ -84,4 +81,45 @@ void MainWindow::receiveTime(int currentTime)
     qDebug() << currentTime;
 }
 
-// need to emit the startGame signal;
+void MainWindow::on_actionEdit_Available_Drinks_triggered()
+{
+
+}
+
+void MainWindow::on_actionCreat_Custom_Drink_triggered()
+{
+    CustomDrinkImporter* window = new CustomDrinkImporter(controller, this);
+    window->setModal(true);
+    window->show();
+    window->raise();
+    window->activateWindow();
+}
+
+void MainWindow::on_actionEasy_triggered()
+{
+    currentDifficulty = Difficulty::easy;
+    ui->menuDifficulty->actions().at(0)->setEnabled(false);
+    ui->menuDifficulty->actions().at(1)->setEnabled(true);
+    ui->menuDifficulty->actions().at(2)->setEnabled(true);
+}
+
+void MainWindow::on_actionMedium_triggered()
+{
+    currentDifficulty = Difficulty::medium;
+    ui->menuDifficulty->actions().at(0)->setEnabled(true);
+    ui->menuDifficulty->actions().at(1)->setEnabled(false);
+    ui->menuDifficulty->actions().at(2)->setEnabled(true);
+}
+
+void MainWindow::on_actionHard_triggered()
+{
+    currentDifficulty = Difficulty::hard;
+    ui->menuDifficulty->actions().at(0)->setEnabled(true);
+    ui->menuDifficulty->actions().at(1)->setEnabled(true);
+    ui->menuDifficulty->actions().at(2)->setEnabled(false);
+}
+
+void MainWindow::on_actionStart_triggered()
+{
+    emit start(currentDifficulty);
+}
