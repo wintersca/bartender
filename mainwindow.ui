@@ -128,7 +128,7 @@
              </font>
             </property>
             <property name="text">
-             <string>O:27</string>
+             <string>0:00</string>
             </property>
            </widget>
           </item>
@@ -156,7 +156,19 @@
           <enum>QFrame::Raised</enum>
          </property>
          <layout class="QHBoxLayout" name="horizontalLayout_3">
-          <item alignment="Qt::AlignHCenter">
+          <item alignment="Qt::AlignLeft">
+           <widget class="QLabel" name="label_2">
+            <property name="font">
+             <font>
+              <pointsize>16</pointsize>
+             </font>
+            </property>
+            <property name="text">
+             <string>Tips:</string>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignRight">
            <widget class="QLabel" name="tipsAmount">
             <property name="font">
              <font>
@@ -164,7 +176,7 @@
              </font>
             </property>
             <property name="text">
-             <string>Tips: $73.50</string>
+             <string>$0.00</string>
             </property>
            </widget>
           </item>

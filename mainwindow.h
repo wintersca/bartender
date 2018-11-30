@@ -30,7 +30,7 @@ private slots:
     void receiveDrink(Drink* drink);
     void receiveTime(int currentTime);
     QVector<Drink*> receiveMenu(QVector<Drink*> menu);
-    void receiveTips(double TotalTips);
+    void receiveTips(int tipDollars, int tipCents);
 
     void on_actionEdit_Available_Drinks_triggered();
     void on_actionCreat_Custom_Drink_triggered();

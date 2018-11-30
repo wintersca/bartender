@@ -125,9 +125,15 @@ void MainWindow::receiveTime(int currentTime)
     qDebug() << currentTime;
 }
 
-void MainWindow::receiveTips(double totalTips)
+void MainWindow::receiveTips(int tipDollars, int tipCents)
 {
-    //TODO decide what to do with the tips total
+    // Buld string.
+    QString tipsString = "$";
+    tipsString.append(QString::number(tipDollars));
+    tipsString.append(".");
+    tipsString.append(QString::number(tipCents));
+
+    ui->tipsAmount->setText(tipsString);
 }
 
 void MainWindow::on_actionEdit_Available_Drinks_triggered()
@@ -176,4 +182,5 @@ void MainWindow::on_actionStart_triggered()
 
     // Testing
     //receiveTime(-30);
+    //receiveTips(73, 47);
 }
