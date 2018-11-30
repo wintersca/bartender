@@ -2,6 +2,7 @@
 #include <QMap>
 #include <iostream>
 #include <ingredients.h>
+#include "ingredientsmap.h"
 
 XMLDrinkParser::XMLDrinkParser()
 {
@@ -205,7 +206,7 @@ void XMLDrinkParser::addDrink(Drink* drink)
 
 void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
 {
-    QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/Test.xml");
+    QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/DrinkDatabase.xml");
     if(!file.open(QFile::WriteOnly | QFile::Text))
     {
         throw -1;
@@ -240,8 +241,8 @@ void XMLDrinkParser::writeXMLDrink(Drink* current)
     for(QMap<Ingredients::Ingredients, double>::iterator it = ingredients.begin(); it != ingredients.end(); ++it)
     {
         writer.writeStartElement("ingredient");
-        writer.writeAttribute("name", "ingredient_name");
-        writer.writeAttribute("amount", "0.0");
+        writer.writeAttribute("name", Ingredients::ingredientData[it.key()].displayString);
+        writer.writeAttribute("amount", QString::number(ingredients.value(it.key())));
         writer.writeEndElement();
     }
 
@@ -253,7 +254,7 @@ void XMLDrinkParser::writeXMLDrink(Drink* current)
     {
         writer.writeStartElement("action");
         writer.writeAttribute("instruction", action.getInstruction());
-        writer.writeAttribute("item", "item_name");
+        writer.writeAttribute("item", Ingredients::ingredientData[action.getItem()].displayString);
         writer.writeAttribute("amount", QString::number(action.getAmount()));
         writer.writeEndElement();
     }
