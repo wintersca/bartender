@@ -54,7 +54,7 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     timerFrame->setPalette(timerPalette);
     timerFrame->update();
 
-    // Set defaul difficulty
+    // Set default difficulty
     currentDifficulty = Difficulty::medium;
     ui->menuDifficulty->actions().at(0)->setEnabled(true);
     ui->menuDifficulty->actions().at(1)->setEnabled(false);
@@ -86,6 +86,22 @@ void MainWindow::receiveDrink(Drink* drink)
 
 void MainWindow::receiveTime(int currentTime)
 {
+    // Deal with negative time left.
+    QFrame* timerFrame = ui->timerFrame;
+    QPalette timerPalette = timerFrame->palette();
+    if (currentTime < 0)
+    {
+        timerPalette.setColor(QPalette::WindowText, QColor(Qt::red));
+        currentTime *= -1;
+    }
+    else
+    {
+        timerPalette.setColor(QPalette::WindowText, QColor(Qt::black));
+    }
+    timerFrame->setPalette(timerPalette);
+    timerFrame->update();
+
+    // Format the string.
     QTime time(0, 0, currentTime);
     QString timeString = time.toString("m:ss");
     ui->timeLeft->setText(timeString);
@@ -139,5 +155,5 @@ void MainWindow::on_actionStart_triggered()
     emit start(currentDifficulty);
 
     // Testing
-    //receiveTime(30);
+    //receiveTime(-30);
 }
