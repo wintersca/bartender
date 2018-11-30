@@ -45,6 +45,14 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     tipsFrame->setPalette(tipsPalette);
     tipsFrame->update();
 
+    // Set style of timer area.
+    QFrame* timerFrame = ui->timerFrame;
+    QPalette timerPalette = timerFrame->palette();
+    timerPalette.setColor(QPalette::Background, QColor(Qt::gray));
+    timerFrame->setAutoFillBackground(true);
+    timerFrame->setPalette(timerPalette);
+    timerFrame->update();
+
     // Set defaul difficulty
     currentDifficulty = Difficulty::medium;
     ui->menuDifficulty->actions().at(0)->setEnabled(true);
