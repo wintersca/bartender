@@ -1,9 +1,10 @@
 #include "xmldrinkparser.h"
+#include <QMap>
 #include <iostream>
+#include <ingredients.h>
 
 XMLDrinkParser::XMLDrinkParser()
 {
-
     stringsToIngredients = QMap<QString, Ingredients::Ingredients>();
 
         stringsToIngredients["Vodka"] = Ingredients::Vodka;
@@ -204,20 +205,7 @@ void XMLDrinkParser::addDrink(Drink* drink)
 
 void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
 {
-
-        //xmlWriter.setAutoFormatting(true);
-        //xmlWriter.writeStartDocument();
-
-        //xmlWriter.writeStartElement("LAMPS");
-
-        //xmlWriter.writeStartElement("LIGHT1");
-        //xmlWriter.writeTextElement("State", "statevalue" );
-        //xmlWriter.writeTextElement("Room", "roomvalue");
-        //xmlWriter.writeTextElement("Potencial", "potencialvalue");
-
-    //xmlWriter.writeEndElement();
-
-    QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/DrinkDatabase.xml");
+    QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/Test.xml");
     if(!file.open(QFile::WriteOnly | QFile::Text))
     {
         throw -1;
@@ -231,13 +219,57 @@ void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
         writer.writeStartElement("collection");
         for(Drink* current: drinkDatabase)
         {
-            writer.writeStartElement("drink");
-            writer.writeTextElement("name", current->getName());
-            writer.writeStartElement("ingredients");
-            //current->getTngredients()
-            //writer.writeStartElement("ingredient");
-            //writer.writeTextElement("name", );
+            writeXMLDrink(current);
         }
+
+        writeXMLDrink(newDrink);
+
+        writer.writeEndElement();
+        writer.writeEndDocument();
+        file.close();
+    }
+}
+
+void XMLDrinkParser::writeXMLDrink(Drink* current)
+{
+    writer.writeStartElement("drink");
+    writer.writeTextElement("name", current->getName());
+    writer.writeStartElement("ingredients");
+
+    QMap<Ingredients::Ingredients, double> ingredients = current->getTngredients();
+    for(QMap<Ingredients::Ingredients, double>::iterator it = ingredients.begin(); it != ingredients.end(); ++it)
+    {
+        writer.writeStartElement("ingredient");
+        writer.writeAttribute("name", "ingredient_name");
+        writer.writeAttribute("amount", "0.0");
+        writer.writeEndElement();
     }
 
+    writer.writeEndElement();
+    writer.writeStartElement("actions");
+
+    QVector<Step> actions = current->getSteps();
+    for(Step action : actions)
+    {
+        writer.writeStartElement("action");
+        writer.writeAttribute("instruction", action.getInstruction());
+        writer.writeAttribute("item", "item_name");
+        writer.writeAttribute("amount", QString::number(action.getAmount()));
+        writer.writeEndElement();
+    }
+
+    writer.writeEndElement();
+    writer.writeStartElement("trivia_details");
+    QVector<QString> triviaList = current->getTrivia();
+    for(QString trivia : triviaList)
+    {
+        writer.writeStartElement("trivia");
+        writer.writeAttribute("description", trivia);
+        writer.writeEndElement();
+    }
+
+    writer.writeEndElement();
+    writer.writeEndElement();
 }
+
+

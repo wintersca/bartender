@@ -31,6 +31,8 @@ class XMLDrinkParser
         void readSteps(Drink* drink);
         void readTrivia(Drink* drink);
         void addDrink(Drink* drink);
+        void writeXMLDrink(Drink* current);
+
 };
 
 #endif // XMLDRINKPARSER_H
