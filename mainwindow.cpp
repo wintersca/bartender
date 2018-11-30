@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QHBoxLayout>
+#include <QTime>
 #include "customdrinkimporter.h"
 #include "gamearea.h"
 
@@ -85,6 +86,10 @@ void MainWindow::receiveDrink(Drink* drink)
 
 void MainWindow::receiveTime(int currentTime)
 {
+    QTime time(0, 0, currentTime);
+    QString timeString = time.toString("m:ss");
+    ui->timeLeft->setText(timeString);
+
     //this is for testing and should be removed
     qDebug() << currentTime;
 }
@@ -102,6 +107,8 @@ void MainWindow::on_actionCreat_Custom_Drink_triggered()
     window->raise();
     window->activateWindow();
 }
+
+/******* Edit difficulty *****************/
 
 void MainWindow::on_actionEasy_triggered()
 {
@@ -130,4 +137,7 @@ void MainWindow::on_actionHard_triggered()
 void MainWindow::on_actionStart_triggered()
 {
     emit start(currentDifficulty);
+
+    // Testing
+    //receiveTime(30);
 }
