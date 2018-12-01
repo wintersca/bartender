@@ -10,7 +10,6 @@
 class GameModel
 {
 private:
-    RecordTracker gameRecords;
     QVector<Drink*> allDrinks;
     Drink* currentDrink;
     Step currentStep;
