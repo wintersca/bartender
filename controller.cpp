@@ -7,7 +7,8 @@ Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(pa
     menu = getAllRecipes();
     for (Drink* drink : menu)
         drink->setSelected(true);
-    totalTips = 0;
+    totalTipDollars = 0;
+    totalTipCents = 0;
 }
 
 /*
