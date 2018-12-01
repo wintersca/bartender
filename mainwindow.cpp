@@ -66,11 +66,20 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     // to controller
     QObject::connect(this, &MainWindow::start,
                      controller, &Controller::startGame);
+    QObject::connect(this, &MainWindow::requestMenu,
+                      controller, &Controller::menuRequestedByMainWindow);
+    QObject::connect(this, &MainWindow::sendUserSpecifiedMenu,
+                      controller, &Controller::receiveUserSpecifiedMenu);
     // from controller
     QObject::connect(controller, &Controller::sendDrink,
                      this, &MainWindow::receiveDrink);
     QObject::connect(controller, &Controller::sendTime,
                      this, &MainWindow::receiveTime);
+    QObject::connect(controller, &Controller::menuToMainWindow,
+                     this, &MainWindow::receiveMenu);
+    QObject::connect(controller, &Controller::tipAmountToGame,
+                     this, &MainWindow::receiveTips);
+
 }
 
 MainWindow::~MainWindow()
@@ -82,6 +91,12 @@ void MainWindow::receiveDrink(Drink* drink)
 {
     //this is for testing and should be removed
     qDebug() << drink->Name;
+}
+
+QVector<Drink*> MainWindow::receiveMenu(QVector<Drink*> menu)
+{
+    //TODO: display menu so user can edit
+    return menu;
 }
 
 void MainWindow::receiveTime(int currentTime)
@@ -110,9 +125,14 @@ void MainWindow::receiveTime(int currentTime)
     qDebug() << currentTime;
 }
 
+void MainWindow::receiveTips(double totalTips)
+{
+    //TODO decide what to do with the tips total
+}
+
 void MainWindow::on_actionEdit_Available_Drinks_triggered()
 {
-
+    emit requestMenu(); // added so you can see the current menu
 }
 
 void MainWindow::on_actionCreat_Custom_Drink_triggered()
