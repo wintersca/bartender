@@ -1,6 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QHBoxLayout>
+#include <QTime>
 #include "customdrinkimporter.h"
 #include "gamearea.h"
 
@@ -45,6 +46,20 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     tipsFrame->setPalette(tipsPalette);
     tipsFrame->update();
 
+    // Set style of timer area.
+    QFrame* timerFrame = ui->timerFrame;
+    QPalette timerPalette = timerFrame->palette();
+    timerPalette.setColor(QPalette::Background, QColor(Qt::gray));
+    timerFrame->setAutoFillBackground(true);
+    timerFrame->setPalette(timerPalette);
+    timerFrame->update();
+
+    // Set default difficulty
+    currentDifficulty = Difficulty::medium;
+    ui->menuDifficulty->actions().at(0)->setEnabled(true);
+    ui->menuDifficulty->actions().at(1)->setEnabled(false);
+    ui->menuDifficulty->actions().at(2)->setEnabled(true);
+
     // Controller set up.
     controller = controllerPtr;
 
@@ -63,15 +78,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::on_addCustomDrink_clicked()
-{
-    CustomDrinkImporter* window = new CustomDrinkImporter(controller, this);
-    window->setModal(true);
-    window->show();
-    window->raise();
-    window->activateWindow();
-}
-
 void MainWindow::receiveDrink(Drink* drink)
 {
     //this is for testing and should be removed
@@ -80,8 +86,74 @@ void MainWindow::receiveDrink(Drink* drink)
 
 void MainWindow::receiveTime(int currentTime)
 {
+    // Deal with negative time left.
+    QFrame* timerFrame = ui->timerFrame;
+    QPalette timerPalette = timerFrame->palette();
+    if (currentTime < 0)
+    {
+        timerPalette.setColor(QPalette::WindowText, QColor(Qt::red));
+        currentTime *= -1;
+    }
+    else
+    {
+        timerPalette.setColor(QPalette::WindowText, QColor(Qt::black));
+    }
+    timerFrame->setPalette(timerPalette);
+    timerFrame->update();
+
+    // Format the string.
+    QTime time(0, 0, currentTime);
+    QString timeString = time.toString("m:ss");
+    ui->timeLeft->setText(timeString);
+
     //this is for testing and should be removed
     qDebug() << currentTime;
 }
 
-// need to emit the startGame signal;
+void MainWindow::on_actionEdit_Available_Drinks_triggered()
+{
+
+}
+
+void MainWindow::on_actionCreat_Custom_Drink_triggered()
+{
+    CustomDrinkImporter* window = new CustomDrinkImporter(controller, this);
+    window->setModal(true);
+    window->show();
+    window->raise();
+    window->activateWindow();
+}
+
+/******* Edit difficulty *****************/
+
+void MainWindow::on_actionEasy_triggered()
+{
+    currentDifficulty = Difficulty::easy;
+    ui->menuDifficulty->actions().at(0)->setEnabled(false);
+    ui->menuDifficulty->actions().at(1)->setEnabled(true);
+    ui->menuDifficulty->actions().at(2)->setEnabled(true);
+}
+
+void MainWindow::on_actionMedium_triggered()
+{
+    currentDifficulty = Difficulty::medium;
+    ui->menuDifficulty->actions().at(0)->setEnabled(true);
+    ui->menuDifficulty->actions().at(1)->setEnabled(false);
+    ui->menuDifficulty->actions().at(2)->setEnabled(true);
+}
+
+void MainWindow::on_actionHard_triggered()
+{
+    currentDifficulty = Difficulty::hard;
+    ui->menuDifficulty->actions().at(0)->setEnabled(true);
+    ui->menuDifficulty->actions().at(1)->setEnabled(true);
+    ui->menuDifficulty->actions().at(2)->setEnabled(false);
+}
+
+void MainWindow::on_actionStart_triggered()
+{
+    emit start(currentDifficulty);
+
+    // Testing
+    //receiveTime(-30);
+}
