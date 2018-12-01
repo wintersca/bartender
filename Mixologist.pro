@@ -35,7 +35,9 @@ SOURCES += \
     spritesheet.cpp \
     xmldrinkparser.cpp \
     ingredientsmap.cpp \
-    step.cpp
+    step.cpp \
+    recordtracker.cpp \
+    gamemodel.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,7 +51,9 @@ HEADERS += \
     spritesheet.h \
     xmldrinkparser.h \
     ingredientsmap.h \
-    step.h
+    step.h \
+    recordtracker.h \
+    gamemodel.h
 
 FORMS += \
         mainwindow.ui \
