@@ -89,6 +89,11 @@ MainWindow::~MainWindow()
 
 void MainWindow::receiveDrink(Drink* drink)
 {
+    ui->drinkName->setText(drink->Name);
+
+    // Display all the ingredients.
+
+
     //this is for testing and should be removed
     qDebug() << drink->Name;
 }
