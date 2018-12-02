@@ -9,6 +9,9 @@ Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(pa
         drink->setSelected(true);
     totalTipDollars = 0;
     totalTipCents = 0;
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()),
+            this, SLOT(timerUpdate()));
 }
 
 /*
@@ -44,37 +47,32 @@ void Controller::decreaseHappiness()
     else
     {
         qDebug() << "Customer happiness:" << currentHappiness;
-        emit customerHappinessToGame(currentHappiness);
         QTimer::singleShot(customerPatience, this, SLOT(decreaseHappiness()));
     }
 }
 
-void Controller::newCustomer()
+void Controller::newCustomer(unsigned int difficulty)
 {
+    // easy->(0, 1, 2)<- hard
     qDebug() << "Received request for a new customer";
-    srand(static_cast<unsigned int>(time(nullptr)));
-    stepCount = 0;
-    currentHappiness = QRandomGenerator::global()->generate()%5 + 4; // start at happiness of 4 - 8
-    currentDrink = menu.at(QRandomGenerator::global()->generate()%(menu.length()));
-    int drinkComplexity = currentDrink->IngredientsMap.size();
-    emit customerHappinessToGame(currentHappiness);
-    emit sendDrink(currentDrink);
-    QVector<QString> trivia = currentDrink->getTrivia();
-    QString currentTrivia = trivia.at(rand()%trivia.length());
-    emit triviaToGame(currentTrivia);
-    customerPatience = drinkComplexity * 5000 / currentHappiness; //how long before happiness level drops. I gave each step 5 sec
-    QTimer::singleShot(customerPatience, this, SLOT(decreaseHappiness()));
+    int rand = static_cast<int>(qFabs(static_cast<int>(QRandomGenerator::global()->generate())));
+    currentHappiness = (rand % 5) + 5 - static_cast<int>(difficulty);
+    qDebug() << "current happiness: " << currentHappiness;
+    qDebug() << "menu size: " << menu.length() << " drink index: " << rand % menu.length();
+    currentDrink = menu[rand % menu.length()];
+    moodValueModifier = static_cast<double>(currentHappiness) / 10;
+    qDebug() << "mood Modifier: " << moodValueModifier;
 }
 
 /*
  * Interactions with MainWindow
  */
 
-void Controller::startGame(unsigned int difficulty)
+void Controller::startGame(unsigned int difficultyInit)
 {
     qDebug() << "current difficulty is " << difficulty << "\n";
-    setUpRound(difficulty);
-    emit sendDrink(menu[1]);
+    difficulty = difficultyInit;
+    startRound(difficulty);
 }
 
 void Controller::menuRequestedByMainWindow()
@@ -125,25 +123,28 @@ void Controller::menuRequestByGameArea()
  * GamePlay
  */
 
-void Controller::setUpRound(unsigned int difficulty)
+void Controller::startRound(unsigned int difficulty)
 {
+    newCustomer(difficulty);
+    drinkComplexity = currentDrink->IngredientsMap.size();
+    qDebug() << "Drink complexity: " << drinkComplexity;
+    timeToCompleteDrink = static_cast<int>(moodValueModifier * 5 * drinkComplexity);
+    qDebug() << "Time to complete: " << timeToCompleteDrink;
+    emit sendDrink(currentDrink);
+    emit sendTime(timeToCompleteDrink);
+    timer->start(1000);
     /* TODO:
-     * create a new customer
-     * create a new timer
-     * calculate time to make drink (3 seconds per ingredient * mood modifier)
-     * calculate tip modifier
-     * select a random recipe
      * send customer entering animation to gameArea
      * send random recipe trivia to gameArea
-     * send time to main window every second
-     * send drink to main window
      */
 }
 
 void Controller::endRound()
 {
+    timer->stop();
+    calculateTip();
     /* TODO:
-     * calculate tip
+
      * send final mood sprite to game area (1 second)
      * send customer leaving animation to game area (2 seconds?)
      * send tip to Main Window (wait 1 second)
@@ -153,9 +154,31 @@ void Controller::endRound()
 
 void Controller::calculateTip()
 {
-    int drinkComplexity = currentDrink->IngredientsMap.size();
-    double tip = (drinkComplexity - errorCount) * .25; //you get 25 cent tip per correct step
-    int tipDollars = 0; // calculate these
-    int tipCents = 0;
-    emit updateTipTotal(tipDollars, tipCents);
+    if (currentHappiness <= 0)
+        return;
+    int tip = (drinkComplexity - errorCount) * 25; //you get 25 cent tip per correct step
+    totalTipDollars += tip / 100;
+    totalTipCents += tip % 100;
+    totalTipDollars += totalTipCents / 100;
+    totalTipCents = totalTipCents % 100;
+    emit updateTipTotal(totalTipDollars, totalTipCents);
+}
+
+void Controller::timerUpdate()
+{
+    if (currentHappiness <= 0)
+    {
+        endRound();
+        return;
+    }
+    emit sendTime(timeToCompleteDrink--);
+    qDebug() << "Time sent to mainWindow: " << timeToCompleteDrink;
+    qDebug() << "CurrentHappiness: " << currentHappiness;
+    if (timeToCompleteDrink < 0)
+    {
+        if (timeToCompleteDrink % static_cast<int>(5*moodValueModifier) == 0)
+        {
+            currentHappiness--;
+        }
+    }
 }

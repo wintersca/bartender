@@ -22,6 +22,8 @@ class Controller : public QObject
 public:
     explicit Controller(XMLDrinkParser *parser, QObject *parent = nullptr);
 public slots:
+    void timerUpdate();
+    void startRound(unsigned int difficulty);
     // from custom Drink Importer
 
     void updateRecipes(Drink* newRecipe);
@@ -42,7 +44,7 @@ signals:
 
     void menuToGameArea(QVector<Drink*> menu);
     void newCustomerToGame(int happinessLevel, Drink* drink);
-    void customerHappinessToGame(int happinessLevel);
+    void customerSpriteToGame(int happinessLevel);
     void customerLeft();
     void triviaToGame(QString trivia);
     void ingredientVerificationToGame(bool isCorrect);
@@ -62,8 +64,13 @@ private:
     int errorCount;
     int totalTipDollars;
     int totalTipCents;
+    int timeToCompleteDrink;
+    int drinkComplexity;
+    unsigned int difficulty;
+    double moodValueModifier;
     QVector<Drink*> menu;
     XMLDrinkParser *parser;
+    QTimer *timer;
 
     //helper methods
 
@@ -71,10 +78,11 @@ private:
     void decreaseHappiness();
     void endRound();
     QVector<Drink*> getAllRecipes();
-    void newCustomer();
-    void setUpRound(unsigned int difficulty);
+    void newCustomer(unsigned int difficulty);    
     void updateTimer(int currentTime);
     void updateTipTotal(int newTipDollars, int newTipCents);
+
+
 
 
 
