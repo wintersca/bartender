@@ -74,6 +74,7 @@ void Controller::startGame(unsigned int difficulty)
 {
     qDebug() << "current difficulty is " << difficulty << "\n";
     setUpRound(difficulty);
+    emit sendDrink(menu[1]);
 }
 
 void Controller::menuRequestedByMainWindow()
