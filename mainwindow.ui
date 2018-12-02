@@ -563,7 +563,7 @@
          </property>
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item alignment="Qt::AlignHCenter|Qt::AlignTop">
-           <widget class="QLabel" name="triviaLabel">
+           <widget class="QLabel" name="label_4">
             <property name="sizePolicy">
              <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
               <horstretch>0</horstretch>
@@ -583,6 +583,13 @@
             </property>
             <property name="text">
              <string>Trivia:</string>
+            </property>
+           </widget>
+          </item>
+          <item alignment="Qt::AlignHCenter|Qt::AlignTop">
+           <widget class="QLabel" name="triviaLabel">
+            <property name="text">
+             <string>It'll get you drunk!</string>
             </property>
            </widget>
           </item>

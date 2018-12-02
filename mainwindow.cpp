@@ -4,6 +4,7 @@
 #include <QTime>
 #include "customdrinkimporter.h"
 #include "gamearea.h"
+#include <random>
 
 Controller *controller;
 MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
@@ -99,6 +100,7 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
 
     // Clear the ingredients text.
     ui->drinkName->setText("");
+    ui->triviaLabel->setText("");
     for (int i = 0; i < 10; i++)
     {
         ingredientAmountLabels[i]->setText("");
@@ -158,6 +160,43 @@ void MainWindow::receiveDrink(Drink* drink)
     }
 
     // Display the trivia.
+    // Pick a random trivia string.
+    int totalTriva = drink->Trivia.length();
+    unsigned long randomSeed = static_cast<unsigned long>(std::chrono::system_clock::now().time_since_epoch().count());
+    std::uniform_int_distribution<int> distribution(0, totalTriva - 1);
+    std::default_random_engine randomEngine;
+    randomEngine.seed(randomSeed);
+    int randomIndex = distribution(randomEngine);
+    //randomIndex--;
+
+    QString triviaString = drink->Trivia[randomIndex];
+
+    // Create a string that has new lines to display the trivia on multiple lines.
+    QStringList wordsInTrivia = triviaString.split(" ", QString::SkipEmptyParts);
+    int wordsOnLine = 0;
+    QString displayString = "";
+    for (int i = 0; i < wordsInTrivia.length(); i++)
+    {
+        int lettersInWord = wordsInTrivia[i].length();
+        if (wordsOnLine + lettersInWord <= 28)
+        {
+            // Just add a word.
+            displayString.append(wordsInTrivia[i]);
+            displayString.append(" ");
+            wordsOnLine += lettersInWord + 1;
+        }
+        else
+        {
+            // Need a new line.
+            displayString.append("\n");
+            displayString.append(wordsInTrivia[i]);
+            displayString.append(" ");
+            wordsOnLine = lettersInWord + 1;
+        }
+    }
+
+    // Show trivia.
+    ui->triviaLabel->setText(displayString);
 
 
     //this is for testing and should be removed
