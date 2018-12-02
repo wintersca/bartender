@@ -25,8 +25,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    main.cpp \
+    mainwindow.cpp \
     controller.cpp \
     qsfmlcanvas.cpp \
     customdrinkimporter.cpp \
@@ -36,7 +36,9 @@ SOURCES += \
     xmldrinkparser.cpp \
     ingredientsmap.cpp \
     step.cpp \
-    customizemenu.cpp
+    customizemenu.cpp \
+    recordtracker.cpp \
+    gamemodel.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -51,7 +53,9 @@ HEADERS += \
     xmldrinkparser.h \
     ingredientsmap.h \
     step.h \
-    customizemenu.h
+    customizemenu.h \
+    recordtracker.h \
+    gamemodel.h
 
 FORMS += \
         mainwindow.ui \

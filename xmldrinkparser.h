@@ -3,6 +3,9 @@
 #include <QDir>
 #include <QXmlStreamReader>
 #include <QXmlStreamWriter>
+#include <QMap>
+#include <ingredients.h>
+#include "ingredientsmap.h"
 #include "drink.h"
 
 #ifndef XMLDRINKPARSER_H
@@ -31,6 +34,8 @@ class XMLDrinkParser
         void readSteps(Drink* drink);
         void readTrivia(Drink* drink);
         void addDrink(Drink* drink);
+        void writeXMLDrink(Drink* current);
+
 };
 
 #endif // XMLDRINKPARSER_H
