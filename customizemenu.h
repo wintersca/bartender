@@ -21,6 +21,7 @@ private:
     Ui::CustomizeMenu *ui;
     QVector<Drink*> Menu;
     QVector<Drink*> GivenMenu;
+    void AddDrinksToBoxes();
 
 signals:
     void sendUserSpecifiedMenu(QVector<Drink*> newMenu);

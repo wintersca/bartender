@@ -9,11 +9,7 @@ CustomizeMenu::CustomizeMenu(Controller *controller, QVector<Drink*> menu, QWidg
 
     Menu = menu;
 
-    // Fill in the boxes.
-    for (int i = 0; i < menu.length(); i++)
-    {
-        ui->usedDrinks->addItem(menu[i]->Name);
-    }
+    AddDrinksToBoxes();
 
     // Make a copy of the given menu in case cancel is pressed.
     GivenMenu = QVector<Drink*>(menu);
@@ -28,25 +24,63 @@ CustomizeMenu::~CustomizeMenu()
     delete ui;
 }
 
+void CustomizeMenu::AddDrinksToBoxes()
+{
+    // Fill in the boxes.
+    for (int i = 0; i < Menu.length(); i++)
+    {
+        if (Menu[i]->getSelected())
+        {
+            ui->usedDrinks->addItem(Menu[i]->Name);
+        }
+        else
+        {
+            ui->removedDrinks->addItem(Menu[i]->Name);
+        }
+    }
+}
+
+
 void CustomizeMenu::on_removeDrink_clicked()
 {
     // Figure out what drink was selected.
-    // Remove that drink from the vector.
-    Menu.remove(ui->usedDrinks->currentIndex());
-
-    // Clear the items in the usedDrinks menu.
-    ui->usedDrinks->clear();
-
-    // Add the items in the vector to the usedDrinks menu.
     for (int i = 0; i < Menu.length(); i++)
     {
-        ui->usedDrinks->addItem(Menu[i]->Name);
+        if (!QString::compare(Menu[i]->Name, ui->usedDrinks->currentText(), Qt::CaseSensitive))
+        {
+            // Set that drink to unselected.
+            Menu[i]->setSelected(false);
+            break;
+        }
     }
+
+    // Clear the items in the menus.
+    ui->usedDrinks->clear();
+    ui->removedDrinks->clear();
+
+    // Re pepulate the menus.
+    AddDrinksToBoxes();
 }
 
 void CustomizeMenu::on_addDrink_clicked()
 {
+    // Figure out what drink was selected.
+    for (int i = 0; i < Menu.length(); i++)
+    {
+        if (!QString::compare(Menu[i]->Name, ui->removedDrinks->currentText(), Qt::CaseSensitive))
+        {
+            // Set that drink to selected.
+            Menu[i]->setSelected(true);
+            break;
+        }
+    }
 
+    // Clear the items in the menus.
+    ui->usedDrinks->clear();
+    ui->removedDrinks->clear();
+
+    // Re pepulate the menus.
+    AddDrinksToBoxes();
 }
 
 void CustomizeMenu::on_buttonBox_accepted()

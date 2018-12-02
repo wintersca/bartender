@@ -138,6 +138,14 @@ void MainWindow::receiveDrink(Drink* drink)
 {
     ui->drinkName->setText(drink->Name);
 
+    // Clear the old ingredients.
+    for (int i = 0; i < 10; i++)
+    {
+        ingredientAmountLabels[i]->setText("");
+        ingredientNameLabels[i]->setText("");
+        ingredientUnitLabels[i]->setText("");
+    }
+
     // Display all the ingredients.
     int ingredientIndex = 0;
     QMapIterator<Ingredients::Ingredients, double> i(drink->IngredientsMap);
