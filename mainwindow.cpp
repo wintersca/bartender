@@ -5,6 +5,7 @@
 #include "customdrinkimporter.h"
 #include "gamearea.h"
 #include <random>
+#include "customizemenu.h"
 
 Controller *controller;
 MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
@@ -116,8 +117,6 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      controller, &Controller::startGame);
     QObject::connect(this, &MainWindow::requestMenu,
                       controller, &Controller::menuRequestedByMainWindow);
-    QObject::connect(this, &MainWindow::sendUserSpecifiedMenu,
-                      controller, &Controller::receiveUserSpecifiedMenu);
     // from controller
     QObject::connect(controller, &Controller::sendDrink,
                      this, &MainWindow::receiveDrink);
@@ -197,16 +196,17 @@ void MainWindow::receiveDrink(Drink* drink)
 
     // Show trivia.
     ui->triviaLabel->setText(displayString);
-
-
-    //this is for testing and should be removed
-    qDebug() << drink->Name;
 }
 
-QVector<Drink*> MainWindow::receiveMenu(QVector<Drink*> menu)
+void MainWindow::receiveMenu(QVector<Drink*> menu)
 {
+    CustomizeMenu* window = new CustomizeMenu(controller, menu, this);
+    window->setModal(true);
+    window->show();
+    window->raise();
+    window->activateWindow();
+
     //TODO: display menu so user can edit
-    return menu;
 }
 
 void MainWindow::receiveTime(int currentTime)

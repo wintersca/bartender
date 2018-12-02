@@ -35,7 +35,8 @@ SOURCES += \
     spritesheet.cpp \
     xmldrinkparser.cpp \
     ingredientsmap.cpp \
-    step.cpp
+    step.cpp \
+    customizemenu.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,11 +50,13 @@ HEADERS += \
     spritesheet.h \
     xmldrinkparser.h \
     ingredientsmap.h \
-    step.h
+    step.h \
+    customizemenu.h
 
 FORMS += \
         mainwindow.ui \
-    customdrinkimporter.ui
+    customdrinkimporter.ui \
+    customizemenu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
