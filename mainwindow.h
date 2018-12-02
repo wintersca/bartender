@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
 #include "controller.h"
 
 extern Controller *controller;
@@ -50,10 +51,11 @@ signals:
     void requestMenu();
     void sendUserSpecifiedMenu(QVector<Drink*> newMenu);
 
-
-
 private:
     Ui::MainWindow *ui;
+    QVector<QLabel*> ingredientAmountLabels;
+    QVector<QLabel*> ingredientNameLabels;
+    QVector<QLabel*> ingredientUnitLabels;
 };
 
 #endif // MAINWINDOW_H

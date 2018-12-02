@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1384</width>
-    <height>778</height>
+    <width>1368</width>
+    <height>792</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -217,29 +217,52 @@
            </widget>
           </item>
           <item>
-           <widget class="QFrame" name="frame_2">
+           <widget class="QFrame" name="frame_4">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>20</height>
+             </size>
+            </property>
+            <property name="maximumSize">
+             <size>
+              <width>16777215</width>
+              <height>20</height>
+             </size>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
             <property name="frameShadow">
              <enum>QFrame::Raised</enum>
             </property>
-            <layout class="QGridLayout" name="gridLayout_2">
-             <item row="5" column="0">
-              <widget class="QLabel" name="ingredientAmount4">
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <property name="leftMargin">
+              <number>9</number>
+             </property>
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="rightMargin">
+              <number>9</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item>
+              <widget class="QLabel" name="recipeSections_2">
                <property name="text">
-                <string>4</string>
+                <string>Amount:</string>
                </property>
               </widget>
              </item>
-             <item row="8" column="0">
-              <widget class="QLabel" name="ingredientAmount7">
-               <property name="text">
-                <string>7</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="1">
+             <item>
               <spacer name="horizontalSpacer_3">
                <property name="orientation">
                 <enum>Qt::Horizontal</enum>
@@ -252,143 +275,263 @@
                </property>
               </spacer>
              </item>
-             <item row="3" column="0">
-              <widget class="QLabel" name="ingredientAmount2">
-               <property name="text">
-                <string>2</string>
-               </property>
-              </widget>
-             </item>
-             <item row="7" column="0">
-              <widget class="QLabel" name="ingredientAmount6">
-               <property name="text">
-                <string>6</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="2">
-              <widget class="QLabel" name="ingredientName1">
-               <property name="text">
-                <string>Lime Juice</string>
-               </property>
-              </widget>
-             </item>
-             <item row="9" column="0">
-              <widget class="QLabel" name="ingredientAmount8">
-               <property name="text">
-                <string>8</string>
-               </property>
-              </widget>
-             </item>
-             <item row="2" column="0">
-              <widget class="QLabel" name="ingredientAmount1">
-               <property name="text">
-                <string>1</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="0">
-              <widget class="QLabel" name="recipeSections_2">
-               <property name="text">
-                <string>Amount:</string>
-               </property>
-              </widget>
-             </item>
-             <item row="1" column="2">
+             <item>
               <widget class="QLabel" name="recipeSections">
                <property name="text">
                 <string>Ingredient:</string>
                </property>
               </widget>
              </item>
-             <item row="6" column="0">
-              <widget class="QLabel" name="ingredientAmount5">
-               <property name="text">
-                <string>5</string>
-               </property>
-              </widget>
-             </item>
-             <item row="10" column="0">
-              <widget class="QLabel" name="ingredientAmount9">
-               <property name="text">
-                <string>9</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="0">
-              <widget class="QLabel" name="ingredientAmount3">
-               <property name="text">
-                <string>3</string>
-               </property>
-              </widget>
-             </item>
-             <item row="11" column="0">
-              <widget class="QLabel" name="ingredientAmount10">
-               <property name="text">
-                <string>10</string>
-               </property>
-              </widget>
-             </item>
-             <item row="3" column="2">
-              <widget class="QLabel" name="ingredientName2">
-               <property name="text">
-                <string>Tequila</string>
-               </property>
-              </widget>
-             </item>
-             <item row="4" column="2">
-              <widget class="QLabel" name="ingredientName3">
-               <property name="text">
-                <string>Grand Marnier</string>
-               </property>
-              </widget>
-             </item>
-             <item row="5" column="2">
-              <widget class="QLabel" name="ingredientName4">
-               <property name="text">
-                <string>Salt</string>
-               </property>
-              </widget>
-             </item>
-             <item row="6" column="2">
-              <widget class="QLabel" name="ingredientName5">
+            </layout>
+           </widget>
+          </item>
+          <item>
+           <widget class="QFrame" name="frame_2">
+            <property name="sizePolicy">
+             <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+              <horstretch>0</horstretch>
+              <verstretch>0</verstretch>
+             </sizepolicy>
+            </property>
+            <property name="minimumSize">
+             <size>
+              <width>0</width>
+              <height>250</height>
+             </size>
+            </property>
+            <property name="frameShape">
+             <enum>QFrame::NoFrame</enum>
+            </property>
+            <property name="frameShadow">
+             <enum>QFrame::Raised</enum>
+            </property>
+            <layout class="QGridLayout" name="gridLayout_2">
+             <property name="topMargin">
+              <number>0</number>
+             </property>
+             <property name="bottomMargin">
+              <number>0</number>
+             </property>
+             <item row="1" column="3">
+              <widget class="QLabel" name="ingredientName1">
                <property name="text">
                 <string>Ingredient</string>
                </property>
               </widget>
              </item>
-             <item row="7" column="2">
+             <item row="4" column="3">
+              <widget class="QLabel" name="ingredientName4">
+               <property name="text">
+                <string>Ingredient</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="ingredientAmount4">
+               <property name="text">
+                <string>4</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="3">
               <widget class="QLabel" name="ingredientName6">
                <property name="text">
                 <string>Ingredient</string>
                </property>
               </widget>
              </item>
-             <item row="8" column="2">
+             <item row="10" column="0">
+              <widget class="QLabel" name="ingredientAmount10">
+               <property name="text">
+                <string>10</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="0">
+              <widget class="QLabel" name="ingredientAmount6">
+               <property name="text">
+                <string>6</string>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="3">
+              <widget class="QLabel" name="ingredientName10">
+               <property name="text">
+                <string>Ingredient</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QLabel" name="ingredientAmount5">
+               <property name="text">
+                <string>5</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="ingredientAmount2">
+               <property name="text">
+                <string>2</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="3">
+              <widget class="QLabel" name="ingredientName5">
+               <property name="text">
+                <string>Ingredient</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QLabel" name="ingredientAmount1">
+               <property name="text">
+                <string>1</string>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="3">
+              <widget class="QLabel" name="ingredientName2">
+               <property name="text">
+                <string>Ingredient</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="0">
+              <widget class="QLabel" name="ingredientAmount9">
+               <property name="text">
+                <string>9</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="3">
               <widget class="QLabel" name="ingredientName7">
                <property name="text">
                 <string>Ingredient</string>
                </property>
               </widget>
              </item>
-             <item row="9" column="2">
-              <widget class="QLabel" name="ingredientName8">
-               <property name="text">
-                <string>Ingredient</string>
-               </property>
-              </widget>
-             </item>
-             <item row="10" column="2">
+             <item row="9" column="3">
               <widget class="QLabel" name="ingredientName9">
                <property name="text">
                 <string>Ingredient</string>
                </property>
               </widget>
              </item>
-             <item row="11" column="2">
-              <widget class="QLabel" name="ingredientName10">
+             <item row="3" column="3">
+              <widget class="QLabel" name="ingredientName3">
                <property name="text">
                 <string>Ingredient</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="0">
+              <widget class="QLabel" name="ingredientAmount7">
+               <property name="text">
+                <string>7</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="0">
+              <widget class="QLabel" name="ingredientAmount8">
+               <property name="text">
+                <string>8</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="3">
+              <widget class="QLabel" name="ingredientName8">
+               <property name="text">
+                <string>Ingredient</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QLabel" name="ingredientAmount3">
+               <property name="text">
+                <string>3</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="1">
+              <widget class="QLabel" name="ingredientUnit1">
+               <property name="text">
+                <string>oz</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <spacer name="horizontalSpacer">
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="sizeHint" stdset="0">
+                <size>
+                 <width>40</width>
+                 <height>20</height>
+                </size>
+               </property>
+              </spacer>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="ingredientUnit2">
+               <property name="text">
+                <string>oz</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QLabel" name="ingredientUnit3">
+               <property name="text">
+                <string>oz</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="1">
+              <widget class="QLabel" name="ingredientUnit4">
+               <property name="text">
+                <string>oz</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="1">
+              <widget class="QLabel" name="ingredientUnit5">
+               <property name="text">
+                <string>oz</string>
+               </property>
+              </widget>
+             </item>
+             <item row="6" column="1">
+              <widget class="QLabel" name="ingredientUnit6">
+               <property name="text">
+                <string>oz</string>
+               </property>
+              </widget>
+             </item>
+             <item row="7" column="1">
+              <widget class="QLabel" name="ingredientUnit7">
+               <property name="text">
+                <string>oz</string>
+               </property>
+              </widget>
+             </item>
+             <item row="8" column="1">
+              <widget class="QLabel" name="ingredientUnit8">
+               <property name="text">
+                <string>oz</string>
+               </property>
+              </widget>
+             </item>
+             <item row="9" column="1">
+              <widget class="QLabel" name="ingredientUnit9">
+               <property name="text">
+                <string>oz</string>
+               </property>
+              </widget>
+             </item>
+             <item row="10" column="1">
+              <widget class="QLabel" name="ingredientUnit10">
+               <property name="text">
+                <string>oz</string>
                </property>
               </widget>
              </item>
@@ -470,7 +613,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1384</width>
+     <width>1368</width>
      <height>22</height>
     </rect>
    </property>
