@@ -14,7 +14,7 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
 {
     this->ui->setupUi(this);
 
-    GameArea* SFMLView = new GameArea(this, QPoint(20, 20), QSize(1000, 1000));
+    GameArea* SFMLView = new GameArea(this, QPoint(20, 20), QSize(1000, 1000), controller);
     //ui->verticalLayout->addWidget(SFMLView);
     ui->widgetLayout->addWidget(SFMLView);
 

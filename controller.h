@@ -7,8 +7,8 @@
 #include <QMap>
 #include <QRandomGenerator>
 #include <QtMath>
+#include <QDebug>
 #include "drink.h"
-#include "gamearea.h"
 #include "ingredients.h"
 #include "ingredientsprite.h"
 #include "qsfmlcanvas.h"
@@ -30,8 +30,9 @@ public slots:
 
     // from gameArea
 
-    void addedIngredient(Ingredients::Ingredients ingredient, double amount);
+    void checkIngredient(Ingredients::Ingredients ingredient, double amount);
     void menuRequestByGameArea();
+    void drinkServed();
 
     // from MainWindow
 
@@ -42,12 +43,10 @@ public slots:
 signals:
     // to gameArea
 
-    void menuToGameArea(QVector<Drink*> menu);
-    void newCustomerToGame(int happinessLevel, Drink* drink);
-    void customerSpriteToGame(int happinessLevel);
-    void customerLeft();
-    void triviaToGame(QString trivia);
-    void ingredientVerificationToGame(bool isCorrect);
+
+    void moodToGameArea(int happinessLevel);
+    void triviaToGameArea(QString trivia);
+    void sendSelectedCustomer(int customer);
 
     // to MainWindow
 
@@ -58,7 +57,7 @@ signals:
 
 private:
     Drink* currentDrink;
-    int customerPatience;
+    int selectedCustomer;
     int currentHappiness;
     int stepCount;
     int errorCount;
@@ -66,11 +65,13 @@ private:
     int totalTipCents;
     int timeToCompleteDrink;
     int drinkComplexity;
+    int drinkPoints;
     unsigned int difficulty;
     double moodValueModifier;
     QVector<Drink*> menu;
     XMLDrinkParser *parser;
     QTimer *timer;
+    QString trivia;
 
     //helper methods
 
@@ -81,6 +82,7 @@ private:
     void newCustomer(unsigned int difficulty);    
     void updateTimer(int currentTime);
     void updateTipTotal(int newTipDollars, int newTipCents);
+    void endOfRoundHappiness();
 
 
 
