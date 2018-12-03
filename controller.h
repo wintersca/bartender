@@ -69,6 +69,7 @@ private:
     unsigned int difficulty;
     double moodValueModifier;
     QVector<Drink*> menu;
+    QVector<Drink*> userSpecifiedMenu;
     XMLDrinkParser *parser;
     QTimer *timer;
     QString trivia;
@@ -79,7 +80,8 @@ private:
     void decreaseHappiness();
     void endRound();
     QVector<Drink*> getAllRecipes();
-    void newCustomer(unsigned int difficulty);    
+    void newCustomer(unsigned int difficulty);
+    Drink* selectNewRandomDrink();
     void updateTimer(int currentTime);
     void updateTipTotal(int newTipDollars, int newTipCents);
     void endOfRoundHappiness();

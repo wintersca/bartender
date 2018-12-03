@@ -5,6 +5,7 @@ Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(pa
 {
     parser = parserInit;
     menu = getAllRecipes();
+    userSpecifiedMenu = menu;
     for (Drink* drink : menu)
         drink->setSelected(true);
     totalTipDollars = 0;
@@ -29,6 +30,7 @@ void Controller::updateRecipes(Drink* newRecipe)
 {
     parser->updateXMLDatabase(newRecipe);
     menu.append(newRecipe);
+    userSpecifiedMenu.append(newRecipe);
     qDebug() << "We have sent a recipe to the database and updated the menu of the game";
 }
 
@@ -41,7 +43,7 @@ void Controller::newCustomer(unsigned int difficulty)
     int rand = static_cast<int>(qFabs(static_cast<int>(QRandomGenerator::global()->generate())));
     selectedCustomer = rand % 5;
     currentHappiness = (rand % 5) + 5 - static_cast<int>(difficulty);
-    currentDrink = menu[rand % menu.length()];
+    currentDrink = selectNewRandomDrink();
     for (Step s : currentDrink->getSteps())
         qDebug() << s.getItem();
     moodValueModifier = static_cast<double>(currentHappiness) / 10;
@@ -64,8 +66,14 @@ void Controller::menuRequestedByMainWindow()
 }
 
 void Controller::receiveUserSpecifiedMenu(QVector<Drink*> newMenu)
-{
-    menu = newMenu;
+{   
+    QVector<Drink*> tempMenu;
+    for (Drink* drink : newMenu)
+    {
+        if (drink->getSelected())
+            tempMenu.append(drink);
+    }
+    userSpecifiedMenu = tempMenu;
 }
 
 void Controller::updateTimer(int currentTime)
@@ -88,16 +96,23 @@ void Controller::checkIngredient(Ingredients::Ingredients ingredient, double amo
 {
     QVector<Step> steps = currentDrink->getSteps();
     Step currentStep = steps.at(stepCount);
-    Step attemptedStep;
-    attemptedStep.setItem(ingredient);
     bool equalAmts = qFabs(amount - currentStep.getAmount()) < 0.01;
-//    if(currentStep.getItem() == ingredient)
-//        drinkPoints++;
-//    if(equalAmts)
-//        drinkPoints++;
-//    if(steps.contains(attemptedStep))
-//        drinkPoints++;
-//    stepCount++;
+    // right ingredient in right order or just a correct ingredient
+    if(currentStep.getItem() == ingredient)
+        drinkPoints += 2;
+    else
+    {
+        for (Step s : steps)
+        {
+            if (s.getItem() == ingredient){
+                drinkPoints++;
+                break;
+            }
+        }
+    }
+    if(equalAmts)
+        drinkPoints++;
+    stepCount++;
 }
 
 void Controller::menuRequestByGameArea()
@@ -119,8 +134,8 @@ void Controller::startRound(unsigned int difficulty)
 {
     newCustomer(difficulty);
     drinkComplexity = currentDrink->IngredientsMap.size();
-    drinkPoints = 3 * drinkComplexity;
-    timeToCompleteDrink = static_cast<int>(moodValueModifier * 5 * drinkComplexity);
+    drinkPoints = 0;
+    timeToCompleteDrink = static_cast<int>(moodValueModifier * 8 * drinkComplexity);
     emit sendDrink(currentDrink);
     emit sendTime(timeToCompleteDrink);
     emit moodToGameArea(currentHappiness);
@@ -135,8 +150,6 @@ void Controller::endRound()
     endOfRoundHappiness();
     emit moodToGameArea(currentHappiness);
 }
-
-
 
 void Controller::calculateTip()
 {
@@ -166,7 +179,7 @@ void Controller::endOfRoundHappiness()
 {
     if (currentHappiness > 0)
     {
-        int drinkScore = (100* drinkPoints) / drinkComplexity;
+        int drinkScore = 100 * drinkPoints / drinkComplexity * 3;
         if (drinkScore == 100)
             currentHappiness += 3;
         else if (drinkScore >= 90)
@@ -182,4 +195,11 @@ void Controller::endOfRoundHappiness()
         else if (drinkScore >= 0)
             currentHappiness -= 3;
     }
+}
+
+Drink* Controller::selectNewRandomDrink()
+{
+    int rand = static_cast<int>(qFabs(static_cast<int>(QRandomGenerator::global()->generate())));
+    currentDrink = userSpecifiedMenu[rand % userSpecifiedMenu.length()];
+    return currentDrink;
 }

@@ -50,7 +50,6 @@ signals:
 
 public slots:
     void receiveMood(int mood);
-    void receiveTrivia(QString trivia);
     void receiveSelectedCustomer(int customer);
 };
 

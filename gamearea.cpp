@@ -89,10 +89,7 @@ void GameArea::receiveMood(int mood)
 {
     //TODO
 }
-void GameArea::receiveTrivia(QString trivia)
-{
-    //TODO
-}
+
 void GameArea::receiveSelectedCustomer(int customer)
 {
     //TODO
