@@ -19,33 +19,7 @@ class GameArea : public QSFMLCanvas
 
 public :
 
-    GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, Controller *ctrlrPtr) :
-        QSFMLCanvas(Parent, Position, Size)
-    {
-        // added signals/slots -CW
-        // to controller
-        QObject::connect(this, &GameArea::ingredientAdded,
-                         controller, &Controller::checkIngredient);
-        QObject::connect(this, &GameArea::drinkServed,
-                         controller, &Controller::drinkServed);
-
-        /***************************************************************
-         *  not sure if this is going to controller or mainWindow
-
-        QObject::connect(this, &GameArea::requestMenu,
-                         controller, &Controller::menuRequestByGameArea);
-        *****************************************************************/
-
-        // from controller
-        QObject::connect(controller, &Controller::moodToGameArea,
-                         this, &GameArea::receiveMood);
-        QObject::connect(controller, &Controller::triviaToGameArea,
-                         this, &GameArea::receiveTrivia);
-        QObject::connect(controller, &Controller::sendSelectedCustomer,
-                         this, &GameArea::receiveSelectedCustomer);
-
-        controller = ctrlrPtr;
-    }
+    GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, Controller *ctrlrPtr);
 
     void mousePressEvent(QMouseEvent* e);
     void mouseReleaseEvent(QMouseEvent* e);

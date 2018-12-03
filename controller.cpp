@@ -44,7 +44,6 @@ void Controller::newCustomer(unsigned int difficulty)
     currentDrink = menu[rand % menu.length()];
     for (Step s : currentDrink->getSteps())
         qDebug() << s.getItem();
-    trivia = currentDrink->Trivia[rand%currentDrink->Trivia.length()];
     moodValueModifier = static_cast<double>(currentHappiness) / 10;
     stepCount = 0;
 }
@@ -126,7 +125,6 @@ void Controller::startRound(unsigned int difficulty)
     emit sendTime(timeToCompleteDrink);
     emit moodToGameArea(currentHappiness);
     emit sendSelectedCustomer(selectedCustomer);
-    emit triviaToGameArea(trivia);
     timer->start(1000);
 }
 

@@ -1,5 +1,29 @@
 #include "gamearea.h"
 
+GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, Controller *ctrlrPtr) :
+    QSFMLCanvas(Parent, Position, Size)
+{
+    controller = ctrlrPtr;
+    // to controller
+    QObject::connect(this, &GameArea::ingredientAdded,
+                     controller, &Controller::checkIngredient);
+    QObject::connect(this, &GameArea::drinkServed,
+                     controller, &Controller::drinkServed);
+
+    /***************************************************************
+     *  not sure if this is going to controller or mainWindow
+
+    QObject::connect(this, &GameArea::requestMenu,
+                     controller, &Controller::menuRequestByGameArea);
+    *****************************************************************/
+
+    // from controller
+    QObject::connect(controller, &Controller::moodToGameArea,
+                     this, &GameArea::receiveMood);
+    QObject::connect(controller, &Controller::sendSelectedCustomer,
+                     this, &GameArea::receiveSelectedCustomer);
+}
+
 void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
 {
     qDebug() << "YOU CLICKED THE MOUSE";
