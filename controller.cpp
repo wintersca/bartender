@@ -55,7 +55,7 @@ void Controller::newCustomer(unsigned int difficulty)
 {
     // easy->(0, 1, 2)<- hard
     qDebug() << "Received request for a new customer";
-    int rand = static_cast<int>(qFabs(static_cast<int>(QRandomGenerator::global()->generate())));
+    int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
     currentHappiness = (rand % 5) + 5 - static_cast<int>(difficulty);
     qDebug() << "current happiness: " << currentHappiness;
     qDebug() << "menu size: " << menu.length() << " drink index: " << rand % menu.length();
