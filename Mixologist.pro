@@ -25,8 +25,8 @@ DEFINES += QT_DEPRECATED_WARNINGS
 CONFIG += c++11
 
 SOURCES += \
-        main.cpp \
-        mainwindow.cpp \
+    main.cpp \
+    mainwindow.cpp \
     controller.cpp \
     qsfmlcanvas.cpp \
     customdrinkimporter.cpp \
@@ -35,7 +35,10 @@ SOURCES += \
     spritesheet.cpp \
     xmldrinkparser.cpp \
     ingredientsmap.cpp \
-    step.cpp
+    step.cpp \
+    customizemenu.cpp \
+    recordtracker.cpp \
+    gamemodel.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -49,11 +52,15 @@ HEADERS += \
     spritesheet.h \
     xmldrinkparser.h \
     ingredientsmap.h \
-    step.h
+    step.h \
+    customizemenu.h \
+    recordtracker.h \
+    gamemodel.h
 
 FORMS += \
         mainwindow.ui \
-    customdrinkimporter.ui
+    customdrinkimporter.ui \
+    customizemenu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

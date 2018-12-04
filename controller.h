@@ -5,6 +5,8 @@
 #include <QString>
 #include <QVector>
 #include <QMap>
+#include <QRandomGenerator>
+#include <QtMath>
 #include "drink.h"
 #include "gamearea.h"
 #include "ingredients.h"
@@ -12,8 +14,7 @@
 #include "qsfmlcanvas.h"
 #include "xmldrinkparser.h"
 
-extern QVector<Drink*> menu;
-extern XMLDrinkParser *parser;
+
 class Controller : public QObject
 {
     Q_OBJECT
@@ -21,25 +22,69 @@ class Controller : public QObject
 public:
     explicit Controller(XMLDrinkParser *parser, QObject *parent = nullptr);
 public slots:
+    void timerUpdate();
+    void startRound(unsigned int difficulty);
+    // from custom Drink Importer
+
     void updateRecipes(Drink* newRecipe);
-    void newCustomer();
-    void addedIngredient(Ingredients::Ingredients ingredient);
-    void decreaseHappiness();
+
+    // from gameArea
+
+    void addedIngredient(Ingredients::Ingredients ingredient, double amount);
+    void menuRequestByGameArea();
+
+    // from MainWindow
+
+    void menuRequestedByMainWindow();
+    void receiveUserSpecifiedMenu(QVector<Drink*> newMenu);
+    void startGame(unsigned int difficulty);
+
 signals:
-    void submitNewRecipes(Drink* newDrink);
-    void menuToGame(QVector<Drink*> menu);
+    // to gameArea
+
+    void menuToGameArea(QVector<Drink*> menu);
     void newCustomerToGame(int happinessLevel, Drink* drink);
-    void customerHappinessToGame(int happinessLevel);
+    void customerSpriteToGame(int happinessLevel);
     void customerLeft();
-    void customerDrinkToGame(Drink* drink);
+    void triviaToGame(QString trivia);
+    void ingredientVerificationToGame(bool isCorrect);
+
+    // to MainWindow
+
+    void menuToMainWindow(QVector<Drink*> menu);
+    void sendDrink(Drink* drink);
+    void sendTime(int currentTime);
+    void tipAmountToGame(int tipDollars, int tipCents);
 
 private:
     Drink* currentDrink;
     int customerPatience;
     int currentHappiness;
+    int stepCount;
+    int errorCount;
+    int totalTipDollars;
+    int totalTipCents;
+    int timeToCompleteDrink;
+    int drinkComplexity;
+    unsigned int difficulty;
+    double moodValueModifier;
+    QVector<Drink*> menu;
+    XMLDrinkParser *parser;
+    QTimer *timer;
 
-    QVector<Drink*> sortRecipes(QVector<Drink*> recipes);
+    //helper methods
+
+    void calculateTip(); //when drink is served
+    void decreaseHappiness();
+    void endRound();
     QVector<Drink*> getAllRecipes();
+    void newCustomer(unsigned int difficulty);    
+    void updateTimer(int currentTime);
+    void updateTipTotal(int newTipDollars, int newTipCents);
+
+
+
+
 
 };
 

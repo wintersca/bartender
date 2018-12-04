@@ -98,7 +98,8 @@ namespace Ingredients {
 
     };
 
-    const int TOTALINGREDIENTS = 52;
+    static const int TRUEINGREDIENTS = 49;
+    static const int ITEMSININGREDIENTS = 52;
 
     //You index into this by ingredientData[Ingredient::Ingredient].
     // ingredientData[Ingredient::Ingredient].displayString, etc.
