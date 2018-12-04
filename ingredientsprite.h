@@ -14,8 +14,6 @@ public:
     QPoint shelfPosition;
 
     IngredientSprite() : sf::Sprite() { }
-
-
 };
 
 #endif // INGREDIENTSPRITE_H
