@@ -9,13 +9,8 @@ GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, C
                      controller, &Controller::checkIngredient);
     QObject::connect(this, &GameArea::drinkServed,
                      controller, &Controller::drinkServed);
-
-    /***************************************************************
-     *  not sure if this is going to controller or mainWindow
-
     QObject::connect(this, &GameArea::requestMenu,
                      controller, &Controller::menuRequestByGameArea);
-    *****************************************************************/
 
     // from controller
     QObject::connect(controller, &Controller::moodToGameArea,

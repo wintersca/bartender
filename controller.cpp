@@ -117,7 +117,7 @@ void Controller::checkIngredient(Ingredients::Ingredients ingredient, double amo
 
 void Controller::menuRequestByGameArea()
 {
-   qDebug() << "This may be handeld by mainWindow.";
+   emit menuToMainWindow(menu);
 }
 
 void Controller::drinkServed()
