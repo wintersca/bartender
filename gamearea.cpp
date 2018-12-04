@@ -24,8 +24,55 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
     selected = nullptr;
 }
 
+// Constructor.
 void GameArea::OnInit()
 {
+    // Create all ingredient sprite objects.
+    ingredientSprites = QVector<IngredientSprite>();
+    for (int i = 0; i < 49; i++)
+    {
+        ingredientSprites.append(IngredientSprite());
+        ingredientSprites[i].ingredient = (Ingredients::Ingredients)i;
+    }
+
+    // Give all sprites positions.
+    // Add core boozes.
+    for (int i = 0; i < 7; i++)
+    {
+        ingredientSprites[i].shelfPosition = QPoint(horizontalPositions[i + 7], verticalPositions[3]);
+    }
+    // Add liquours
+    for (int i = 0; i < 10; i++)
+    {
+        ingredientSprites[i + 7].shelfPosition = QPoint(horizontalPositions[i + 4], verticalPositions[2]);
+    }
+    // Add kitchen basics.
+    for (int i = 0; i < 5; i++)
+    {
+        ingredientSprites[i + 17].shelfPosition = QPoint(horizontalPositions[i], verticalPositions[3]);
+    }
+    // Add non alcoholic liquids.
+    for (int i = 0; i < 10; i++)
+    {
+        ingredientSprites[i + 22].shelfPosition = QPoint(horizontalPositions[i + 4], verticalPositions[0]);
+    }
+    // Add fruit juices.
+    ingredientSprites[32].shelfPosition = QPoint(horizontalPositions[0], verticalPositions[0]);
+    ingredientSprites[33].shelfPosition = QPoint(horizontalPositions[1], verticalPositions[0]);
+    ingredientSprites[34].shelfPosition = QPoint(horizontalPositions[0], verticalPositions[1]);
+    ingredientSprites[35].shelfPosition = QPoint(horizontalPositions[1], verticalPositions[1]);
+    ingredientSprites[36].shelfPosition = QPoint(horizontalPositions[0], verticalPositions[2]);
+    ingredientSprites[37].shelfPosition = QPoint(horizontalPositions[1], verticalPositions[2]);
+
+    // Add fruits and vegtables
+    for (int i = 0; i < 11; i++)
+    {
+        ingredientSprites[i + 38].shelfPosition = QPoint(horizontalPositions[i + 3], verticalPositions[1]);
+    }
+
+    // Get the sprites.
+
+
 
     myTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/cherry.png");
     mySprite.ingredient = Ingredients::DarkRum;

@@ -10,6 +10,7 @@
 #include "ingredients.h"
 #include <QMouseEvent>
 #include "ingredientsprite.h"
+#include "spritesheet.h"
 
 class GameArea : public QSFMLCanvas
 {
@@ -40,6 +41,10 @@ private :
     void OnInit();
 
     void OnUpdate();
+
+    int verticalPositions[4] = { 69, 169, 269, 369 };
+    int horizontalPositions[14] = { 42, 118, 194, 269, 345, 421, 497, 572, 648, 724, 800, 875, 951, 1027 };
+
 
 signals:
     void ingredientAdded(Ingredients::Ingredients);
