@@ -27,12 +27,21 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
 // Constructor.
 void GameArea::OnInit()
 {
+    // Get the sprites.
+    QVector<sf::Sprite> spritesFromSheet = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/ingredientsSheet.png", 49, 60, 80);
+
     // Create all ingredient sprite objects.
     ingredientSprites = QVector<IngredientSprite>();
     for (int i = 0; i < 49; i++)
     {
+        // Add and assign an ingredient.
         ingredientSprites.append(IngredientSprite());
         ingredientSprites[i].ingredient = (Ingredients::Ingredients)i;
+
+        // Add the image.
+        sf::Texture thisImage;
+        thisImage.loadFromMemory(spritesFromSheet[i].getTexture(), sizeof(spritesFromSheet[i].getTexture()));
+        ingredientSprites[i].setTexture(thisImage);
     }
 
     // Give all sprites positions.
@@ -70,9 +79,11 @@ void GameArea::OnInit()
         ingredientSprites[i + 38].shelfPosition = QPoint(horizontalPositions[i + 3], verticalPositions[1]);
     }
 
-    // Get the sprites.
-
-
+    // Set starting positions.
+    for (int i = 0; i < 49; i++)
+    {
+        ingredientSprites[i].setPosition(ingredientSprites[i].shelfPosition.x(), ingredientSprites[i].shelfPosition.y());
+    }
 
     myTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/cherry.png");
     mySprite.ingredient = Ingredients::DarkRum;
@@ -106,4 +117,10 @@ void GameArea::OnUpdate()
 
     draw(backgroundSprite);
     draw(mySprite);
+
+    // Draw all ingredients.
+    for (int i = 0; i < 49; i++)
+    {
+        draw(ingredientSprites[i]);
+    }
 }
