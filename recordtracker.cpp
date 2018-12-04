@@ -4,8 +4,8 @@
 QMap<QString, double> RecordTracker::parseGameRecord()
 {
     QMap<QString, double> result;
-
     QXmlStreamReader reader;
+
     QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/HistoricalGameData.xml");
     if(!file.open(QFile::ReadOnly | QFile::Text))
     {
@@ -14,11 +14,18 @@ QMap<QString, double> RecordTracker::parseGameRecord()
     else
     {
         reader.setDevice(&file);
-        while(reader.readNextStartElement())
+        while(reader.isEndDocument())
         {
-            result[reader.name().toString()] = reader.attributes().value(reader.name().toString()).toDouble();
+            QString name = reader.name().toString();
+            double amount = reader.readElementText().toDouble();
+            result[name] = amount;
+            reader.skipCurrentElement();
         }
         file.close();
+    }
+
+    for(QString current: result.keys()){
+       std::cout << current.toStdString() << std::endl;
     }
 
     return result;
@@ -39,14 +46,10 @@ void RecordTracker::writeGameRecord(QMap<QString, double> toWrite)
         writer.setAutoFormatting(true);
 
         writer.writeStartDocument();
-        writer.writeStartElement("Historical");
         for(QString currentKey: toWrite.keys())
         {
-            writer.writeStartElement(currentKey);
-            writer.writeAttribute(currentKey, QString::number(toWrite.value(currentKey)));
-            writer.writeEndElement();
+            writer.writeTextElement(currentKey, QString::number(toWrite.value(currentKey)));
         }
-        writer.writeEndElement();
         writer.writeEndDocument();
         file.close();
     }
