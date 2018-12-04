@@ -1,14 +1,14 @@
 #include "spritesheet.h"
 
-QVector<sf::Sprite> Spritesheet::makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight)
+QVector<sf::Sprite*> Spritesheet::makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight)
 {
-    QVector<sf::Sprite> sprites;
+    QVector<sf::Sprite*> sprites;
 
     sf::Texture texture;
     texture.loadFromFile(pathToSheet.toStdString());
 
-    int imagesInARow = texture.getSize().x/frameWidth;
-    int numberOfRows = texture.getSize().y/frameHeight;
+    int imagesInARow = (int)texture.getSize().x/frameWidth;
+    int numberOfRows = (int)texture.getSize().y/frameHeight;
 
     for(int rowCount = 0; rowCount < numberOfRows; rowCount++)
     {
@@ -19,10 +19,10 @@ QVector<sf::Sprite> Spritesheet::makeSprites(QString pathToSheet, int frameCount
                 // edge case if all the rows do not fully contain images
                 break;
             }
-
-            sprites.append(sf::Sprite(texture, sf::IntRect(framePosition, rowCount, frameWidth, frameHeight)));
+            sf::Sprite* newSprite = new sf::Sprite(texture, sf::IntRect(framePosition, rowCount, frameWidth, frameHeight));
+            sprites.append(newSprite);
+            //sprites.append(sf::Sprite(texture, sf::IntRect(framePosition, rowCount, frameWidth, frameHeight)));
         }
-
     }
 
     return sprites;
