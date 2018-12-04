@@ -146,8 +146,8 @@ void Controller::startRound(unsigned int difficulty)
 void Controller::endRound()
 {
     timer->stop();
+    endOfRoundHappiness();    
     calculateTip();
-    endOfRoundHappiness();
     emit moodToGameArea(currentHappiness);
 }
 
@@ -203,3 +203,11 @@ Drink* Controller::selectNewRandomDrink()
     currentDrink = userSpecifiedMenu[rand % userSpecifiedMenu.length()];
     return currentDrink;
 }
+
+/*
+ * TODO:
+ * no timer on easy
+ * fix scoring so multiple of a correct ingredient does not continue to give points
+ * make it so corrections can earn back points, eg. i added 1 mint leaf but need 2,
+ * I can add the other leaf to get a point for ammount, but order is missed.
+ */
