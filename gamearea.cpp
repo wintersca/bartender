@@ -31,17 +31,20 @@ void GameArea::OnInit()
     QVector<sf::Sprite> spritesFromSheet = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/ingredientsSheet.png", 49, 60, 80);
 
     // Create all ingredient sprite objects.
+    int ingredientIndex = 0;
     ingredientSprites = QVector<IngredientSprite>();
-    for (int i = 0; i < 49; i++)
+    for (sf::Sprite current: spritesFromSheet)
     {
-        // Add and assign an ingredient.
-        ingredientSprites.append(IngredientSprite());
-        ingredientSprites[i].ingredient = (Ingredients::Ingredients)i;
+        // grab texture from sheet
+        IngredientSprite ingredient;
+        ingredient.setTexture(current.getTexture());
+        ingredient.setTextureRect(current.getTextureRect());
 
-        // Add the image.
-        sf::Texture thisImage;
-        thisImage.loadFromMemory(spritesFromSheet[i].getTexture(), sizeof(spritesFromSheet[i].getTexture()));
-        ingredientSprites[i].setTexture(thisImage);
+        // assign ingredient name
+        ingredient.ingredient = (Ingredients::Ingredients)ingredientIndex;
+        ingredientIndex++;
+
+        ingredientSprites.append(ingredient);
     }
 
     // Give all sprites positions.
