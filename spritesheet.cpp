@@ -1,8 +1,8 @@
 #include "spritesheet.h"
 
-QVector<sf::Sprite> Spritesheet::makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight)
+QVector<IngredientSprite> Spritesheet::makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight)
 {
-    QVector<sf::Sprite> sprites;
+    QVector<IngredientSprite> sprites;
 
     sf::Texture texture;
     texture.loadFromFile(pathToSheet.toStdString());
@@ -20,7 +20,12 @@ QVector<sf::Sprite> Spritesheet::makeSprites(QString pathToSheet, int frameCount
                 break;
             }
 
-            sprites.append(sf::Sprite(texture, sf::IntRect(framePosition, rowCount, frameWidth, frameHeight)));
+            IngredientSprite new_sprite;
+
+            new_sprite.setTexture(texture);
+            new_sprite.setTextureRect(sf::IntRect(framePosition, rowCount, frameWidth, frameHeight));
+
+            sprites.append(new_sprite);
         }
 
     }
