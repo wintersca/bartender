@@ -2,7 +2,7 @@
 
 QVector<sf::Sprite> Spritesheet::makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight)
 {
-    QVector<IngredientSprite> sprites;
+    QVector<sf::Sprite> sprites;
 
     sf::Texture texture;
     texture.loadFromFile(pathToSheet.toStdString());

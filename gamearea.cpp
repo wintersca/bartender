@@ -37,7 +37,7 @@ void GameArea::OnInit()
     {
         // grab texture from sheet
         IngredientSprite ingredient;
-        ingredient.setTexture(current.getTexture());
+        ingredient.setTexture(*current.getTexture());
         ingredient.setTextureRect(current.getTextureRect());
 
         // assign ingredient name
