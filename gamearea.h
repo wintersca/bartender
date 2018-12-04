@@ -10,6 +10,7 @@
 #include "ingredients.h"
 #include <QMouseEvent>
 #include "ingredientsprite.h"
+#include "./Box2D/Box2D/Box2D.h"
 
 class GameArea : public QSFMLCanvas
 {

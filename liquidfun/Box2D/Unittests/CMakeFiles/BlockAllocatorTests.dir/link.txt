@@ -1,0 +1,1 @@
+/usr/bin/c++   -DDEBUG=0 -Wall -Wno-long-long -Wno-variadic-macros  -rdynamic CMakeFiles/BlockAllocatorTests.dir/BlockAllocator/BlockAllocatorTests.cpp.o CMakeFiles/BlockAllocatorTests.dir/BodyTracker.cpp.o  -o Release/BlockAllocatorTests ../googletest/Release/libgtest.a ../Box2D/Release/libliquidfun.a -lpthread -lrt 
