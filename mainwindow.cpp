@@ -157,23 +157,27 @@ void MainWindow::receiveDrink(Drink* drink)
     }
 
     // Display all the ingredients.
-    int ingredientIndex = 0;
-    QMapIterator<Ingredients::Ingredients, double> i(drink->IngredientsMap);
-    while (i.hasNext())
+    // Check that the difficulty isn't set to hard.
+    if (currentDifficulty != Difficulty::hard)
     {
-        i.next();
-        // Display amount
-        ingredientAmountLabels[ingredientIndex]->setText(QString::number(i.value()));
+        int ingredientIndex = 0;
+        QMapIterator<Ingredients::Ingredients, double> i(drink->IngredientsMap);
+        while (i.hasNext())
+        {
+            i.next();
+            // Display amount
+            ingredientAmountLabels[ingredientIndex]->setText(QString::number(i.value()));
 
-        // Display name.
-        QString ingredientName = Ingredients::ingredientData[i.key()].displayString;
-        ingredientNameLabels[ingredientIndex]->setText(ingredientName);
+            // Display name.
+            QString ingredientName = Ingredients::ingredientData[i.key()].displayString;
+            ingredientNameLabels[ingredientIndex]->setText(ingredientName);
 
-        // Display units.
-        QString ingredientUnits = Ingredients::ingredientData[i.key()].unit;
-        ingredientUnitLabels[ingredientIndex]->setText(ingredientUnits);
+            // Display units.
+            QString ingredientUnits = Ingredients::ingredientData[i.key()].unit;
+            ingredientUnitLabels[ingredientIndex]->setText(ingredientUnits);
 
-        ingredientIndex++;
+            ingredientIndex++;
+        }
     }
 
     // Display the trivia.
