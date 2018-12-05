@@ -48,6 +48,7 @@ void Controller::newCustomer(unsigned int difficulty)
         qDebug() << s.getItem();
     moodValueModifier = static_cast<double>(currentHappiness) / 10;
     stepCount = 0;
+    addedIngredients.clear();
 }
 
 /*
@@ -98,20 +99,30 @@ void Controller::checkIngredient(Ingredients::Ingredients ingredient, double amo
     Step currentStep = steps.at(stepCount);
     bool equalAmts = qFabs(amount - currentStep.getAmount()) < 0.01;
     // right ingredient in right order or just a correct ingredient
-    if(currentStep.getItem() == ingredient)
-        drinkPoints += 2;
-    else
+    if(!addedIngredients.contains(ingredient)) //if haven't previously played ingredient
     {
-        for (Step s : steps)
+        if(currentStep.getItem() == ingredient)
+            drinkPoints += 2;
+        else
         {
-            if (s.getItem() == ingredient){
-                drinkPoints++;
-                break;
+            for (Step s : steps)
+            {
+                if (s.getItem() == ingredient){
+                    drinkPoints++;
+                    break;
+                }
             }
         }
+        if(equalAmts)
+            drinkPoints++;
+        addedIngredients.insert(ingredient, amount);
     }
-    if(equalAmts)
-        drinkPoints++;
+    else //have previously played ingredient
+    {
+        if(qFabs(addedIngredients[ingredient] - currentStep.getAmount()) < 0.01) //have already added correct amount
+            drinkPoints--; //lose points given for correct amount
+        addedIngredients[ingredient] += amount;
+    }
     stepCount++;
 }
 
@@ -137,10 +148,15 @@ void Controller::startRound(unsigned int difficulty)
     drinkPoints = 0;
     timeToCompleteDrink = static_cast<int>(moodValueModifier * 8 * drinkComplexity);
     emit sendDrink(currentDrink);
-    emit sendTime(timeToCompleteDrink);
     emit moodToGameArea(currentHappiness);
     emit sendSelectedCustomer(selectedCustomer);
-    timer->start(1000);
+    if(difficulty != 0) //easy
+    {
+        timer->start(1000);
+        emit sendTime(timeToCompleteDrink);
+    }
+    else
+        emit sendTime(0);
 }
 
 void Controller::endRound()
@@ -203,11 +219,3 @@ Drink* Controller::selectNewRandomDrink()
     currentDrink = userSpecifiedMenu[rand % userSpecifiedMenu.length()];
     return currentDrink;
 }
-
-/*
- * TODO:
- * no timer on easy
- * fix scoring so multiple of a correct ingredient does not continue to give points
- * make it so corrections can earn back points, eg. i added 1 mint leaf but need 2,
- * I can add the other leaf to get a point for ammount, but order is missed.
- */

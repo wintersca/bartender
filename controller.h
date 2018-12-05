@@ -70,6 +70,7 @@ private:
     double moodValueModifier;
     QVector<Drink*> menu;
     QVector<Drink*> userSpecifiedMenu;
+    QMap<Ingredients::Ingredients,double> addedIngredients;
     XMLDrinkParser *parser;
     QTimer *timer;
     QString trivia;
