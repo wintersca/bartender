@@ -109,6 +109,11 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
         ingredientUnitLabels[i]->setText("");
     }
 
+    // Set up the amounts to pour box.
+    ui->amountToAdd->setMinimum(0.25);
+    ui->amountToAdd->setSingleStep(0.25);
+    ui->amountToAdd->setValue(1.0);
+
     // Controller set up.
     controller = controllerPtr;
 
@@ -117,6 +122,9 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      controller, &Controller::startGame);
     QObject::connect(this, &MainWindow::requestMenu,
                       controller, &Controller::menuRequestedByMainWindow);
+    QObject::connect(this, &MainWindow::sendAmountToAdd,
+                      controller, &Controller::receiveAmountToAdd);
+
     // from controller
     QObject::connect(controller, &Controller::sendDrink,
                      this, &MainWindow::receiveDrink);
@@ -126,6 +134,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      this, &MainWindow::receiveMenu);
     QObject::connect(controller, &Controller::tipAmountToGame,
                      this, &MainWindow::receiveTips);
+    QObject::connect(controller, &Controller::requestAmountToAdd,
+                     this, &MainWindow::requestAmountToAdd);
 
 }
 
@@ -147,23 +157,27 @@ void MainWindow::receiveDrink(Drink* drink)
     }
 
     // Display all the ingredients.
-    int ingredientIndex = 0;
-    QMapIterator<Ingredients::Ingredients, double> i(drink->IngredientsMap);
-    while (i.hasNext())
+    // Check that the difficulty isn't set to hard.
+    if (currentDifficulty != Difficulty::hard)
     {
-        i.next();
-        // Display amount
-        ingredientAmountLabels[ingredientIndex]->setText(QString::number(i.value()));
+        int ingredientIndex = 0;
+        QMapIterator<Ingredients::Ingredients, double> i(drink->IngredientsMap);
+        while (i.hasNext())
+        {
+            i.next();
+            // Display amount
+            ingredientAmountLabels[ingredientIndex]->setText(QString::number(i.value()));
 
-        // Display name.
-        QString ingredientName = Ingredients::ingredientData[i.key()].displayString;
-        ingredientNameLabels[ingredientIndex]->setText(ingredientName);
+            // Display name.
+            QString ingredientName = Ingredients::ingredientData[i.key()].displayString;
+            ingredientNameLabels[ingredientIndex]->setText(ingredientName);
 
-        // Display units.
-        QString ingredientUnits = Ingredients::ingredientData[i.key()].unit;
-        ingredientUnitLabels[ingredientIndex]->setText(ingredientUnits);
+            // Display units.
+            QString ingredientUnits = Ingredients::ingredientData[i.key()].unit;
+            ingredientUnitLabels[ingredientIndex]->setText(ingredientUnits);
 
-        ingredientIndex++;
+            ingredientIndex++;
+        }
     }
 
     // Display the trivia.
@@ -252,6 +266,11 @@ void MainWindow::receiveTips(int tipDollars, int tipCents)
     tipsString.append(QString::number(tipCents));
 
     ui->tipsAmount->setText(tipsString);
+}
+
+void MainWindow::requestAmountToAdd()
+{
+    emit sendAmountToAdd(ui->amountToAdd->value());
 }
 
 void MainWindow::on_actionEdit_Available_Drinks_triggered()

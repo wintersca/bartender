@@ -1,29 +1,40 @@
 #include "spritesheet.h"
 
-QVector<sf::Sprite*> Spritesheet::makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight)
+QVector<QFileInfo> Spritesheet::makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight)
 {
-    QVector<sf::Sprite*> sprites;
+    QVector<QFileInfo> spriteFiles;
+    QFileInfo file(pathToSheet);
 
-    sf::Texture texture;
-    texture.loadFromFile(pathToSheet.toStdString());
+    QImage spritesheet(pathToSheet);
 
-    int imagesInARow = (int)texture.getSize().x/frameWidth;
-    int numberOfRows = (int)texture.getSize().y/frameHeight;
+    int imagesInARow = spritesheet.width() / frameWidth;
+    int numberOfRows = spritesheet.height() / frameHeight;
 
-    for(int rowCount = 0; rowCount < numberOfRows; rowCount++)
+    int imageCount = 1;
+
+    for(int framePosition = 0; framePosition < imagesInARow; framePosition++)
     {
-        for(int framePosition = 0; framePosition < imagesInARow; framePosition++)
+        for(int rowCount = 0; rowCount < numberOfRows; rowCount++)
         {
-            if(sprites.length() >= frameCount)
+            if(spriteFiles.length() >= frameCount)
             {
                 // edge case if all the rows do not fully contain images
                 break;
             }
-            sf::Sprite* newSprite = new sf::Sprite(texture, sf::IntRect(framePosition, rowCount, frameWidth, frameHeight));
-            sprites.append(newSprite);
-            //sprites.append(sf::Sprite(texture, sf::IntRect(framePosition, rowCount, frameWidth, frameHeight)));
+
+            QString directory = file.absolutePath();
+            directory.append("/");
+            directory.append(QString::number(imageCount));
+            directory.append(".png");
+
+            QImage newSprite = spritesheet.copy(rowCount*frameWidth, framePosition*frameHeight, frameWidth, frameHeight);
+            newSprite.save(directory);
+
+            spriteFiles.append(directory);
+
+            imageCount++;
         }
     }
 
-    return sprites;
+    return spriteFiles;
 }

@@ -35,10 +35,10 @@ public slots:
     void drinkServed();
 
     // from MainWindow
-
     void menuRequestedByMainWindow();
     void receiveUserSpecifiedMenu(QVector<Drink*> newMenu);
     void startGame(unsigned int difficulty);
+    void receiveAmountToAdd(double amount);
 
 signals:
     // to gameArea
@@ -54,6 +54,7 @@ signals:
     void sendDrink(Drink* drink);
     void sendTime(int currentTime);
     void tipAmountToGame(int tipDollars, int tipCents);
+    void requestAmountToAdd();
 
 private:
     Drink* currentDrink;

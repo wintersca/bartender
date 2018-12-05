@@ -61,6 +61,11 @@ void Controller::startGame(unsigned int difficultyInit)
     startRound(difficulty);
 }
 
+void Controller::receiveAmountToAdd(double amount)
+{
+    qDebug() << "amount to add is " << amount << "\n";
+}
+
 void Controller::menuRequestedByMainWindow()
 {
     emit menuToMainWindow(menu);
