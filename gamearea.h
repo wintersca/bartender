@@ -24,6 +24,7 @@ public :
 
     void mousePressEvent(QMouseEvent* e);
     void mouseReleaseEvent(QMouseEvent* e);
+    void pouring();
 
 private :
 
