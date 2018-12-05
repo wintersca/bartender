@@ -99,8 +99,8 @@ private :
 
     // Positions relative to the center.
 
-    int verticalPositions[4] = { 69, 169, 269, 369 };
-    int horizontalPositions[14] = { 42, 118, 194, 269, 345, 421, 497, 572, 648, 724, 800, 875, 951, 1027 };
+    const int verticalPositions[4] = { 69, 169, 269, 369 };
+    const int horizontalPositions[14] = { 42, 118, 194, 269, 345, 421, 497, 572, 648, 724, 800, 875, 951, 1027 };
 
     /*
     // Positions relative to the top left edge.

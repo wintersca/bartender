@@ -109,11 +109,11 @@ void GameArea::OnInit()
     mySprite.setPosition(250.f, 250.f);
     mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
 
+    // Load the background image.
     if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gamePlayBackground.png"))
     {
         qDebug() << "Couldn't load background.";
     }
-  
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setPosition(0.f, 0.f);
 
