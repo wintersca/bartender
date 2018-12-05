@@ -112,7 +112,7 @@ private :
     */
 
 signals:
-    void ingredientAdded(Ingredients::Ingredients, double ammount);
+    void ingredientAdded(Ingredients::Ingredients);
     void drinkServed();
     void requestMenu();
 

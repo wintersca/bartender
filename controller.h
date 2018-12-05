@@ -30,7 +30,7 @@ public slots:
 
     // from gameArea
 
-    void checkIngredient(Ingredients::Ingredients ingredient, double amount);
+    void checkIngredient(Ingredients::Ingredients ingredient);
     void menuRequestByGameArea();
     void drinkServed();
 
@@ -58,10 +58,9 @@ signals:
 
 private:
     Drink* currentDrink;
-    int selectedCustomer;
     int currentHappiness;
+    int standardizedHappiness;
     int stepCount;
-    int errorCount;
     int totalTipDollars;
     int totalTipCents;
     int timeToCompleteDrink;
@@ -69,6 +68,7 @@ private:
     int drinkPoints;
     unsigned int difficulty;
     double moodValueModifier;
+    double ingredientAmount;
     QVector<Drink*> menu;
     QVector<Drink*> userSpecifiedMenu;
     QMap<Ingredients::Ingredients,double> addedIngredients;
@@ -86,7 +86,10 @@ private:
     Drink* selectNewRandomDrink();
     void updateTimer(int currentTime);
     void updateTipTotal(int newTipDollars, int newTipCents);
-    void endOfRoundHappiness();
+    void endOfRoundHappinessBonus();
+    void standardizeHappiness();
+    bool containsIngredient(Ingredients::Ingredients ingredient, QVector<Step> steps);
+    bool outOfOrderAmount(Ingredients::Ingredients ingredient, QVector<Step> steps, double amount);
 
 
 
