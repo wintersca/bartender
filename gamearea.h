@@ -50,41 +50,43 @@ private :
     sf::Texture textureGreenCremeDeMenthe;
     sf::Texture textureCremeDeCacao;
     sf::Texture texturePeachSchnapps;
+
     sf::Texture textureSalt;
     sf::Texture textureMargaritaSalt;
     sf::Texture texturePepper;
+    sf::Texture textureNutmeg;
     sf::Texture textureice;
-    sf::Texture textureSimpleSyrup;
+
     sf::Texture textureTonicWater;
     sf::Texture textureSparklingWater;
-    sf::Texture textureAngosturaBitters;
-    sf::Texture textureCola;
     sf::Texture textureClubSoda;
+    sf::Texture textureCola;
+    sf::Texture textureSimpleSyrup;
     sf::Texture textureCream;
+    sf::Texture textureAngosturaBitters;
     sf::Texture textureWorcestershireSauce;
+    sf::Texture textureCreamOfCoconut;
+    sf::Texture textureGingerBeer;
+
     sf::Texture textureOrangeJuice;
     sf::Texture textureLimeJuice;
     sf::Texture textureLemonJuice;
     sf::Texture texturePineappleJuice;
     sf::Texture textureTomatoJuice;
     sf::Texture textureCranberryJuice;
+
     sf::Texture textureOrangeWedge;
     sf::Texture textureOrangeTwist;
     sf::Texture textureLimeWedge;
     sf::Texture textureLimeTwist;
     sf::Texture textureLemonTwist;
     sf::Texture texturePineappleWedge;
-    sf::Texture textureCreamOfCoconut;
-    sf::Texture textureGingerBeer;
     sf::Texture textureMintLeaf;
     sf::Texture textureMintSprig;
     sf::Texture textureCherry;
     sf::Texture textureGreenOlive;
     sf::Texture textureCelery;
-    sf::Texture textureNutmeg;
-    sf::Texture textureShake;
-    sf::Texture textureStir;
-    sf::Texture textureMuddle;
+
 
     sf::Image backgroundImage;
     sf::Texture backgroundTexture;
