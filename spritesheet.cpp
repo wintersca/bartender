@@ -20,6 +20,7 @@ QVector<QFileInfo> Spritesheet::makeSprites(QString pathToSheet, int frameCount,
                 // edge case if all the rows do not fully contain images
                 break;
             }
+
             QString directory = file.absolutePath();
             directory.append("/");
             directory.append(QString::number(imageCount));
@@ -32,7 +33,6 @@ QVector<QFileInfo> Spritesheet::makeSprites(QString pathToSheet, int frameCount,
 
             imageCount++;
         }
-
     }
 
     return spriteFiles;
