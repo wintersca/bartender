@@ -1,29 +1,39 @@
 #include "spritesheet.h"
 
-QVector<sf::Sprite> Spritesheet::makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight)
+QVector<QFileInfo> Spritesheet::makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight)
 {
-    QVector<sf::Sprite> sprites;
+    QVector<QFileInfo> spriteFiles;
+    QFileInfo file(pathToSheet);
 
-    sf::Texture texture;
-    texture.loadFromFile(pathToSheet.toStdString());
+    QImage spritesheet(pathToSheet);
 
-    int imagesInARow = texture.getSize().x/frameWidth;
-    int numberOfRows = texture.getSize().y/frameHeight;
+    int imagesInARow = spritesheet.width()/frameWidth;
+    int numberOfRows = spritesheet.height()/frameHeight;
 
+    int imageCount = 1;
     for(int rowCount = 0; rowCount < numberOfRows; rowCount++)
     {
         for(int framePosition = 0; framePosition < imagesInARow; framePosition++)
         {
-            if(sprites.length() >= frameCount)
+            if(spriteFiles.length() >= frameCount)
             {
                 // edge case if all the rows do not fully contain images
                 break;
             }
+            QString directory = file.absolutePath();
+            directory.append("/");
+            directory.append(QString::number(imageCount));
+            directory.append(".png");
 
-            sprites.append(sf::Sprite(texture, sf::IntRect(framePosition, rowCount, frameWidth, frameHeight)));
+            QImage newSprite = spritesheet.copy(rowCount*frameWidth, framePosition*frameHeight, frameWidth, frameHeight);
+            newSprite.save(directory);
+
+            spriteFiles.append(directory);
+
+            imageCount++;
         }
 
     }
 
-    return sprites;
+    return spriteFiles;
 }
