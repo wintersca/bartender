@@ -32,6 +32,7 @@ private slots:
     void receiveTime(int currentTime);
     void receiveMenu(QVector<Drink*> menu);
     void receiveTips(int tipDollars, int tipCents);
+    void requestAmountToAdd();
 
     void on_actionEdit_Available_Drinks_triggered();
     void on_actionCreat_Custom_Drink_triggered();
@@ -44,6 +45,7 @@ private slots:
 signals:
     void start(unsigned int difficulty); //TODO put an enum as the parameter
     void requestMenu();
+    void sendAmountToAdd(double amount);
 
 
 private:

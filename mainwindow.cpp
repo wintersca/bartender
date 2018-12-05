@@ -109,6 +109,11 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
         ingredientUnitLabels[i]->setText("");
     }
 
+    // Set up the amounts to pour box.
+    ui->amountToAdd->setMinimum(0.25);
+    ui->amountToAdd->setSingleStep(0.25);
+    ui->amountToAdd->setValue(1.0);
+
     // Controller set up.
     controller = controllerPtr;
 
@@ -117,6 +122,9 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      controller, &Controller::startGame);
     QObject::connect(this, &MainWindow::requestMenu,
                       controller, &Controller::menuRequestedByMainWindow);
+    QObject::connect(this, &MainWindow::sendAmountToAdd,
+                      controller, &Controller::receiveAmountToAdd);
+
     // from controller
     QObject::connect(controller, &Controller::sendDrink,
                      this, &MainWindow::receiveDrink);
@@ -126,6 +134,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      this, &MainWindow::receiveMenu);
     QObject::connect(controller, &Controller::tipAmountToGame,
                      this, &MainWindow::receiveTips);
+    QObject::connect(controller, &Controller::requestAmountToAdd,
+                     this, &MainWindow::requestAmountToAdd);
 
 }
 
@@ -252,6 +262,11 @@ void MainWindow::receiveTips(int tipDollars, int tipCents)
     tipsString.append(QString::number(tipCents));
 
     ui->tipsAmount->setText(tipsString);
+}
+
+void MainWindow::requestAmountToAdd()
+{
+    emit sendAmountToAdd(ui->amountToAdd->value());
 }
 
 void MainWindow::on_actionEdit_Available_Drinks_triggered()

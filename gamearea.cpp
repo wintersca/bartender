@@ -26,7 +26,6 @@ void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
         qDebug() << "Mouse is on Sprite: " << Ingredients::ingredientData[mySprite.ingredient].displayString;
         emit ingredientAdded(Ingredients::Tequila);
     }
-
 }
 
 void GameArea::mouseReleaseEvent(QMouseEvent *e)
