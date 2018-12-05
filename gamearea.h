@@ -93,6 +93,7 @@ private :
     sf::Sprite backgroundSprite;
 
     void OnInit();
+
     void assignTextures(QVector<QFileInfo>);
 
     void OnUpdate();

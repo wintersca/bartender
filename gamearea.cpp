@@ -50,15 +50,15 @@ void GameArea::OnInit()
     assignTextures(spritesFromSheet);
 
     // Create all ingredient sprite objects.
-    int ingredientIndex = 0;
-    for (IngredientSprite current: ingredientSprites)
+    //int ingredientIndex = 0;
+    for (int i = 0; i < Ingredients::TRUEINGREDIENTS; i++)
+    //for (IngredientSprite current: ingredientSprites)
     {
         // Center
-        current.setOrigin(current.getGlobalBounds().width / 2, current.getGlobalBounds().height / 2);
+        ingredientSprites[i].setOrigin(ingredientSprites[i].getGlobalBounds().width / 2, ingredientSprites[i].getGlobalBounds().height / 2);
 
         // assign ingredient name
-        current.ingredient = (Ingredients::Ingredients)ingredientIndex;
-        ingredientIndex++;
+        ingredientSprites[i].ingredient = (Ingredients::Ingredients)i;
     }
 
     // Give all sprites positions.
@@ -122,6 +122,8 @@ void GameArea::OnInit()
 
 void GameArea::assignTextures(QVector<QFileInfo> sprites)
 {
+    //QVector<IngredientSprite> ingredients = QVector<IngredientSprite>();
+    ingredientSprites = QVector<IngredientSprite>();
     for(QFileInfo current: sprites){
        ingredientSprites.append(IngredientSprite());
     }
