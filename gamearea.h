@@ -29,12 +29,19 @@ public :
 private :
 
     QVector<IngredientSprite> ingredientSprites;
-
-    sf::Image  myImage;
-    IngredientSprite mySprite;
-    sf::Texture myTexture;
     IngredientSprite* selected;
+    IngredientSprite glassImage;
 
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite;
+
+    QVector<IngredientSprite> faceSprites;
+    QVector<sf::Texture> faceTextures;
+    int currentMood;
+
+    QVector<sf::Texture> trueIngredientTextures;
+
+    /*
     sf::Texture textureVodka;
     sf::Texture textureTequila;
     sf::Texture textureBourbon;
@@ -88,15 +95,11 @@ private :
     sf::Texture textureCherry;
     sf::Texture textureGreenOlive;
     sf::Texture textureCelery;
-
-
-    sf::Image backgroundImage;
-    sf::Texture backgroundTexture;
-    sf::Sprite backgroundSprite;
+    */
 
     void OnInit();
 
-    void assignTextures(QVector<QFileInfo>);
+    //void assignTextures(QVector<QFileInfo>);
 
     void OnUpdate();
 
@@ -104,6 +107,7 @@ private :
 
     const int verticalPositions[4] = { 69, 169, 269, 369 };
     const int horizontalPositions[14] = { 42, 118, 194, 269, 345, 421, 497, 572, 648, 724, 800, 875, 951, 1027 };
+    const int barVerticalPosition = 596;
 
     /*
     // Positions relative to the top left edge.
