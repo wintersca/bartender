@@ -81,24 +81,24 @@ void Controller::newCustomer(unsigned int difficulty)
     {
         case 0:
         {
-            currentHappiness = (rand % 2) + 3;
+            currentHappiness = (rand % 2) + 4;
             break;
         }
         case 1:
         {
-            currentHappiness = (rand % 2) + 2;
+            currentHappiness = (rand % 2) + 3;
             break;
         }
         case 2:
         {
-            currentHappiness = (rand % 2) + 1;
+            currentHappiness = (rand % 2) + 2;
             break;
         }
     }
     currentDrink = selectNewRandomDrink();
     for (Step s : currentDrink->getSteps())
         qDebug() << s.getItem();
-    moodValueModifier = static_cast<double>(currentHappiness) / 4;
+    moodValueModifier = static_cast<double>(currentHappiness) / 5;
     stepCount = 0;
     addedIngredients.clear();
 }
@@ -115,7 +115,7 @@ void Controller::timerUpdate()
     if (currentHappiness > 0)
     {
         emit sendTime(timeToCompleteDrink--);
-        if (timeToCompleteDrink < 0 && timeToCompleteDrink % static_cast<int>(4*moodValueModifier) == 0)
+        if (timeToCompleteDrink < 0 && timeToCompleteDrink % static_cast<int>(5*moodValueModifier) == 0)
             emit moodToGameArea(currentHappiness--);
     }
     else
@@ -204,28 +204,33 @@ void Controller::endOfRoundHappinessBonus()
     if (currentHappiness > 0)
     {
         int drinkScore = 100 * drinkPoints / drinkComplexity * 3;
-        if (drinkScore >= 90)
+        if (drinkScore >= 100)
+            currentHappiness += 3;
+        else if (drinkScore >= 80)
             currentHappiness += 2;
-        else if (drinkScore >= 75)
+        else if (drinkScore >= 60)
             currentHappiness += 1;
-        else if (drinkScore < 50)
+        else if (drinkScore >= 40)
             currentHappiness -= 1;
-        else if (drinkScore <= 25)
+        else if (drinkScore >= 20)
             currentHappiness -= 2;
+        else
+            currentHappiness -=3;
     }
-    moodValueModifier = currentHappiness / 4;
+    moodValueModifier = currentHappiness / 5;
 }
 
 void Controller::calculateTip()
 {
-    if (currentHappiness <= 0)
-        return;
-    int tip = static_cast<int>((drinkPoints) * 10 * moodValueModifier);
-    totalTipDollars += tip / 100;
-    totalTipCents += tip % 100;
-    totalTipDollars += totalTipCents / 100;
-    totalTipCents = totalTipCents % 100;
-    emit updateTipTotal(totalTipDollars, totalTipCents);
+    if (currentHappiness > 0)
+    {
+        int tip = static_cast<int>((drinkPoints) * 10 * moodValueModifier);
+        totalTipDollars += tip / 100;
+        totalTipCents += tip % 100;
+        totalTipDollars += totalTipCents / 100;
+        totalTipCents = totalTipCents % 100;
+        emit updateTipTotal(totalTipDollars, totalTipCents);
+    }
 }
 
 void Controller::updateTipTotal(int newTipDollars, int newTipCents)
@@ -237,6 +242,6 @@ void Controller::updateTipTotal(int newTipDollars, int newTipCents)
 
 void Controller::standardizeHappiness()
 {
-    if (currentHappiness > 4)
-        currentHappiness = 4;
+    if (currentHappiness > 5)
+        currentHappiness = 5;
 }
