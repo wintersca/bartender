@@ -211,7 +211,7 @@ void Controller::calculateTip()
 {
     if (currentHappiness > 0)
     {
-        int tip = static_cast<int>((drinkPoints) * 10 * moodValueModifier);
+        int tip = static_cast<int>((drinkPoints) * (10 * moodValueModifier));
         totalTipDollars += tip / 100;
         totalTipCents += tip % 100;
         totalTipDollars += totalTipCents / 100;
