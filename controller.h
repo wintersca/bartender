@@ -95,12 +95,6 @@ private:
 #endif // CONTROLLER_H
 
 
-
-
-
-
-
-
 /* template signals TO controller
  * all of these go in the class you are connecting with, not the controller.
  *
