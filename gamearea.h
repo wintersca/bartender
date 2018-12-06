@@ -27,14 +27,20 @@ public :
 private :
 
     QVector<IngredientSprite> ingredientSprites;
+    IngredientSprite* selected;
+    IngredientSprite glassImage;
 
-    sf::Image  myImage;
+    //sf::Image backgroundImage;
+    sf::Texture backgroundTexture;
+    sf::Sprite backgroundSprite;
+
+    //sf::Image  myImage;
     //IngredientSprite mySprite;
     //sf::Texture myTexture;
-    IngredientSprite* selected;
+
 
     // Tools
-    IngredientSprite muddle;
+    //IngredientSprite muddle;
 
     sf::Texture textureVodka;
     sf::Texture textureTequila;
@@ -91,9 +97,7 @@ private :
     sf::Texture textureCelery;
 
 
-    sf::Image backgroundImage;
-    sf::Texture backgroundTexture;
-    sf::Sprite backgroundSprite;
+
 
     void OnInit();
 

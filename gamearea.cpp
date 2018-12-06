@@ -27,6 +27,14 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
     {
         // Put the item back on the shelf.
         selected->setPosition(selected->shelfPosition.x(), selected->shelfPosition.y());
+
+        // Check if it was added to the drink.
+        sf::Vector2i mouse = sf::Mouse::getPosition(*this);
+        if (glassImage.getGlobalBounds().contains(sf::Vector2f(mouse)))
+        {
+            qDebug() << "Added to drink" << selected->ingredient << "\n";
+            emit ingredientAdded(selected->ingredient);
+        }
     }
 
     selected = nullptr;
@@ -86,12 +94,6 @@ void GameArea::OnInit()
         ingredientSprites[i + 38].shelfPosition = QPoint(horizontalPositions[i + 3], verticalPositions[1]);
     }
 
-    // Set starting positions.
-    for (int i = 0; i < Ingredients::TRUEINGREDIENTS; i++)
-    {
-        ingredientSprites[i].setPosition(ingredientSprites[i].shelfPosition.x(), ingredientSprites[i].shelfPosition.y());
-    }
-
     // Add the tools.
     ingredientSprites.append(IngredientSprite());
     ingredientSprites[Ingredients::Shake].storedTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/shakerLid.png");
@@ -109,28 +111,20 @@ void GameArea::OnInit()
     {
         ingredientSprites[i].setTexture(ingredientSprites[i].storedTexture);
         ingredientSprites[i].setOrigin(ingredientSprites[i].getGlobalBounds().width / 2, ingredientSprites[i].getGlobalBounds().height / 2);
+        ingredientSprites[i].ingredient = (Ingredients::Ingredients)i;
+    }
+
+    // Set starting positions of ingredients and tools.
+    for (int i = 0; i < Ingredients::ITEMSININGREDIENTS; i++)
+    {
         ingredientSprites[i].setPosition(ingredientSprites[i].shelfPosition.x(), ingredientSprites[i].shelfPosition.y());
     }
 
-
-    /*
-    muddle.storedTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/muddler.png");
-    muddle.ingredient = Ingredients::Muddle;
-    muddle.setTexture(muddle.storedTexture);
-    muddle.shelfPosition = QPoint(1020, 596);
-    muddle.setOrigin(muddle.getGlobalBounds().width / 2, muddle.getGlobalBounds().height / 2);
-    muddle.setPosition(muddle.shelfPosition.x(), muddle.shelfPosition.y());
-    */
-
-
-    /*
-    // Create the test cherry.
-    myTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/cherry.png");
-    mySprite.ingredient = Ingredients::DarkRum;
-    mySprite.setTexture(myTexture);
-    mySprite.setPosition(250.f, 250.f);
-    mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
-    */
+    // Load the glass image.
+    glassImage.storedTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/glass.png");
+    glassImage.setTexture(glassImage.storedTexture);
+    glassImage.setOrigin(glassImage.getGlobalBounds().width / 2, glassImage.getGlobalBounds().height / 2);
+    glassImage.setPosition(534, barVerticalPosition);
 
     // Load the background image.
     if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gamePlayBackground.png"))
@@ -150,16 +144,15 @@ void GameArea::OnUpdate()
     clear(sf::Color(0, 180, 0));
     sf::Vector2i mouse = sf::Mouse::getPosition(*this);
 
+    draw(backgroundSprite);
+    draw(glassImage);
+
     // Update the position of a clicked item.
     if(selected)
     {
         selected->setPosition(mouse.x, mouse.y);
         //qDebug() << mouse.x << ", " << mouse.y;
     }
-
-    draw(backgroundSprite);
-    //draw(mySprite);
-    //draw(muddle);
 
     // Draw all ingredients and tools.
     for (int i = 0; i < Ingredients::ITEMSININGREDIENTS; i++)
