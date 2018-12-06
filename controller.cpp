@@ -201,22 +201,9 @@ void Controller::endRound()
 
 void Controller::endOfRoundHappinessBonus()
 {
-    if (currentHappiness > 0)
-    {
-        int drinkScore = 100 * drinkPoints / drinkComplexity * 3;
-        if (drinkScore >= 100)
-            currentHappiness += 3;
-        else if (drinkScore >= 80)
-            currentHappiness += 2;
-        else if (drinkScore >= 60)
-            currentHappiness += 1;
-        else if (drinkScore >= 40)
-            currentHappiness -= 1;
-        else if (drinkScore >= 20)
-            currentHappiness -= 2;
-        else
-            currentHappiness -=3;
-    }
+    if (currentHappiness > 0)       
+        currentHappiness += ((5 * drinkPoints) / (drinkComplexity * 3)) - 2;
+    qDebug() << "happiness after round: " << currentHappiness;
     moodValueModifier = currentHappiness / 5;
 }
 
