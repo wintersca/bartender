@@ -42,10 +42,13 @@ private slots:
     void on_actionHard_triggered();
     void on_actionStart_triggered();
 
+    void on_serveButton_clicked();
+
 signals:
     void start(unsigned int difficulty); //TODO put an enum as the parameter
     void requestMenu();
     void sendAmountToAdd(double amount);
+    void drinkServed();
 
 
 private:

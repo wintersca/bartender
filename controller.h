@@ -30,18 +30,19 @@ public slots:
 
     // from gameArea
     void checkIngredient(Ingredients::Ingredients ingredient);
-    void menuRequestByGameArea();
-    void drinkServed();
+    void menuRequestByGameArea();    
 
     // from MainWindow
     void menuRequestedByMainWindow();
     void receiveUserSpecifiedMenu(QVector<Drink*> newMenu);
     void startGame(unsigned int difficulty);
     void receiveAmountToAdd(double amount);
+    void drinkServed();
 
 signals:
     // to gameArea
     void moodToGameArea(int happinessLevel);
+    void clearDrink();
 
     // to MainWindow
     void menuToMainWindow(QVector<Drink*> menu);

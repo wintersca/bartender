@@ -123,6 +123,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                       controller, &Controller::menuRequestedByMainWindow);
     QObject::connect(this, &MainWindow::sendAmountToAdd,
                       controller, &Controller::receiveAmountToAdd);
+    QObject::connect(this, &MainWindow::drinkServed,
+                      controller, &Controller::drinkServed);
 
     // from controller
     QObject::connect(controller, &Controller::sendDrink,
@@ -319,4 +321,9 @@ void MainWindow::on_actionStart_triggered()
     // Testing
     //receiveTime(-30);
     //receiveTips(73, 47);
+}
+
+void MainWindow::on_serveButton_clicked()
+{
+    emit drinkServed();
 }

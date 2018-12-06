@@ -6,15 +6,15 @@ GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, C
     controller = ctrlrPtr;
     // to controller
     QObject::connect(this, &GameArea::ingredientAdded,
-                     controller, &Controller::checkIngredient);
-    QObject::connect(this, &GameArea::drinkServed,
-                     controller, &Controller::drinkServed);
+                     controller, &Controller::checkIngredient);   
     QObject::connect(this, &GameArea::requestMenu,
                      controller, &Controller::menuRequestByGameArea);
 
     // from controller
     QObject::connect(controller, &Controller::moodToGameArea,
                      this, &GameArea::receiveMood);
+    QObject::connect(controller, &Controller::clearDrink,
+                     this, &GameArea::drinkServed);
 }
 
 void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
@@ -214,6 +214,11 @@ void GameArea::OnUpdate()
 void GameArea::receiveMood(int mood)
 {
     currentMood = mood;
+}
+
+void GameArea::drinkServed()
+{
+    //TODO
 }
 
 /*

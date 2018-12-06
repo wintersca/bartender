@@ -77,7 +77,7 @@ void Controller::startRound()
 
 void Controller::newCustomer(unsigned int difficulty)
 {
-    int rand = static_cast<int>(qFabs(static_cast<int>(QRandomGenerator::global()->generate())));
+    int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
     switch(difficulty)
     {
         case 0:
@@ -106,7 +106,7 @@ void Controller::newCustomer(unsigned int difficulty)
 
 Drink* Controller::selectNewRandomDrink()
 {
-    int rand = static_cast<int>(qFabs(static_cast<int>(QRandomGenerator::global()->generate())));
+    int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
     currentDrink = userSpecifiedMenu[rand % userSpecifiedMenu.length()];
     return currentDrink;
 }
@@ -133,19 +133,21 @@ void Controller::checkIngredient(Ingredients::Ingredients ingredient)
     /*
      * TODO handle when the user adds more ingredients than we have steps
      * right now that makes it crash
+     *
+     * handle stirring, shaking, and muddling which have no ammount, we just should check if they are steps at all and have been added
      */
     if (currentDrink == nullptr)
         return;
     emit requestAmountToAdd();
     qDebug() << "We received " << ingredientAmount << " of " << ingredient;
     QVector<Step> steps = currentDrink->getSteps();
-    for (Step s : steps)
-        qDebug() << "ingredient: " << s.getItem() << " amount: " << s.getAmount();
-    Step currentStep = steps.at(stepCount);
+    Step currentStep;
+    if (stepCount < steps.length())
+        currentStep = steps.at(stepCount);
     qDebug() << "We should have received " << currentStep.getAmount() << " of it.";
     bool equalAmts = qFabs(ingredientAmount - currentStep.getAmount()) < 0.01;
     // right ingredient in right order or just a correct ingredient
-    if(!addedIngredients.contains(ingredient)) //if haven't previously played ingredient
+    if(!addedIngredients.contains(ingredient) && stepCount < steps.length()) // still following recipe
     {
         //correct ingredient, order, amount
         if (currentStep.getItem() == ingredient && equalAmts)
@@ -164,8 +166,10 @@ void Controller::checkIngredient(Ingredients::Ingredients ingredient)
             drinkPoints -= 3;
         addedIngredients.insert(ingredient, ingredientAmount);
     }
-    else //have previously played ingredient
+    else // recipe is out the window
     {
+        if (!addedIngredients.contains(ingredient))
+            addedIngredients.insert(ingredient, 0);
         addedIngredients[ingredient] += ingredientAmount;
         // if new amount is correct, get back the point lost or lose a point for another mistake
         if (outOfOrderAmount(ingredient, steps, addedIngredients[ingredient]))
@@ -200,7 +204,7 @@ bool Controller::outOfOrderAmount(Ingredients::Ingredients ingredient, QVector<S
 void Controller::drinkServed()
 {
     endRound();
-    QTimer::singleShot(3000, this, SLOT(startRound()));
+    QTimer::singleShot(1000, this, SLOT(startRound()));
 }
 
 void Controller::endRound()
@@ -210,7 +214,6 @@ void Controller::endRound()
     calculateTip();
     standardizeHappiness();
     emit moodToGameArea(currentHappiness);
-    QTimer::singleShot(3000, this, SLOT(startRound()));
 }
 
 void Controller::endOfRoundHappinessBonus()

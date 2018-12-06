@@ -117,11 +117,11 @@ private :
 
 signals:
     void ingredientAdded(Ingredients::Ingredients);
-    void drinkServed();
     void requestMenu();
 
 public slots:
     void receiveMood(int mood);
+    void drinkServed();
 };
 
 #endif // MYCANVAS_H
