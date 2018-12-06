@@ -13,6 +13,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     this->ui->setupUi(this);
+    // Controller set up.
+    controller = controllerPtr;
 
     GameArea* SFMLView = new GameArea(this, QPoint(20, 20), QSize(1000, 1000), controller);
     //ui->verticalLayout->addWidget(SFMLView);
@@ -113,9 +115,6 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ui->amountToAdd->setMinimum(0.25);
     ui->amountToAdd->setSingleStep(0.25);
     ui->amountToAdd->setValue(1.0);
-
-    // Controller set up.
-    controller = controllerPtr;
 
     // to controller
     QObject::connect(this, &MainWindow::start,

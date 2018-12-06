@@ -15,8 +15,6 @@ GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, C
     // from controller
     QObject::connect(controller, &Controller::moodToGameArea,
                      this, &GameArea::receiveMood);
-    QObject::connect(controller, &Controller::sendSelectedCustomer,
-                     this, &GameArea::receiveSelectedCustomer);
 }
 
 void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
@@ -211,6 +209,11 @@ void GameArea::OnUpdate()
     }
 
 
+}
+
+void GameArea::receiveMood(int mood)
+{
+    currentMood = mood;
 }
 
 /*

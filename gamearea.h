@@ -122,7 +122,6 @@ signals:
 
 public slots:
     void receiveMood(int mood);
-    void receiveSelectedCustomer(int customer);
 };
 
 #endif // MYCANVAS_H

@@ -6,6 +6,7 @@ Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(pa
     parser = parserInit;
     menu = getAllRecipes();
     userSpecifiedMenu = menu;
+    currentDrink = nullptr;
     for (Drink* drink : menu)
         drink->setSelected(true);
     totalTipDollars = 0;
@@ -81,12 +82,12 @@ void Controller::newCustomer(unsigned int difficulty)
     {
         case 0:
         {
-            currentHappiness = (rand % 2) + 4;
+            currentHappiness = (rand % 3) + 3;
             break;
         }
         case 1:
         {
-            currentHappiness = (rand % 2) + 3;
+            currentHappiness = (rand % 3) + 2;
             break;
         }
         case 2:
@@ -129,8 +130,19 @@ void Controller::receiveAmountToAdd(double amount)
 
 void Controller::checkIngredient(Ingredients::Ingredients ingredient)
 {
+    /*
+     * TODO handle when the user adds more ingredients than we have steps
+     * right now that makes it crash
+     */
+    if (currentDrink == nullptr)
+        return;
+    emit requestAmountToAdd();
+    qDebug() << "We received " << ingredientAmount << " of " << ingredient;
     QVector<Step> steps = currentDrink->getSteps();
+    for (Step s : steps)
+        qDebug() << "ingredient: " << s.getItem() << " amount: " << s.getAmount();
     Step currentStep = steps.at(stepCount);
+    qDebug() << "We should have received " << currentStep.getAmount() << " of it.";
     bool equalAmts = qFabs(ingredientAmount - currentStep.getAmount()) < 0.01;
     // right ingredient in right order or just a correct ingredient
     if(!addedIngredients.contains(ingredient)) //if haven't previously played ingredient
@@ -162,6 +174,7 @@ void Controller::checkIngredient(Ingredients::Ingredients ingredient)
             drinkPoints--;
     }
     stepCount++;
+    qDebug() << "You have: " << drinkPoints << " drink points.";
 }
 
 bool Controller::containsIngredient(Ingredients::Ingredients ingredient, QVector<Step> steps)

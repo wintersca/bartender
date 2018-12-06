@@ -24,12 +24,11 @@ public:
 public slots:
     void timerUpdate();
     void startRound(unsigned int difficulty);
-    // from custom Drink Importer
 
+    // from custom Drink Importer
     void updateRecipes(Drink* newRecipe);
 
     // from gameArea
-
     void checkIngredient(Ingredients::Ingredients ingredient);
     void menuRequestByGameArea();
     void drinkServed();
@@ -42,14 +41,9 @@ public slots:
 
 signals:
     // to gameArea
-
-
     void moodToGameArea(int happinessLevel);
-    void triviaToGameArea(QString trivia);
-    void sendSelectedCustomer(int customer);
 
     // to MainWindow
-
     void menuToMainWindow(QVector<Drink*> menu);
     void sendDrink(Drink* drink);
     void sendTime(int currentTime);
