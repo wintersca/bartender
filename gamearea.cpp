@@ -1,4 +1,5 @@
 #include "gamearea.h"
+#include <Box2D/Box2D/Box2D.h>
 
 void GameArea::pouring(){
     b2Vec2 gravity(0.0f, 9.8f);
