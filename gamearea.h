@@ -30,18 +30,16 @@ private :
     IngredientSprite* selected;
     IngredientSprite glassImage;
 
-    //sf::Image backgroundImage;
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
 
-    //sf::Image  myImage;
-    //IngredientSprite mySprite;
-    //sf::Texture myTexture;
+    QVector<IngredientSprite> faceSprites;
+    QVector<sf::Texture> faceTextures;
+    int currentMood;
 
+    QVector<sf::Texture> trueIngredientTextures;
 
-    // Tools
-    //IngredientSprite muddle;
-
+    /*
     sf::Texture textureVodka;
     sf::Texture textureTequila;
     sf::Texture textureBourbon;
@@ -95,13 +93,11 @@ private :
     sf::Texture textureCherry;
     sf::Texture textureGreenOlive;
     sf::Texture textureCelery;
-
-
-
+    */
 
     void OnInit();
 
-    void assignTextures(QVector<QFileInfo>);
+    //void assignTextures(QVector<QFileInfo>);
 
     void OnUpdate();
 

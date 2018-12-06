@@ -44,14 +44,28 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
 void GameArea::OnInit()
 {
     // Get the sprites.
-    QVector<QFileInfo> spritesFromSheet = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/ingredientsSheet.png", 49, 60, 80);
-    assignTextures(spritesFromSheet);
+    QVector<QFileInfo> ingredientFilePaths = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/ingredientsSheet.png", 49, 60, 80);
+    ingredientSprites = QVector<IngredientSprite>();
+
+    trueIngredientTextures = QVector<sf::Texture>(Ingredients::TRUEINGREDIENTS);
+    //assignTextures(ingredientFilePaths);
 
     // Create all ingredient sprite objects. This included tools.
     //int ingredientIndex = 0;
     for (int i = 0; i < Ingredients::TRUEINGREDIENTS; i++)
-    //for (IngredientSprite current: ingredientSprites)
     {
+        // Add all images.
+        ingredientSprites.append(IngredientSprite());
+        trueIngredientTextures[i].loadFromFile(ingredientFilePaths[i].absoluteFilePath().toStdString());
+        ingredientSprites[i].setTexture(trueIngredientTextures[i]);
+
+        /*
+        // Add all images.
+        ingredientSprites.append(IngredientSprite());
+        ingredientSprites[i].storedTexture.loadFromFile(ingredientFilePaths[i].absoluteFilePath().toStdString());
+        ingredientSprites[i].setTexture(ingredientSprites[i].storedTexture);
+        */
+
         // Center
         ingredientSprites[i].setOrigin(ingredientSprites[i].getGlobalBounds().width / 2, ingredientSprites[i].getGlobalBounds().height / 2);
 
@@ -126,6 +140,20 @@ void GameArea::OnInit()
     glassImage.setOrigin(glassImage.getGlobalBounds().width / 2, glassImage.getGlobalBounds().height / 2);
     glassImage.setPosition(534, barVerticalPosition);
 
+    // Load the face images.
+    QVector<QFileInfo> faceFilePaths = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/facesSheet.png", 6, 200, 200);
+    faceSprites = QVector<IngredientSprite>();
+    faceTextures = QVector<sf::Texture>(6);
+    for (int i = 0; i < 6; i++)
+    {
+        faceSprites.append(IngredientSprite());
+        faceTextures[i].loadFromFile(faceFilePaths[i].absoluteFilePath().toStdString());
+        faceSprites[i].setTexture(faceTextures[i]);
+        faceSprites[i].setOrigin(faceSprites[i].getGlobalBounds().width / 2, faceSprites[i].getGlobalBounds().height / 2);
+        faceSprites[i].setPosition(114, barVerticalPosition);
+    }
+    currentMood = 0;
+
     // Load the background image.
     if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gamePlayBackground.png"))
     {
@@ -147,6 +175,9 @@ void GameArea::OnUpdate()
     draw(backgroundSprite);
     draw(glassImage);
 
+    // Draw the current face.
+    draw(faceSprites[currentMood]);
+
     // Update the position of a clicked item.
     if(selected)
     {
@@ -159,13 +190,15 @@ void GameArea::OnUpdate()
     {
         draw(ingredientSprites[i]);
     }
+
+
 }
 
-
+/*
 void GameArea::assignTextures(QVector<QFileInfo> sprites)
 {
-    //QVector<IngredientSprite> ingredients = QVector<IngredientSprite>();
     ingredientSprites = QVector<IngredientSprite>();
+
     for(QFileInfo current: sprites){
        ingredientSprites.append(IngredientSprite());
     }
@@ -278,4 +311,4 @@ void GameArea::assignTextures(QVector<QFileInfo> sprites)
     ingredientSprites[47].setTexture(textureGreenOlive);
     ingredientSprites[48].setTexture(textureCelery);
 }
-
+*/
