@@ -7,24 +7,15 @@ void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
     sf::Vector2i mouse = sf::Mouse::getPosition(*this);
 
     // Determine what was selected.
-    for (int i = 0; i < Ingredients::TRUEINGREDIENTS; i++)
+    for (int i = 0; i < Ingredients::ITEMSININGREDIENTS; i++)
     {
         if(ingredientSprites[i].getGlobalBounds().contains(sf::Vector2f(mouse)))
         {
             selected = &ingredientSprites[i];
 
-            qDebug() << "Mouse is on Sprite: " << Ingredients::ingredientData[ingredientSprites[i].ingredient].displayString;
+            //qDebug() << "Mouse is on Sprite: " << Ingredients::ingredientData[ingredientSprites[i].ingredient].displayString;
 
         }
-    }
-
-    // Check for cherry selected.
-    if(mySprite.getGlobalBounds().contains(sf::Vector2f(mouse)))
-    {
-        selected = &mySprite;
-
-        qDebug() << "Mouse is on Sprite: " << Ingredients::ingredientData[mySprite.ingredient].displayString;
-        emit ingredientAdded(Ingredients::Tequila);
     }
 }
 
@@ -48,7 +39,7 @@ void GameArea::OnInit()
     QVector<QFileInfo> spritesFromSheet = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/ingredientsSheet.png", 49, 60, 80);
     assignTextures(spritesFromSheet);
 
-    // Create all ingredient sprite objects.
+    // Create all ingredient sprite objects. This included tools.
     //int ingredientIndex = 0;
     for (int i = 0; i < Ingredients::TRUEINGREDIENTS; i++)
     //for (IngredientSprite current: ingredientSprites)
@@ -101,12 +92,45 @@ void GameArea::OnInit()
         ingredientSprites[i].setPosition(ingredientSprites[i].shelfPosition.x(), ingredientSprites[i].shelfPosition.y());
     }
 
+    // Add the tools.
+    ingredientSprites.append(IngredientSprite());
+    ingredientSprites[Ingredients::Shake].storedTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/shakerLid.png");
+    ingredientSprites[Ingredients::Shake].shelfPosition = QPoint(785, barVerticalPosition);
+
+    ingredientSprites.append(IngredientSprite());
+    ingredientSprites[Ingredients::Stir].storedTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/stirSpoon.png");
+    ingredientSprites[Ingredients::Stir].shelfPosition = QPoint(918, barVerticalPosition);
+
+    ingredientSprites.append(IngredientSprite());
+    ingredientSprites[Ingredients::Muddle].storedTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/muddler.png");
+    ingredientSprites[Ingredients::Muddle].shelfPosition = QPoint(1020, barVerticalPosition);
+
+    for (int i = Ingredients::Shake; i <= (int)Ingredients::Muddle; i++)
+    {
+        ingredientSprites[i].setTexture(ingredientSprites[i].storedTexture);
+        ingredientSprites[i].setOrigin(ingredientSprites[i].getGlobalBounds().width / 2, ingredientSprites[i].getGlobalBounds().height / 2);
+        ingredientSprites[i].setPosition(ingredientSprites[i].shelfPosition.x(), ingredientSprites[i].shelfPosition.y());
+    }
+
+
+    /*
+    muddle.storedTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/muddler.png");
+    muddle.ingredient = Ingredients::Muddle;
+    muddle.setTexture(muddle.storedTexture);
+    muddle.shelfPosition = QPoint(1020, 596);
+    muddle.setOrigin(muddle.getGlobalBounds().width / 2, muddle.getGlobalBounds().height / 2);
+    muddle.setPosition(muddle.shelfPosition.x(), muddle.shelfPosition.y());
+    */
+
+
+    /*
     // Create the test cherry.
     myTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/cherry.png");
     mySprite.ingredient = Ingredients::DarkRum;
     mySprite.setTexture(myTexture);
     mySprite.setPosition(250.f, 250.f);
     mySprite.setOrigin(mySprite.getGlobalBounds().width / 2, mySprite.getGlobalBounds().height / 2);
+    */
 
     // Load the background image.
     if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gamePlayBackground.png"))
@@ -118,6 +142,32 @@ void GameArea::OnInit()
 
     selected = nullptr;
 }
+
+//Game loop
+void GameArea::OnUpdate()
+{
+    // Clear screen
+    clear(sf::Color(0, 180, 0));
+    sf::Vector2i mouse = sf::Mouse::getPosition(*this);
+
+    // Update the position of a clicked item.
+    if(selected)
+    {
+        selected->setPosition(mouse.x, mouse.y);
+        //qDebug() << mouse.x << ", " << mouse.y;
+    }
+
+    draw(backgroundSprite);
+    //draw(mySprite);
+    //draw(muddle);
+
+    // Draw all ingredients and tools.
+    for (int i = 0; i < Ingredients::ITEMSININGREDIENTS; i++)
+    {
+        draw(ingredientSprites[i]);
+    }
+}
+
 
 void GameArea::assignTextures(QVector<QFileInfo> sprites)
 {
@@ -236,26 +286,3 @@ void GameArea::assignTextures(QVector<QFileInfo> sprites)
     ingredientSprites[48].setTexture(textureCelery);
 }
 
-//Game loop
-void GameArea::OnUpdate()
-{
-    // Clear screen
-    clear(sf::Color(0, 180, 0));
-    sf::Vector2i mouse = sf::Mouse::getPosition(*this);
-
-    // Update the position of a clicked item.
-    if(selected)
-    {
-        selected->setPosition(mouse.x, mouse.y);
-        //qDebug() << mouse.x << ", " << mouse.y;
-    }
-
-    draw(backgroundSprite);
-    draw(mySprite);
-
-    // Draw all ingredients.
-    for (int i = 0; i < Ingredients::TRUEINGREDIENTS; i++)
-    {
-        draw(ingredientSprites[i]);
-    }
-}

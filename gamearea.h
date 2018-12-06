@@ -29,9 +29,12 @@ private :
     QVector<IngredientSprite> ingredientSprites;
 
     sf::Image  myImage;
-    IngredientSprite mySprite;
-    sf::Texture myTexture;
+    //IngredientSprite mySprite;
+    //sf::Texture myTexture;
     IngredientSprite* selected;
+
+    // Tools
+    IngredientSprite muddle;
 
     sf::Texture textureVodka;
     sf::Texture textureTequila;
@@ -102,6 +105,7 @@ private :
 
     const int verticalPositions[4] = { 69, 169, 269, 369 };
     const int horizontalPositions[14] = { 42, 118, 194, 269, 345, 421, 497, 572, 648, 724, 800, 875, 951, 1027 };
+    const int barVerticalPosition = 596;
 
     /*
     // Positions relative to the top left edge.
