@@ -61,7 +61,7 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
 void GameArea::OnInit()
 {
     // Get the sprites.
-    QVector<QFileInfo> ingredientFilePaths = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/ingredientsSheet.png", 49, 60, 80);
+    QVector<QFileInfo> ingredientFilePaths = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/ingredients/ingredientsSheet.png", 49, 60, 80);
     ingredientSprites = QVector<IngredientSprite>();
 
     trueIngredientTextures = QVector<sf::Texture>(Ingredients::TRUEINGREDIENTS);
@@ -158,7 +158,7 @@ void GameArea::OnInit()
     glassImage.setPosition(534, barVerticalPosition);
 
     // Load the face images.
-    QVector<QFileInfo> faceFilePaths = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/facesSheet.png", 6, 200, 200);
+    QVector<QFileInfo> faceFilePaths = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/customer/facesSheet.png", 6, 200, 200);
     faceSprites = QVector<IngredientSprite>();
     faceTextures = QVector<sf::Texture>(6);
     for (int i = 0; i < 6; i++)

@@ -55,10 +55,10 @@ void Controller::updateRecipes(Drink* newRecipe)
 void Controller::startGame(unsigned int difficultyInit)
 {
     difficulty = difficultyInit;
-    startRound(difficulty);
+    startRound();
 }
 
-void Controller::startRound(unsigned int difficulty)
+void Controller::startRound()
 {
     newCustomer(difficulty);
     drinkComplexity = currentDrink->IngredientsMap.size();
@@ -200,7 +200,7 @@ bool Controller::outOfOrderAmount(Ingredients::Ingredients ingredient, QVector<S
 void Controller::drinkServed()
 {
     endRound();
-    QTimer::singleShot(3000, this, SLOT(startRound(difficulty)));
+    QTimer::singleShot(3000, this, SLOT(startRound()));
 }
 
 void Controller::endRound()
@@ -210,6 +210,7 @@ void Controller::endRound()
     calculateTip();
     standardizeHappiness();
     emit moodToGameArea(currentHappiness);
+    QTimer::singleShot(3000, this, SLOT(startRound()));
 }
 
 void Controller::endOfRoundHappinessBonus()

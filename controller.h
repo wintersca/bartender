@@ -23,7 +23,7 @@ public:
     explicit Controller(XMLDrinkParser *parser, QObject *parent = nullptr);
 public slots:
     void timerUpdate();
-    void startRound(unsigned int difficulty);
+    void startRound();
 
     // from custom Drink Importer
     void updateRecipes(Drink* newRecipe);
