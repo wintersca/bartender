@@ -175,7 +175,7 @@ void Controller::checkIngredient(Ingredients::Ingredients ingredient)
         if (outOfOrderAmount(ingredient, steps, addedIngredients[ingredient]))
             drinkPoints++;
         else
-            drinkPoints--;
+            drinkPoints -= 3;
     }
     stepCount++;
     qDebug() << "You have: " << drinkPoints << " drink points.";
@@ -220,7 +220,6 @@ void Controller::endOfRoundHappinessBonus()
 {
     if (currentHappiness > 0)       
         currentHappiness += ((5 * drinkPoints) / (drinkComplexity * 3)) - 2;
-    qDebug() << "happiness after round: " << currentHappiness;
     moodValueModifier = currentHappiness / 5;
 }
 
@@ -248,4 +247,6 @@ void Controller::standardizeHappiness()
 {
     if (currentHappiness > 5)
         currentHappiness = 5;
+    else if (currentHappiness < 0)
+        currentHappiness = 0;
 }
