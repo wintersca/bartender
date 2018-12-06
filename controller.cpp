@@ -1,81 +1,252 @@
 #include "controller.h"
 
-QVector<Drink*> menu;
-XMLDrinkParser *parser;
+// set up controller
 Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(parent)
 {
     parser = parserInit;
-    menu = sortRecipes(getAllRecipes());
-    emit menuToGame(menu);
-
+    menu = getAllRecipes();
+    userSpecifiedMenu = menu;
+    currentDrink = nullptr;
+    for (Drink* drink : menu)
+        drink->setSelected(true);
+    totalTipDollars = 0;
+    totalTipCents = 0;
+    timer = new QTimer(this);
+    connect(timer, SIGNAL(timeout()),
+            this, SLOT(timerUpdate()));
 }
 
-/*slots*/
-
-// receive an unsorted vector of recipes from the database parser
 QVector<Drink*> Controller::getAllRecipes()
 {
-    QVector<Drink*> unsortedMenu = parser->parseXMLDatabase();
+    QVector<Drink*> menu = parser->parseXMLDatabase();
     qDebug() << "We have received a vector of recipes from the database";
-    return unsortedMenu;
+    return menu;
 }
 
-// send a new drink to the database and add it to the vector of drinks we already have.
+void Controller::menuRequestByGameArea()
+{
+   emit menuToMainWindow(menu);
+}
+
+void Controller::menuRequestedByMainWindow()
+{
+    emit menuToMainWindow(menu);
+}
+
+void Controller::receiveUserSpecifiedMenu(QVector<Drink*> newMenu)
+{
+    QVector<Drink*> tempMenu;
+    for (Drink* drink : newMenu)
+    {
+        if (drink->getSelected())
+            tempMenu.append(drink);
+    }
+    userSpecifiedMenu = tempMenu;
+}
+
 void Controller::updateRecipes(Drink* newRecipe)
 {
     parser->updateXMLDatabase(newRecipe);
     menu.append(newRecipe);
-    QVector<Drink*> sortedMenu = sortRecipes(menu);
-    emit menuToGame(sortedMenu);
+    userSpecifiedMenu.append(newRecipe);
     qDebug() << "We have sent a recipe to the database and updated the menu of the game";
 }
 
-void Controller::newCustomer()
+void Controller::startGame(unsigned int difficultyInit)
 {
-    currentHappiness = qrand()%5 + 4; // start at happiness of 4 - 8
-    currentDrink = menu.at(qrand()%(menu.length()));
-    int drinkComplexity = currentDrink->IngredientsMap.size();
-    emit customerHappinessToGame(currentHappiness);
-    emit customerDrinkToGame(currentDrink);
-    // TODO: pick a trivia, ^^^ parse and send separately?
-    customerPatience = drinkComplexity * 5000 / currentHappiness; //how long before happiness level drops
-    QTimer::singleShot(customerPatience, this, SLOT(decreaseHappiness()));
-    qDebug() << "Received request for a new customer";
+    difficulty = difficultyInit;
+    startRound();
 }
 
-void Controller::decreaseHappiness()
+void Controller::startRound()
 {
-    currentHappiness--;
-    if(currentHappiness == 0)
+    newCustomer(difficulty);
+    drinkComplexity = currentDrink->IngredientsMap.size();
+    drinkPoints = 0;
+    timeToCompleteDrink = static_cast<int>(moodValueModifier * 10 * drinkComplexity);
+    emit sendDrink(currentDrink);
+    emit moodToGameArea(currentHappiness);
+    if(difficulty != 0) //easy
     {
-        qDebug() << "Customer happiness:0 customer left";
-        emit customerLeft();
+        timer->start(1000);
+        emit sendTime(timeToCompleteDrink);
     }
     else
-    {
-        qDebug() << "Customer happiness:" << currentHappiness;
-        emit customerHappinessToGame(currentHappiness);
-        QTimer::singleShot(customerPatience, this, SLOT(decreaseHappiness()));
-    }
-
+        emit sendTime(0);
 }
 
-void Controller::addedIngredient(Ingredients::Ingredients ingredient)
+void Controller::newCustomer(unsigned int difficulty)
 {
-    if(currentDrink->IngredientsMap.contains(ingredient))
+    int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
+    switch(difficulty)
     {
-        //TODO: check amount
+        case 0:
+        {
+            currentHappiness = (rand % 3) + 3;
+            break;
+        }
+        case 1:
+        {
+            currentHappiness = (rand % 3) + 2;
+            break;
+        }
+        case 2:
+        {
+            currentHappiness = (rand % 2) + 2;
+            break;
+        }
+    }
+    currentDrink = selectNewRandomDrink();
+    for (Step s : currentDrink->getSteps())
+        qDebug() << s.getItem();
+    moodValueModifier = static_cast<double>(currentHappiness) / 5;
+    stepCount = 0;
+    addedIngredients.clear();
+}
+
+Drink* Controller::selectNewRandomDrink()
+{
+    int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
+    currentDrink = userSpecifiedMenu[rand % userSpecifiedMenu.length()];
+    return currentDrink;
+}
+
+void Controller::timerUpdate()
+{
+    if (currentHappiness > 0)
+    {
+        emit sendTime(timeToCompleteDrink--);
+        if (timeToCompleteDrink < 0 && timeToCompleteDrink % static_cast<int>(5*moodValueModifier) == 0)
+            emit moodToGameArea(currentHappiness--);
+    }
+    else
+        endRound();
+}
+
+void Controller::receiveAmountToAdd(double amount)
+{
+    ingredientAmount = amount;
+}
+
+void Controller::checkIngredient(Ingredients::Ingredients ingredient)
+{
+    /*
+     * TODO handle when the user adds more ingredients than we have steps
+     * right now that makes it crash
+     *
+     * handle stirring, shaking, and muddling which have no ammount, we just should check if they are steps at all and have been added
+     */
+    if (currentDrink == nullptr)
+        return;
+    emit requestAmountToAdd();
+    qDebug() << "We received " << ingredientAmount << " of " << ingredient;
+    QVector<Step> steps = currentDrink->getSteps();
+    Step currentStep;
+    if (stepCount < steps.length())
+        currentStep = steps.at(stepCount);
+    qDebug() << "We should have received " << currentStep.getAmount() << " of it.";
+    bool equalAmts = qFabs(ingredientAmount - currentStep.getAmount()) < 0.01;
+    // right ingredient in right order or just a correct ingredient
+    if(!addedIngredients.contains(ingredient) && stepCount < steps.length()) // still following recipe
+    {
+        //correct ingredient, order, amount
+        if (currentStep.getItem() == ingredient && equalAmts)
+            drinkPoints += 3;
+        //correct order and ingredient; wrong amount
+        else if (currentStep.getItem() == ingredient)
+            drinkPoints += 2;
+        // ingredient is in the drink, and correct amount, but wrong order
+        else if (containsIngredient(ingredient, steps) && outOfOrderAmount(ingredient, steps, ingredientAmount))
+            drinkPoints += 2;
+        // ingredient is in the drink, wrong amount, wrong order
+        else if (containsIngredient(ingredient, steps))
+            drinkPoints++;
+        // ingredient doesn't go in the drink, lose 3 points
+        else
+            drinkPoints -= 3;
+        addedIngredients.insert(ingredient, ingredientAmount);
+    }
+    else // recipe is out the window
+    {
+        if (!addedIngredients.contains(ingredient))
+            addedIngredients.insert(ingredient, 0);
+        addedIngredients[ingredient] += ingredientAmount;
+        // if new amount is correct, get back the point lost or lose a point for another mistake
+        if (outOfOrderAmount(ingredient, steps, addedIngredients[ingredient]))
+            drinkPoints++;
+        else
+            drinkPoints -= 3;
+    }
+    stepCount++;
+    qDebug() << "You have: " << drinkPoints << " drink points.";
+}
+
+bool Controller::containsIngredient(Ingredients::Ingredients ingredient, QVector<Step> steps)
+{
+    for (Step s : steps)
+    {
+        if (s.getItem() == ingredient)
+            return true;
+    }
+    return false;
+}
+
+bool Controller::outOfOrderAmount(Ingredients::Ingredients ingredient, QVector<Step> steps, double amount)
+{
+    for (Step s : steps)
+    {
+        if (s.getItem() == ingredient && qFabs(amount - s.getAmount()) < 0.01)
+            return true;
+    }
+    return false;
+}
+
+void Controller::drinkServed()
+{
+    endRound();
+    QTimer::singleShot(1000, this, SLOT(startRound()));
+}
+
+void Controller::endRound()
+{
+    timer->stop();
+    endOfRoundHappinessBonus();
+    calculateTip();
+    standardizeHappiness();
+    emit moodToGameArea(currentHappiness);
+}
+
+void Controller::endOfRoundHappinessBonus()
+{
+    if (currentHappiness > 0)       
+        currentHappiness += ((5 * drinkPoints) / (drinkComplexity * 3)) - 2;
+    moodValueModifier = currentHappiness / 5;
+}
+
+void Controller::calculateTip()
+{
+    if (currentHappiness > 0)
+    {
+        int tip = static_cast<int>((drinkPoints) * (10 * moodValueModifier));
+        totalTipDollars += tip / 100;
+        totalTipCents += tip % 100;
+        totalTipDollars += totalTipCents / 100;
+        totalTipCents = totalTipCents % 100;
+        emit updateTipTotal(totalTipDollars, totalTipCents);
     }
 }
 
-
-/*helpers*/
-
-QVector<Drink*> Controller::sortRecipes(QVector<Drink*> recipes)
+void Controller::updateTipTotal(int newTipDollars, int newTipCents)
 {
-    std::sort(recipes.begin(), recipes.end());
-    qDebug() << "We have sorted the recipes alphabetically";
-    return recipes;
+    totalTipDollars += newTipDollars;
+    totalTipCents += newTipCents;
+    emit tipAmountToGame(totalTipDollars, totalTipCents);
 }
 
-
+void Controller::standardizeHappiness()
+{
+    if (currentHappiness > 5)
+        currentHappiness = 5;
+    else if (currentHappiness < 0)
+        currentHappiness = 0;
+}

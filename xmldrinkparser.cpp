@@ -1,64 +1,10 @@
 #include "xmldrinkparser.h"
-#include <iostream>
+#include "ingredientsmap.h"
 
 XMLDrinkParser::XMLDrinkParser()
 {
-
-    stringsToIngredients = QMap<QString, Ingredients::Ingredients>();
-
-        stringsToIngredients["Vodka"] = Ingredients::Vodka;
-        stringsToIngredients["Tequila"] = Ingredients::Tequila;
-        stringsToIngredients["Bourbon"] = Ingredients::Bourbon;
-        stringsToIngredients["Gin"] = Ingredients::Gin;
-        stringsToIngredients["Dark Rum"] = Ingredients::DarkRum;
-        stringsToIngredients["White Rum"] = Ingredients::WhiteRum;
-        stringsToIngredients["Light Rum"] = Ingredients::LightRum;
-        stringsToIngredients["Grand Marnier"] = Ingredients::GrandMarnier;
-        stringsToIngredients["Sweet Vermouth"] = Ingredients::SweetVermouth;
-        stringsToIngredients["Dry Vermouth"] = Ingredients::DryVermouth;
-        stringsToIngredients["Tripple Sec"] = Ingredients::TrippleSec;
-        stringsToIngredients["Kahlua"] = Ingredients::Kahlua;
-        stringsToIngredients["Jagermeister"] = Ingredients::Jagermeister;
-        stringsToIngredients["Campari"] = Ingredients::Campari;
-        stringsToIngredients["Green Creme de Menthe"] = Ingredients::GreenCremeDeMenthe;
-        stringsToIngredients["Creme de Cacao"] = Ingredients::CremeDeCacao;
-        stringsToIngredients["Peach Schnapps"] = Ingredients::PeachSchnapps;
-        stringsToIngredients["Salt"] = Ingredients::Salt;
-        stringsToIngredients["Pepper"] = Ingredients::Pepper;
-        stringsToIngredients["Ice"] = Ingredients::Ice;
-        stringsToIngredients["Simple Syrup"] = Ingredients::SimpleSyrup;
-        stringsToIngredients["Tonic Water"] = Ingredients::TonicWater;
-        stringsToIngredients["Sparkling Water"] = Ingredients::SparklingWater;
-        stringsToIngredients["Angostura Bitters"] = Ingredients::AngosturaBitters;
-        stringsToIngredients["Cola"] = Ingredients::Cola;
-        stringsToIngredients["Club Soda"] = Ingredients::ClubSoda;
-        stringsToIngredients["Cream"] = Ingredients::Cream;
-        stringsToIngredients["Worcestershire Sauce"] = Ingredients::WorcestershireSauce;
-        stringsToIngredients["Orange Juice"] = Ingredients::OrangeJuice;
-        stringsToIngredients["Lime Juice"] = Ingredients::LimeJuice;
-        stringsToIngredients["Lemon Juice"] = Ingredients::LemonJuice;
-        stringsToIngredients["Pineapple Juice"] = Ingredients::PineappleJuice;
-        stringsToIngredients["Tomato Juice"] = Ingredients::TomatoJuice;
-        stringsToIngredients["Cranberry Juice"] = Ingredients::CranberryJuice;
-        stringsToIngredients["Orange Wedge"] = Ingredients::OrangeWedge;
-        stringsToIngredients["Orange Twist"] = Ingredients::OrangeTwist;
-        stringsToIngredients["Lime Wedge"] = Ingredients::LimeWedge;
-        stringsToIngredients["Lime Twist"] = Ingredients::LimeTwist;
-        stringsToIngredients["Lemon Twist"] = Ingredients::LemonTwist;
-        stringsToIngredients["Pineapple Wedge"] = Ingredients::PineappleWedge;
-        stringsToIngredients["Cream Of Coconut"] = Ingredients::CreamOfCoconut;
-        stringsToIngredients["Ginger Beer"] = Ingredients::GingerBeer;
-        stringsToIngredients["Mint Leaf"] = Ingredients::MintLeaf;
-        stringsToIngredients["Mint Sprig"] = Ingredients::MintSprig;
-        stringsToIngredients["Cherry"] = Ingredients::Cherry;
-        stringsToIngredients["Green Olive"] = Ingredients::GreenOlive;
-        stringsToIngredients["Celery"] = Ingredients::Celery;
-        stringsToIngredients["Nutmeg"] = Ingredients::Nutmeg;
-        stringsToIngredients["Shake"] = Ingredients::Shake;
-        stringsToIngredients["Stir"] = Ingredients::Stir;
-        stringsToIngredients["Muddle"] = Ingredients::Muddle;
-        stringsToIngredients["Margarita Salt"]=Ingredients::MargaritaSalt;
-
+    IngredientsMap ingredientsMap = IngredientsMap();
+    stringsToIngredients = ingredientsMap.stringsToIngredients;
 }
 
 XMLDrinkParser::~XMLDrinkParser()
@@ -199,24 +145,10 @@ void XMLDrinkParser::readTrivia(Drink* drink)
 void XMLDrinkParser::addDrink(Drink* drink)
 {
     drinkDatabase.push_back(drink);
-    drink->print();
 }
 
 void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
 {
-
-        //xmlWriter.setAutoFormatting(true);
-        //xmlWriter.writeStartDocument();
-
-        //xmlWriter.writeStartElement("LAMPS");
-
-        //xmlWriter.writeStartElement("LIGHT1");
-        //xmlWriter.writeTextElement("State", "statevalue" );
-        //xmlWriter.writeTextElement("Room", "roomvalue");
-        //xmlWriter.writeTextElement("Potencial", "potencialvalue");
-
-    //xmlWriter.writeEndElement();
-
     QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/DrinkDatabase.xml");
     if(!file.open(QFile::WriteOnly | QFile::Text))
     {
@@ -231,13 +163,57 @@ void XMLDrinkParser::updateXMLDatabase(Drink* newDrink)
         writer.writeStartElement("collection");
         for(Drink* current: drinkDatabase)
         {
-            writer.writeStartElement("drink");
-            writer.writeTextElement("name", current->getName());
-            writer.writeStartElement("ingredients");
-            //current->getTngredients()
-            //writer.writeStartElement("ingredient");
-            //writer.writeTextElement("name", );
+            writeXMLDrink(current);
         }
+
+        writeXMLDrink(newDrink);
+
+        writer.writeEndElement();
+        writer.writeEndDocument();
+        file.close();
+    }
+}
+
+void XMLDrinkParser::writeXMLDrink(Drink* current)
+{
+    writer.writeStartElement("drink");
+    writer.writeTextElement("name", current->getName());
+    writer.writeStartElement("ingredients");
+
+    QMap<Ingredients::Ingredients, double> ingredients = current->getTngredients();
+    for(QMap<Ingredients::Ingredients, double>::iterator it = ingredients.begin(); it != ingredients.end(); ++it)
+    {
+        writer.writeStartElement("ingredient");
+        writer.writeAttribute("name", Ingredients::ingredientData[it.key()].displayString);
+        writer.writeAttribute("amount", QString::number(ingredients.value(it.key())));
+        writer.writeEndElement();
     }
 
+    writer.writeEndElement();
+    writer.writeStartElement("actions");
+
+    QVector<Step> actions = current->getSteps();
+    for(Step action : actions)
+    {
+        writer.writeStartElement("action");
+        writer.writeAttribute("instruction", action.getInstruction());
+        writer.writeAttribute("item", Ingredients::ingredientData[action.getItem()].displayString);
+        writer.writeAttribute("amount", QString::number(action.getAmount()));
+        writer.writeEndElement();
+    }
+
+    writer.writeEndElement();
+    writer.writeStartElement("trivia_details");
+    QVector<QString> triviaList = current->getTrivia();
+    for(QString trivia : triviaList)
+    {
+        writer.writeStartElement("trivia");
+        writer.writeAttribute("description", trivia);
+        writer.writeEndElement();
+    }
+
+    writer.writeEndElement();
+    writer.writeEndElement();
 }
+
+

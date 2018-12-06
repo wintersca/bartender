@@ -2,6 +2,7 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+#include <QLabel>
 #include "controller.h"
 
 extern Controller *controller;
@@ -17,12 +18,44 @@ public:
     explicit MainWindow(Controller *controller, QWidget *parent = nullptr);
     ~MainWindow();
 
+private:
+    enum Difficulty : unsigned int
+    {
+        easy,
+        medium,
+        hard
+    };
+    unsigned int currentDifficulty;
+
 private slots:
-    void on_addCustomDrink_clicked();
+    void receiveDrink(Drink* drink);
+    void receiveTime(int currentTime);
     void receiveMenu(QVector<Drink*> menu);
+    void receiveTips(int tipDollars, int tipCents);
+    void requestAmountToAdd();
+
+    void on_actionEdit_Available_Drinks_triggered();
+    void on_actionCreat_Custom_Drink_triggered();
+
+    void on_actionEasy_triggered();
+    void on_actionMedium_triggered();
+    void on_actionHard_triggered();
+    void on_actionStart_triggered();
+
+    void on_serveButton_clicked();
+
+signals:
+    void start(unsigned int difficulty); //TODO put an enum as the parameter
+    void requestMenu();
+    void sendAmountToAdd(double amount);
+    void drinkServed();
+
 
 private:
     Ui::MainWindow *ui;
+    QVector<QLabel*> ingredientAmountLabels;
+    QVector<QLabel*> ingredientNameLabels;
+    QVector<QLabel*> ingredientUnitLabels;
 };
 
 #endif // MAINWINDOW_H
