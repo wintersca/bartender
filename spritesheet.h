@@ -1,7 +1,7 @@
 #include <QString>
 #include <QImage>
 #include <QVector>
-#include <SFML/Graphics.hpp>
+#include <QFileInfo>
 
 #ifndef SPRITESHEET_H
 #define SPRITESHEET_H
@@ -13,7 +13,7 @@ private:
     Spritesheet();
 
 public:
-    static QVector<sf::Sprite> makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight);
+    static QVector<QFileInfo> makeSprites(QString pathToSheet, int frameCount, int frameWidth, int frameHeight);
 };
 
 #endif // SPRITESHEET_H
