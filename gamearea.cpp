@@ -190,7 +190,7 @@ void GameArea::OnInit()
         faceSprites[i].setOrigin(faceSprites[i].getGlobalBounds().width / 2, faceSprites[i].getGlobalBounds().height / 2);
         faceSprites[i].setPosition(114, barVerticalPosition);
     }
-    currentMood = 0;
+    currentMood = 5;
 
     // Load the background image.
     if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gameplayBackground.png"))
