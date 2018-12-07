@@ -5,7 +5,7 @@
 #include <QString>
 #include <QVector>
 #include <QMap>
-#include <QRandomGenerator>
+//#include <QRandomGenerator>
 #include <QtMath>
 #include <QDebug>
 #include "drink.h"
