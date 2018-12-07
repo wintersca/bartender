@@ -38,7 +38,8 @@ SOURCES += \
     step.cpp \
     customizemenu.cpp \
     recordtracker.cpp \
-    liquidphysics.cpp
+    liquidphysics.cpp \
+    helpmenu.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -55,12 +56,14 @@ HEADERS += \
     step.h \
     customizemenu.h \
     recordtracker.h \
-    liquidphysics.h
+    liquidphysics.h \
+    helpmenu.h
 
 FORMS += \
         mainwindow.ui \
     customdrinkimporter.ui \
-    customizemenu.ui
+    customizemenu.ui \
+    helpmenu.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

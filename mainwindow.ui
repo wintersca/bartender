@@ -562,9 +562,16 @@
     <addaction name="actionEdit_Available_Drinks"/>
     <addaction name="actionCreat_Custom_Drink"/>
    </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Help</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
    <addaction name="menuStart_Game"/>
    <addaction name="menuDifficulty"/>
    <addaction name="menuModify_Menu"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionAdd_New_Drink">
    <property name="text">
@@ -599,6 +606,11 @@
   <action name="actionCreat_Custom_Drink">
    <property name="text">
     <string>Create Custom Drink</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>How to play</string>
    </property>
   </action>
  </widget>

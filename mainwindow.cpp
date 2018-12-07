@@ -6,6 +6,7 @@
 #include "gamearea.h"
 #include <random>
 #include "customizemenu.h"
+#include "helpmenu.h"
 
 Controller *controller;
 MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
@@ -297,4 +298,13 @@ void MainWindow::on_serveButton_clicked()
 void MainWindow::enableServe()
 {
     ui->serveButton->setEnabled(true);
+}
+
+void MainWindow::on_actionAbout_triggered()
+{
+    HelpMenu* window = new HelpMenu();
+    window->setModal(true);
+    window->show();
+    window->raise();
+    window->activateWindow();
 }
