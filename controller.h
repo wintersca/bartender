@@ -29,7 +29,8 @@ public slots:
 
     // from gameArea
     void checkIngredient(Ingredients::Ingredients ingredient);
-    void menuRequestByGameArea();    
+    void menuRequestByGameArea();
+
 
     // from MainWindow
     void menuRequestedByMainWindow();
@@ -37,6 +38,7 @@ public slots:
     void startGame(unsigned int difficulty);
     void receiveAmountToAdd(double amount);
     void drinkServed();
+    void recordsRequestedByMainWindow();
 
 signals:
     // to gameArea
@@ -45,6 +47,7 @@ signals:
 
     // to MainWindow
     void menuToMainWindow(QVector<Drink*> menu);
+    void recordsToMainWindow(QMap<QString, int>);
     void sendDrink(Drink* drink);
     void sendTime(int currentTime);
     void tipAmountToGame(int tipDollars, int tipCents);

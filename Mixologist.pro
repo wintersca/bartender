@@ -39,10 +39,11 @@ SOURCES += \
     customizemenu.cpp \
     recordtracker.cpp \
     liquidphysics.cpp \
-    helpmenu.cpp
+    helpmenu.cpp \
+    recordboard.cpp
 
 HEADERS += \
-        mainwindow.h \
+    mainwindow.h \
     controller.h \
     qsfmlcanvas.h \
     ingredients.h \
@@ -57,13 +58,15 @@ HEADERS += \
     customizemenu.h \
     recordtracker.h \
     liquidphysics.h \
-    helpmenu.h
+    helpmenu.h \
+    recordboard.h
 
 FORMS += \
-        mainwindow.ui \
+    mainwindow.ui \
     customdrinkimporter.ui \
     customizemenu.ui \
-    helpmenu.ui
+    helpmenu.ui \
+    recordboard.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
