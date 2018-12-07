@@ -3,6 +3,8 @@
 #include "ingredients.h"
 #include "ingredientsmap.h"
 #include <QMetaEnum>
+#include <iostream>
+#include "step.h"
 
 CustomDrinkImporter::CustomDrinkImporter(Controller *controller,QWidget *parent) :
     QDialog(parent),
@@ -68,6 +70,7 @@ void CustomDrinkImporter::on_buttonBox_accepted()
 {
     QVector<Ingredients::Ingredients> includedSteps = QVector<Ingredients::Ingredients>();
     QVector<double> totalOfSteps = QVector<double>();
+    QVector<Step> steps = QVector<Step>();
 
 
     // Create a dictionary to map strings to enums.
@@ -80,8 +83,20 @@ void CustomDrinkImporter::on_buttonBox_accepted()
         QString currentText = stepBoxes[i]->currentText();
         if (currentText != "none")
         {
-            totalOfSteps.append(amountBoxes[i]->value());
-            includedSteps.append(ingredientsMap.stringsToIngredients[currentText]);
+            QString instruction = QString();
+                        double amount = amountBoxes[i]->value();
+                        Ingredients::Ingredients ingredient = ingredientsMap.stringsToIngredients[currentText];
+                        std::cout<< "Ingredient: " << QString::number(ingredient).toStdString()<< std::endl;
+                        Ingredients::IngredientData data=Ingredients::ingredientData[ingredient];
+                        std::cout <<"Got data"<<std::endl;
+                        instruction+= data.action + " " + QString::number(amount) + " " +data.unit + " " +data.displayString;
+                        std::cout << "Inst: " <<instruction.toStdString()<<std::endl;
+                        totalOfSteps.append(amountBoxes[i]->value());
+                        includedSteps.append(ingredientsMap.stringsToIngredients[currentText]);
+                        Step step= Step(instruction, ingredient,  amount);
+                        std::cout << "Created steps" << std::endl;
+                        steps.push_back(step);
+                        std::cout<< "Pushed back" <<std::endl;
         }
     }
 
@@ -94,6 +109,7 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     {
         drink.IngredientsMap.insert(includedSteps[i], totalOfSteps[i]);
     }
+    drink.setSteps(steps);
     emit sendNewRecipe(&drink);
 }
 

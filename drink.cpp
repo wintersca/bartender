@@ -23,6 +23,10 @@ void Drink::setName(QString name){
     Name = name;
 }
 
+void Drink::setSteps(QVector<Step> steps){
+    Steps= steps;
+}
+
 void Drink::addTrivia(QString triv){
     Trivia.push_back(triv);
 }
