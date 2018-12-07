@@ -52,7 +52,7 @@ void LiquidPhysics::GenerateLiquid()
     float32 pos_y = -200.0f;
     float32 pos_x = 64.f;
 
-    for (int i = 0; i < 20; i++)
+    for (int i = 0; i < liquidParticles; i++)
     {
         b2BodyDef bodyDef;
         b2Body* body;
@@ -61,7 +61,7 @@ void LiquidPhysics::GenerateLiquid()
         bodyDef.position.Set(pos_x, pos_y);
         body = World->CreateBody(&bodyDef);
 
-        int tempx = ((int)pos_x + 10) % 100;
+        int tempx = ((int)pos_x + 1);
         pos_x = tempx;
         int tempy = ((int)pos_y - 5);
         pos_y = tempy;

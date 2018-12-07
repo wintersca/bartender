@@ -40,10 +40,9 @@ private :
     QVector<sf::Texture> trueIngredientTextures;
     Controller *controller;
     LiquidPhysics liquidPhysics;
+    QVector<sf::CircleShape> liquidShapes;
+
     void OnInit();
-
-    //void assignTextures(QVector<QFileInfo>);
-
     void OnUpdate();
 
     // Positions relative to the center.

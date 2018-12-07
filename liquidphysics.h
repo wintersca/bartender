@@ -11,11 +11,10 @@ public:
     LiquidPhysics();
     void GenerateLiquid();
     void DeleteLiquid();
-
-//private slots:
     void WorldStep();
 
     b2World* World;
+    int liquidParticles = 20;
 
 signals:
 
