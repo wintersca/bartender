@@ -50,6 +50,16 @@ void Controller::updateRecipes(Drink* newRecipe)
     menu.append(newRecipe);
     userSpecifiedMenu.append(newRecipe);
     qDebug() << "We have sent a recipe to the database and updated the menu of the game";
+
+    // easy->(0, 1, 2)<- hard
+    qDebug() << "Received request for a new customer";
+    int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
+    currentHappiness = (rand % 5) + 5 - static_cast<int>(difficulty);
+    qDebug() << "current happiness: " << currentHappiness;
+    qDebug() << "menu size: " << menu.length() << " drink index: " << rand % menu.length();
+    currentDrink = menu[rand % menu.length()];
+    moodValueModifier = static_cast<double>(currentHappiness) / 10;
+    qDebug() << "mood Modifier: " << moodValueModifier;
 }
 
 void Controller::startGame(unsigned int difficultyInit)
