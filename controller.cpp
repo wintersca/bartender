@@ -78,7 +78,7 @@ void Controller::startRound()
 
 void Controller::newCustomer(unsigned int difficulty)
 {
-    qsrand(time(NULL));
+    qsrand(time(nullptr));
     int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
     switch(difficulty)
     {
@@ -108,7 +108,7 @@ void Controller::newCustomer(unsigned int difficulty)
 
 Drink* Controller::selectNewRandomDrink()
 {
-    qsrand(time(NULL));
+    qsrand(time(nullptr));
     int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
     currentDrink = userSpecifiedMenu[rand % userSpecifiedMenu.length()];
     return currentDrink;
