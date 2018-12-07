@@ -103,6 +103,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                       controller, &Controller::receiveAmountToAdd);
     QObject::connect(this, &MainWindow::drinkServed,
                       controller, &Controller::drinkServed);
+    QObject::connect(this, &MainWindow::requestRecords,
+                      controller, &Controller::recordsRequestedByMainWindow);
 
     // from controller
     QObject::connect(controller, &Controller::sendDrink,
@@ -117,6 +119,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      this, &MainWindow::requestAmountToAdd);
     QObject::connect(controller, &Controller::enableServe,
                      this, &MainWindow::enableServe);
+    QObject::connect(controller, &Controller::recordsToMainWindow,
+                     this, &MainWindow::receiveRecords);
 
 }
 
@@ -309,4 +313,9 @@ void MainWindow::on_serveButton_clicked()
 void MainWindow::enableServe()
 {
     ui->serveButton->setEnabled(true);
+}
+
+void MainWindow::on_actionView_Record_Board_triggered()
+{
+    emit requestRecords();
 }
