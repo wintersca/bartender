@@ -426,14 +426,4 @@
             <trivia description="Egg whites are also common in traditional sours but are generally left out now."/>
         </trivia_details>
     </drink>
-    <drink>
-        <name></name>
-        <ingredients>
-            <ingredient name="Green Creme de Menthe" amount="1"/>
-        </ingredients>
-        <actions/>
-        <trivia_details>
-            <trivia description="lalalalala"/>
-        </trivia_details>
-    </drink>
 </collection>

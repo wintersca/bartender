@@ -137,6 +137,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      this, &MainWindow::receiveTips);
     QObject::connect(controller, &Controller::requestAmountToAdd,
                      this, &MainWindow::requestAmountToAdd);
+    QObject::connect(controller, &Controller::enableServe,
+                     this, &MainWindow::enableServe);
 
 }
 
@@ -325,5 +327,11 @@ void MainWindow::on_actionStart_triggered()
 
 void MainWindow::on_serveButton_clicked()
 {
+    ui->serveButton->setEnabled(false);
     emit drinkServed();
+}
+
+void MainWindow::enableServe()
+{
+    ui->serveButton->setEnabled(true);
 }

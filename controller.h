@@ -5,7 +5,6 @@
 #include <QString>
 #include <QVector>
 #include <QMap>
-//#include <QRandomGenerator>
 #include <QtMath>
 #include <QDebug>
 #include "drink.h"
@@ -50,6 +49,7 @@ signals:
     void sendTime(int currentTime);
     void tipAmountToGame(int tipDollars, int tipCents);
     void requestAmountToAdd();
+    void enableServe();
 
 private:
     Drink* currentDrink;
@@ -80,38 +80,11 @@ private:
     void newCustomer(unsigned int difficulty);
     Drink* selectNewRandomDrink();
     void updateTimer(int currentTime);
-    void updateTipTotal(int newTipDollars, int newTipCents);
+    void handleActionIngredients(QVector<Step> steps, Step current, Ingredients::Ingredients ingredient);
     void endOfRoundHappinessBonus();
     void standardizeHappiness();
     bool containsIngredient(Ingredients::Ingredients ingredient, QVector<Step> steps);
     bool outOfOrderAmount(Ingredients::Ingredients ingredient, QVector<Step> steps, double amount);
-
-
-
-
-
 };
 
 #endif // CONTROLLER_H
-
-
-
-
-
-
-
-
-/* template signals TO controller
- * all of these go in the class you are connecting with, not the controller.
- *
-   QObject::connect(ui->uiElement, &QElementType::action,
-                    controller, &Controller::socketName);
-   QObject::connect(this, &MainWindow::functionName,
-                    controller, &Controller::socketName);
-
-
-   template signal FROM controller
-
-   QObject::connect(controller, &Controller::signalName,
-                    this, &MainWindow::slotName);
-*/
