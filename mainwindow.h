@@ -33,6 +33,7 @@ private slots:
     void receiveMenu(QVector<Drink*> menu);
     void receiveTips(int tipDollars, int tipCents);
     void requestAmountToAdd();
+    void enableServe();
 
     void on_actionEdit_Available_Drinks_triggered();
     void on_actionCreat_Custom_Drink_triggered();
@@ -53,9 +54,10 @@ signals:
 
 private:
     Ui::MainWindow *ui;
-    QVector<QLabel*> ingredientAmountLabels;
-    QVector<QLabel*> ingredientNameLabels;
-    QVector<QLabel*> ingredientUnitLabels;
+    //QVector<QLabel*> ingredientAmountLabels;
+    //QVector<QLabel*> ingredientNameLabels;
+    //QVector<QLabel*> ingredientUnitLabels;
+    QVector<QLabel*> stepsInDrink;
 };
 
 #endif // MAINWINDOW_H

@@ -21,6 +21,7 @@ public:
     void addTrivia(QString triv);
     void addIngredient(Ingredients::Ingredients ingredient, double amount);
     void addStep(QString instruction, Ingredients::Ingredients ingredient, double amount);
+    void setSteps(QVector<Step> steps);
     void setSelected(bool select);
     QString getName();
     QVector<QString> getTrivia();
