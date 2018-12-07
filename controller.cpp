@@ -73,6 +73,12 @@ void Controller::menuRequestedByMainWindow()
     emit menuToMainWindow(menu);
 }
 
+void Controller::recordsRequestedByMainWindow()
+{
+    QMap<QString, int> historicalData = RecordTracker::parseGameRecord();
+    emit recordsToMainWindow(historicalData);
+}
+
 void Controller::receiveUserSpecifiedMenu(QVector<Drink*> newMenu)
 {
     QVector<Drink*> tempMenu;
