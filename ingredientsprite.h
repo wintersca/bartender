@@ -12,10 +12,9 @@ class IngredientSprite : public sf::Sprite
 public:
     Ingredients::Ingredients ingredient;
     QPoint shelfPosition;
+    sf::Texture storedTexture;
 
     IngredientSprite() : sf::Sprite() { }
-
-
 };
 
 #endif // INGREDIENTSPRITE_H
