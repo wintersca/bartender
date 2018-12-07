@@ -13,12 +13,18 @@ QMap<QString, int> RecordTracker::parseGameRecord()
     else
     {
         reader.setDevice(&file);
-        while(reader.isEndDocument())
+
+        if(reader.readNextStartElement())
         {
-            QString name = reader.name().toString();
-            double amount = reader.readElementText().toDouble();
-            result[name] = amount;
-            reader.skipCurrentElement();
+            if(reader.name()=="Record")
+            {
+                while(reader.readNextStartElement())
+                {
+                    QString name = reader.name().toString();
+                    double amount = reader.readElementText().toDouble();
+                    result[name] = amount;
+                }
+            }
         }
         file.close();
     }
@@ -41,10 +47,12 @@ void RecordTracker::writeGameRecord(QMap<QString, int> toWrite)
         writer.setAutoFormatting(true);
 
         writer.writeStartDocument();
+        writer.writeStartElement("Record");
         for(QString currentKey: toWrite.keys())
         {
             writer.writeTextElement(currentKey, QString::number(toWrite.value(currentKey)));
         }
+        writer.writeEndElement();
         writer.writeEndDocument();
         file.close();
     }
