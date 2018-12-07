@@ -60,6 +60,16 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
 
             // Spawn drink items
             liquidPhysics.GenerateLiquid();
+
+            // Store sprites to represent them.
+            QColor thisColor = Ingredients::ingredientData[selected->ingredient].color;
+            for (int i = 0; i < liquidPhysics.liquidParticles; i++)
+            {
+                liquidShapes.append(sf::CircleShape(5));
+                liquidShapes[newLiquidShapeIndex + i].setFillColor(sf::Color(thisColor.red(), thisColor.green(), thisColor.blue()));
+                liquidShapes[newLiquidShapeIndex + i].setOrigin(2.5, 2.5);
+            }
+            newLiquidShapeIndex += liquidPhysics.liquidParticles;
         }
     }
 
@@ -191,6 +201,15 @@ void GameArea::OnInit()
 
     // Phyics set up.
     liquidPhysics = LiquidPhysics();
+    newLiquidShapeIndex = 0;
+
+    // This is a test object on the ground.
+    for (int i = 0; i < 2; i++)
+    {
+        liquidShapes.prepend(sf::CircleShape(5));
+        liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0));
+        newLiquidShapeIndex++;
+    }
 }
 
 //Game loop
@@ -223,13 +242,18 @@ void GameArea::OnUpdate()
     liquidPhysics.WorldStep();
 
     // Draw liquid items.
-    for (b2Body* BodyIterator = liquidPhysics.World->GetBodyList(); BodyIterator !=0; BodyIterator = BodyIterator->GetNext())
+    int i = newLiquidShapeIndex - 1;
+    for (b2Body* BodyIterator = liquidPhysics.World->GetBodyList(); BodyIterator != NULL; BodyIterator = BodyIterator->GetNext())
     {
-        sf::CircleShape shape(5);
-        shape.setFillColor(sf::Color(100, 250, 50));
-        shape.setOrigin(5, 5);
-        shape.setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
-        draw(shape);
+        //sf::CircleShape shape(5);
+        //shape.setFillColor(sf::Color(100, 250, 50));
+        //shape.setOrigin(2.5, 2.5);
+        //shape.setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
+        //draw(shape);
+
+        liquidShapes[i].setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
+        draw(liquidShapes[i]);
+        i--;
     }
 }
 

@@ -41,6 +41,7 @@ private :
     Controller *controller;
     LiquidPhysics liquidPhysics;
     QVector<sf::CircleShape> liquidShapes;
+    int newLiquidShapeIndex;
 
     void OnInit();
     void OnUpdate();
