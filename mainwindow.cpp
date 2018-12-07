@@ -6,6 +6,7 @@
 #include "gamearea.h"
 #include <random>
 #include "customizemenu.h"
+#include "recordboard.h"
 
 Controller *controller;
 MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
@@ -192,6 +193,17 @@ void MainWindow::receiveDrink(Drink* drink)
 void MainWindow::receiveMenu(QVector<Drink*> menu)
 {
     CustomizeMenu* window = new CustomizeMenu(controller, menu, this);
+    window->setModal(true);
+    window->show();
+    window->raise();
+    window->activateWindow();
+
+    //TODO: display menu so user can edit
+}
+
+void MainWindow::receiveRecords(QMap<QString, int> records)
+{
+    RecordBoard* window = new RecordBoard(controller, records, this);
     window->setModal(true);
     window->show();
     window->raise();
