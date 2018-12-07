@@ -46,6 +46,8 @@ private slots:
 
     void on_serveButton_clicked();
 
+    void on_actionView_Record_Board_triggered();
+
 signals:
     void start(unsigned int difficulty); //TODO put an enum as the parameter
     void requestMenu();
