@@ -11,14 +11,12 @@ LiquidPhysics::LiquidPhysics()
 {
     worldAABB.lowerBound.Set(0, 0);
     worldAABB.upperBound.Set(200, 500);
-    World = new b2World(b2Vec2(0.0f, -10.0f));
+    World = new b2World(b2Vec2(0.0f, 9.8f));
     World->SetAllowSleeping(true);
 
     // Ground placement
-    groundBodyDef.position.Set(0.0f, -10.0f);
-
+    groundBodyDef.position.Set(0.0f, 10.0f);
     groundBody = World->CreateBody(&groundBodyDef);
-
     groundBox.SetAsBox(50.0f, 10.0f);
     groundBody->CreateFixture(&groundBox, 0.0f);
 
@@ -51,7 +49,7 @@ void LiquidPhysics::GenerateLiquid()
     fixtureDef.friction = 0.3f;
     fixtureDef.restitution = 0.8f;
 
-    float32 pos_y = 100.0f;
+    float32 pos_y = -100.0f;
     float32 pos_x = 50.0f;
 
     for (int i = 0; i < 20; i++)
@@ -65,7 +63,7 @@ void LiquidPhysics::GenerateLiquid()
 
         int tempx = ((int)pos_x + 10) % 100;
         pos_x = tempx;
-        int tempy = ((int)pos_y + 5);
+        int tempy = ((int)pos_y - 5);
         pos_y = tempy;
 
         // spawn circle on body
@@ -107,12 +105,12 @@ void LiquidPhysics::CreateCup()
     glassfixture.shape = &edgeShape;
 
     b2EdgeShape edgeShape2;
-    edgeShape2.Set( b2Vec2(40,0), b2Vec2(35,50));
+    edgeShape2.Set( b2Vec2(40,0), b2Vec2(35,-50));
     b2FixtureDef glassfixture2;
     glassfixture2.shape = &edgeShape2;
 
     b2EdgeShape edgeShape3;
-    edgeShape3.Set( b2Vec2(65,50), b2Vec2(60,0));
+    edgeShape3.Set( b2Vec2(65,-50), b2Vec2(60,0));
     b2FixtureDef glassfixture3;
     glassfixture3.shape = &edgeShape3;
 

@@ -13,6 +13,7 @@
 #include "controller.h"
 #include "./Box2D/Box2D/Box2D.h"
 #include "spritesheet.h"
+#include "liquidphysics.h"
 
 class GameArea : public QSFMLCanvas
 {
@@ -31,18 +32,14 @@ private :
     QVector<IngredientSprite> ingredientSprites;
     IngredientSprite* selected;
     IngredientSprite glassImage;
-
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
-
     QVector<IngredientSprite> faceSprites;
     QVector<sf::Texture> faceTextures;
     int currentMood;
-
     QVector<sf::Texture> trueIngredientTextures;
-
     Controller *controller;
-
+    LiquidPhysics liquidPhysics;
     void OnInit();
 
     //void assignTextures(QVector<QFileInfo>);
@@ -53,6 +50,10 @@ private :
     const int verticalPositions[4] = { 69, 169, 269, 369 };
     const int horizontalPositions[14] = { 42, 118, 194, 269, 345, 421, 497, 572, 648, 724, 800, 875, 951, 1027 };
     const int barVerticalPosition = 596;
+
+    // Phyics positions.
+    const int physicsOffSetVertical = 596;
+    const int physicsOffsetHorizontal = 534;
 
 signals:
     void ingredientAdded(Ingredients::Ingredients);

@@ -12,8 +12,10 @@ public:
     void GenerateLiquid();
     void DeleteLiquid();
 
-private slots:
+//private slots:
     void WorldStep();
+
+    b2World* World;
 
 signals:
 
@@ -22,7 +24,7 @@ private:
     QTimer* timer;
 
     b2BodyDef groundBodyDef;
-    b2World* World;
+
     b2Body* groundBody;
     b2PolygonShape groundBox;
 

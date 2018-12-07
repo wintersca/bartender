@@ -57,7 +57,9 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
         {
             qDebug() << "Added to drink" << selected->ingredient << "\n";
             emit ingredientAdded(selected->ingredient);
+
             // Spawn drink items
+            liquidPhysics.GenerateLiquid();
         }
     }
 
@@ -67,12 +69,11 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
 // Constructor.
 void GameArea::OnInit()
 {
-    // Get the sprites.
+    // Get the ingredient sprites.
     QVector<QFileInfo> ingredientFilePaths = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/ingredients/ingredientsSheet.png", 49, 60, 80);
     ingredientSprites = QVector<IngredientSprite>();
 
     trueIngredientTextures = QVector<sf::Texture>(Ingredients::TRUEINGREDIENTS);
-    //assignTextures(ingredientFilePaths);
 
     // Create all ingredient sprite objects. This included tools.
     //int ingredientIndex = 0;
@@ -187,6 +188,9 @@ void GameArea::OnInit()
     backgroundSprite.setPosition(0.f, 0.f);
 
     selected = nullptr;
+
+    // Phyics set up.
+    liquidPhysics = LiquidPhysics();
 }
 
 //Game loop
@@ -215,7 +219,18 @@ void GameArea::OnUpdate()
         draw(ingredientSprites[i]);
     }
 
+    // Update the physics
+    liquidPhysics.WorldStep();
 
+    // Draw liquid items.
+    for (b2Body* BodyIterator = liquidPhysics.World->GetBodyList(); BodyIterator !=0; BodyIterator = BodyIterator->GetNext())
+    {
+        sf::CircleShape shape(10);
+        shape.setFillColor(sf::Color(100, 250, 50));
+        shape.setOrigin(5, 5);
+        shape.setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
+        draw(shape);
+    }
 }
 
 void GameArea::receiveMood(int mood)
