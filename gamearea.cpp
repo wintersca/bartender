@@ -58,18 +58,21 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
             qDebug() << "Added to drink" << selected->ingredient << "\n";
             emit ingredientAdded(selected->ingredient);
 
-            // Spawn drink items
-            liquidPhysics.GenerateLiquid();
-
-            // Store sprites to represent them.
-            QColor thisColor = Ingredients::ingredientData[selected->ingredient].color;
-            for (int i = 0; i < liquidPhysics.liquidParticles; i++)
+            if (selected->ingredient <= Ingredients::Celery)
             {
-                liquidShapes.append(sf::CircleShape(5));
-                liquidShapes[newLiquidShapeIndex + i].setFillColor(sf::Color(thisColor.red(), thisColor.green(), thisColor.blue()));
-                liquidShapes[newLiquidShapeIndex + i].setOrigin(2.5, 2.5);
+                // Spawn drink items
+                liquidPhysics.GenerateLiquid();
+
+                // Store sprites to represent them.
+                QColor thisColor = Ingredients::ingredientData[selected->ingredient].color;
+                for (int i = 0; i < liquidPhysics.liquidParticles; i++)
+                {
+                    liquidShapes.append(sf::CircleShape(10));
+                    liquidShapes[newLiquidShapeIndex + i].setFillColor(sf::Color(thisColor.red(), thisColor.green(), thisColor.blue(), 150));
+                    liquidShapes[newLiquidShapeIndex + i].setOrigin(5, 5);
+                }
+                newLiquidShapeIndex += liquidPhysics.liquidParticles;
             }
-            newLiquidShapeIndex += liquidPhysics.liquidParticles;
         }
     }
 
@@ -242,19 +245,15 @@ void GameArea::OnUpdate()
     liquidPhysics.WorldStep();
 
     // Draw liquid items.
+    lock.lock();
     int i = newLiquidShapeIndex - 1;
     for (b2Body* BodyIterator = liquidPhysics.World->GetBodyList(); BodyIterator != NULL; BodyIterator = BodyIterator->GetNext())
     {
-        //sf::CircleShape shape(5);
-        //shape.setFillColor(sf::Color(100, 250, 50));
-        //shape.setOrigin(2.5, 2.5);
-        //shape.setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
-        //draw(shape);
-
         liquidShapes[i].setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
         draw(liquidShapes[i]);
         i--;
     }
+    lock.unlock();
 }
 
 void GameArea::receiveMood(int mood)
@@ -264,5 +263,21 @@ void GameArea::receiveMood(int mood)
 
 void GameArea::drinkServed()
 {
-    //TODO Clear the items in the glass.
+    // This just freezes the game currently.
+    /*
+    lock.lock();
+    liquidPhysics.DeleteLiquid();
+    newLiquidShapeIndex = 0;
+    liquidShapes.clear();
+
+    // Add test balls.
+    for (int i = 0; i < 2; i++)
+    {
+        liquidShapes.prepend(sf::CircleShape(5));
+        liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0));
+        newLiquidShapeIndex++;
+    }
+
+    lock.unlock();
+    */
 }

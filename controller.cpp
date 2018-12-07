@@ -215,6 +215,7 @@ void Controller::drinkServed()
 {
     endRound();
     QTimer::singleShot(1000, this, SLOT(startRound()));
+    emit clearDrink();
 }
 
 void Controller::endRound()

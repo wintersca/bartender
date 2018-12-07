@@ -89,6 +89,7 @@ void LiquidPhysics::DeleteLiquid()
     groundBox.SetAsBox(50.0f, 10.0f);
     groundBody->CreateFixture(&groundBox, 0.0f);
     //Add cup back
+    CreateCup();
 }
 
 void LiquidPhysics::CreateCup()
@@ -101,19 +102,19 @@ void LiquidPhysics::CreateCup()
 
     // Bottom edge.
     b2EdgeShape edgeShape;
-    edgeShape.Set(b2Vec2(24, 0), b2Vec2(104, 0));
+    edgeShape.Set(b2Vec2(24, -20), b2Vec2(95, -20));
     b2FixtureDef glassfixture;
     glassfixture.shape = &edgeShape;
 
     // Left edge.
     b2EdgeShape edgeShape2;
-    edgeShape2.Set(b2Vec2(8, -184), b2Vec2(24, 0));
+    edgeShape2.Set(b2Vec2(8, -204), b2Vec2(24, -20));
     b2FixtureDef glassfixture2;
     glassfixture2.shape = &edgeShape2;
 
     // Right edge.
     b2EdgeShape edgeShape3;
-    edgeShape3.Set( b2Vec2(120, -184), b2Vec2(104, 0));
+    edgeShape3.Set( b2Vec2(110, -204), b2Vec2(95, -20));
     b2FixtureDef glassfixture3;
     glassfixture3.shape = &edgeShape3;
 

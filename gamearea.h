@@ -14,6 +14,7 @@
 #include "./Box2D/Box2D/Box2D.h"
 #include "spritesheet.h"
 #include "liquidphysics.h"
+#include <QMutex>
 
 class GameArea : public QSFMLCanvas
 {
@@ -42,6 +43,7 @@ private :
     LiquidPhysics liquidPhysics;
     QVector<sf::CircleShape> liquidShapes;
     int newLiquidShapeIndex;
+    QMutex lock;
 
     void OnInit();
     void OnUpdate();

@@ -77,45 +77,6 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     stepsInDrink[8] = ui->step9;
     stepsInDrink[9] = ui->step10;
 
-    /*
-    // Build array of labels for displaying ingredients.
-    ingredientAmountLabels = QVector<QLabel*>(10);
-    ingredientAmountLabels[0] = ui->ingredientAmount1;
-    ingredientAmountLabels[1] = ui->ingredientAmount2;
-    ingredientAmountLabels[2] = ui->ingredientAmount3;
-    ingredientAmountLabels[3] = ui->ingredientAmount4;
-    ingredientAmountLabels[4] = ui->ingredientAmount5;
-    ingredientAmountLabels[5] = ui->ingredientAmount6;
-    ingredientAmountLabels[6] = ui->ingredientAmount7;
-    ingredientAmountLabels[7] = ui->ingredientAmount8;
-    ingredientAmountLabels[8] = ui->ingredientAmount9;
-    ingredientAmountLabels[9] = ui->ingredientAmount10;
-
-    ingredientNameLabels = QVector<QLabel*>(10);
-    ingredientNameLabels[0] = ui->ingredientName1;
-    ingredientNameLabels[1] = ui->ingredientName2;
-    ingredientNameLabels[2] = ui->ingredientName3;
-    ingredientNameLabels[3] = ui->ingredientName4;
-    ingredientNameLabels[4] = ui->ingredientName5;
-    ingredientNameLabels[5] = ui->ingredientName6;
-    ingredientNameLabels[6] = ui->ingredientName7;
-    ingredientNameLabels[7] = ui->ingredientName8;
-    ingredientNameLabels[8] = ui->ingredientName9;
-    ingredientNameLabels[9] = ui->ingredientName10;
-
-    ingredientUnitLabels = QVector<QLabel*>(10);
-    ingredientUnitLabels[0] = ui->ingredientUnit1;
-    ingredientUnitLabels[1] = ui->ingredientUnit2;
-    ingredientUnitLabels[2] = ui->ingredientUnit3;
-    ingredientUnitLabels[3] = ui->ingredientUnit4;
-    ingredientUnitLabels[4] = ui->ingredientUnit5;
-    ingredientUnitLabels[5] = ui->ingredientUnit6;
-    ingredientUnitLabels[6] = ui->ingredientUnit7;
-    ingredientUnitLabels[7] = ui->ingredientUnit8;
-    ingredientUnitLabels[8] = ui->ingredientUnit9;
-    ingredientUnitLabels[9] = ui->ingredientUnit10;
-    */
-
     // Clear the ingredients text.
     ui->drinkName->setText("");
     ui->triviaLabel->setText("");
@@ -128,6 +89,9 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ui->amountToAdd->setMinimum(0.25);
     ui->amountToAdd->setSingleStep(0.25);
     ui->amountToAdd->setValue(1.0);
+
+    // Disable the serve drink button
+    ui->serveButton->setEnabled(false);
 
     // to controller
     QObject::connect(this, &MainWindow::start,
@@ -183,28 +147,6 @@ void MainWindow::receiveDrink(Drink* drink)
         {
             stepsInDrink[i]->setText(steps[i].getInstruction());
         }
-
-        /*
-        while (i.hasNext())
-        {
-            i.next();
-
-
-            // Display amount
-            ingredientAmountLabels[ingredientIndex]->setText(QString::number(i.value()));
-
-            // Display name.
-            QString ingredientName = Ingredients::ingredientData[i.key()].displayString;
-            ingredientNameLabels[ingredientIndex]->setText(ingredientName);
-
-            // Display units.
-            QString ingredientUnits = Ingredients::ingredientData[i.key()].unit;
-            ingredientUnitLabels[ingredientIndex]->setText(ingredientUnits);
-
-
-            ingredientIndex++;
-        }
-        */
     }
 
     // Display the trivia.
@@ -343,6 +285,7 @@ void MainWindow::on_actionHard_triggered()
 void MainWindow::on_actionStart_triggered()
 {
     emit start(currentDifficulty);
+    ui->serveButton->setEnabled(true);
 }
 
 void MainWindow::on_serveButton_clicked()
