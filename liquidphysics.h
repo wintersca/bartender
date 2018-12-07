@@ -9,6 +9,8 @@ class LiquidPhysics
 {
 public:
     LiquidPhysics();
+    void GenerateLiquid();
+    void DeleteLiquid();
 
 private slots:
     void WorldStep();
@@ -23,10 +25,7 @@ private:
     b2World* World;
     b2Body* groundBody;
     b2PolygonShape groundBox;
-    b2BodyDef bodyDef;
-    b2Body* body;
-    b2CircleShape dynamicCircle;
-    b2FixtureDef fixtureDef;
+
     float32 timeStep = 1.0f / 60.0f;
     int32 velocityIterations = 6;
     int32 positionIterations = 2;
