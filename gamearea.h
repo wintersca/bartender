@@ -52,8 +52,8 @@ private :
     const int barVerticalPosition = 596;
 
     // Phyics positions.
-    const int physicsOffSetVertical = 596;
-    const int physicsOffsetHorizontal = 534;
+    const int physicsOffSetVertical = 690;
+    const int physicsOffsetHorizontal = 469;
 
 signals:
     void ingredientAdded(Ingredients::Ingredients);
@@ -65,3 +65,4 @@ public slots:
 };
 
 #endif // MYCANVAS_H
+

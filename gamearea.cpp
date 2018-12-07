@@ -225,7 +225,7 @@ void GameArea::OnUpdate()
     // Draw liquid items.
     for (b2Body* BodyIterator = liquidPhysics.World->GetBodyList(); BodyIterator !=0; BodyIterator = BodyIterator->GetNext())
     {
-        sf::CircleShape shape(10);
+        sf::CircleShape shape(5);
         shape.setFillColor(sf::Color(100, 250, 50));
         shape.setOrigin(5, 5);
         shape.setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
