@@ -8,7 +8,7 @@ QMap<QString, int> RecordTracker::parseGameRecord()
     QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/HistoricalGameData.xml");
     if(!file.open(QFile::ReadOnly | QFile::Text))
     {
-        throw -1;
+        return result;
     }
     else
     {
