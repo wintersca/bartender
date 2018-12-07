@@ -2,7 +2,7 @@
 #define LIQUIDPHYSICS_H
 
 //#include <QMainWindow>
-#include "Box2D/Box2D/Box2D.h"
+#include "./Box2D/Box2D/Box2D.h"
 #include <QTimer>
 
 class LiquidPhysics

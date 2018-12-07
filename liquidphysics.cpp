@@ -1,7 +1,7 @@
 #include "liquidphysics.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include "Box2D/Box2D/Box2D.h"
+//#include "Box2D/Box2D/Box2D.h"
 #include <QTimer>
 #include <QPainter>
 #include <QPen>
