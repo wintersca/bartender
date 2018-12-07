@@ -11,15 +11,10 @@ LiquidPhysics::LiquidPhysics()
 {
     worldAABB.lowerBound.Set(0, 0);
     worldAABB.upperBound.Set(200, 500);
-    World = new b2World(b2Vec2(0.0f, 98.f));
+    World = new b2World(b2Vec2(0.0f, 500.f));
     World->SetAllowSleeping(true);
 
-    // Ground placement
-    groundBodyDef.position.Set(0.0f, 0.0f);
-    groundBody = World->CreateBody(&groundBodyDef);
-    groundBox.SetAsBox(500.0f, 10.0f);
-    groundBody->CreateFixture(&groundBox, 0.0f);
-
+    CreateGround();
     CreateCup();
     // Basically connect in Controller whenever the screen has to update to the step function of the Liquid Physics so it can move along too.
     //connect(this->timer, SIGNAL(timeout()), this, SLOT(WorldStep()));
@@ -73,23 +68,35 @@ void LiquidPhysics::GenerateLiquid()
 
 void LiquidPhysics::DeleteLiquid()
 {
-    for (b2Body* body = World->GetBodyList()->GetNext(); body;)
+    for (b2Body* body = World->GetBodyList()->GetNext(); body; body = body->GetNext())
     {
+        World->DestroyBody(body);
+        /*
+        b2Body* next = body->GetNext();  // remember next body before *b gets destroyed
+        World->DestroyBody(body); // do I need to destroy fixture as well(and how?) or it does that for me?
+        body = next;  // go to next body
+        */
+        /*
         if (body->GetUserData() != NULL) {
-             b2Body* next = body->GetNext();  // remember next body before *b gets destroyed
-             World->DestroyBody(body); // do I need to destroy fixture as well(and how?) or it does that for me?
-             body = next;  // go to next body
-          }
+
+        }
+        else
+        {
+            body = body->GetNext();
+        }
+        */
     }
+    CreateGround();
+    /*
     //Add ground back afterwards
     groundBodyDef.position.Set(0.0f, -10.0f);
-
     groundBody = World->CreateBody(&groundBodyDef);
-
     groundBox.SetAsBox(50.0f, 10.0f);
     groundBody->CreateFixture(&groundBox, 0.0f);
+    */
+
     //Add cup back
-    //CreateCup();
+    CreateCup();
 }
 
 void LiquidPhysics::CreateCup()
@@ -98,7 +105,7 @@ void LiquidPhysics::CreateCup()
     glass.type = b2_staticBody;
     glass.position.Set(0,0); //middle, bottom
 
-    b2Body* Cup = World->CreateBody(&glass);
+    Cup = World->CreateBody(&glass);
 
     // Bottom edge.
     b2EdgeShape edgeShape;
@@ -121,4 +128,13 @@ void LiquidPhysics::CreateCup()
     Cup->CreateFixture(&glassfixture);
     Cup->CreateFixture(&glassfixture2);
     Cup->CreateFixture(&glassfixture3);
+}
+
+void LiquidPhysics::CreateGround()
+{
+    // Ground placement
+    groundBodyDef.position.Set(0.0f, 0.0f);
+    groundBody = World->CreateBody(&groundBodyDef);
+    groundBox.SetAsBox(500.0f, 10.0f);
+    groundBody->CreateFixture(&groundBox, 0.0f);
 }

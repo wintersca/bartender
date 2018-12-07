@@ -205,7 +205,7 @@ void GameArea::OnInit()
     // Phyics set up.
     liquidPhysics = LiquidPhysics();
     newLiquidShapeIndex = 0;
-
+    /*
     // This is a test object on the ground.
     for (int i = 0; i < 2; i++)
     {
@@ -213,6 +213,7 @@ void GameArea::OnInit()
         liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0, 0));
         newLiquidShapeIndex++;
     }
+    */
 }
 
 //Game loop
@@ -248,12 +249,17 @@ void GameArea::OnUpdate()
     lock.lock();
     int i = newLiquidShapeIndex - 1;
     b2Body* BodyIterator = liquidPhysics.World->GetBodyList();
-
     for (; BodyIterator; BodyIterator = BodyIterator->GetNext())
     {
-        liquidShapes[i].setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
-        draw(liquidShapes[i]);
-        i--;
+        if (BodyIterator != liquidPhysics.Cup && BodyIterator != liquidPhysics.groundBody)
+        {
+            if (i < newLiquidShapeIndex && i >= 0)
+            {
+                liquidShapes[i].setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
+                draw(liquidShapes[i]);
+                i--;
+            }
+        }
     }
     lock.unlock();
 }
@@ -266,12 +272,13 @@ void GameArea::receiveMood(int mood)
 void GameArea::drinkServed()
 {
     // This just freezes the game currently.
-    /*
+
     lock.lock();
     liquidPhysics.DeleteLiquid();
     newLiquidShapeIndex = 0;
     liquidShapes.clear();
 
+    /*
     // Add test balls.
     for (int i = 0; i < 2; i++)
     {
@@ -279,7 +286,8 @@ void GameArea::drinkServed()
         liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0));
         newLiquidShapeIndex++;
     }
+    */
 
     lock.unlock();
-    */
+
 }
