@@ -282,10 +282,10 @@ namespace Ingredients {
         // Ice
         {
             QColor(236, 240, 243),
-            "oz",
+            "cubes",
             "Ice.png",
             "Ice",
-            Action::PourAction
+            Action::AddAction
         },
         // Non alcoholic liquids
         // Tonic Water

@@ -84,25 +84,54 @@ void CustomDrinkImporter::on_buttonBox_accepted()
         if (currentText != "none")
         {
             QString instruction = QString();
-                        double amount = amountBoxes[i]->value();
-                        Ingredients::Ingredients ingredient = ingredientsMap.stringsToIngredients[currentText];
-                        std::cout<< "Ingredient: " << QString::number(ingredient).toStdString()<< std::endl;
-                        Ingredients::IngredientData data=Ingredients::ingredientData[ingredient];
-                        std::cout <<"Got data"<<std::endl;
-                        instruction+= data.action + " " + QString::number(amount) + " " +data.unit + " " +data.displayString;
-                        std::cout << "Inst: " <<instruction.toStdString()<<std::endl;
-                        totalOfSteps.append(amountBoxes[i]->value());
-                        includedSteps.append(ingredientsMap.stringsToIngredients[currentText]);
-                        Step step= Step(instruction, ingredient,  amount);
-                        std::cout << "Created steps" << std::endl;
-                        steps.push_back(step);
-                        std::cout<< "Pushed back" <<std::endl;
+            double amount = amountBoxes[i]->value();
+            Ingredients::Ingredients ingredient = ingredientsMap.stringsToIngredients[currentText];
+            Ingredients::IngredientData data=Ingredients::ingredientData[ingredient];
+            QString action;
+            if(data.action==Ingredients::Action::PourAction){
+                action = "Pour";
+                instruction+=  QString::number(i+1)+ ". " + action + " " + QString::number(amount) + " " +data.unit + " " +data.displayString;
+            }
+            else if(data.action==Ingredients::Action::AddAction){
+                action = "Add";
+                if(data.unit == "cubes"){
+                    instruction+=QString::number(i+1)+ ". " + action + " "  + data.displayString;
+                    amount = 1;
+                }else{
+                    instruction+=QString::number(i+1)+ ". " + action + " " + QString::number(amount) + " " +data.unit + " " +data.displayString;
+                }
+            }
+            else if(data.action==Ingredients::Action::ShakeAction){
+                action = "Shake";
+                instruction =QString::number(i+1)+ ". " + action;
+                amount=0;
+            }
+            else if(data.action==Ingredients::Action::StirAction){
+                action = "Stir";
+                instruction =QString::number(i+1)+ ". " + action;
+                amount=0;
+            }
+            else if(data.action==Ingredients::Action::MuddleAction){
+                action = "Muddle";
+                instruction =QString::number(i+1)+ ". " + action;
+                amount=0;
+            }
+
+
+
+
+            totalOfSteps.append(amount);
+            includedSteps.append(ingredient);
+            Step step= Step(instruction, ingredient,  amount);
+
+            steps.push_back(step);
+
         }
     }
 
     // Convert to a drink object.
 
-    drink.Name = ui->drinkName->text();
+    drink.Name = "*"+ui->drinkName->text();
     drink.Trivia.append(ui->drinkTrivia->toPlainText());
     for (int i = 0; i < includedSteps.count(); i++)
 
