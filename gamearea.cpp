@@ -209,8 +209,8 @@ void GameArea::OnInit()
     // This is a test object on the ground.
     for (int i = 0; i < 2; i++)
     {
-        liquidShapes.prepend(sf::CircleShape(2));
-        liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0));
+        liquidShapes.prepend(sf::CircleShape(0));
+        liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0, 0));
         newLiquidShapeIndex++;
     }
 }
@@ -247,7 +247,9 @@ void GameArea::OnUpdate()
     // Draw liquid items.
     lock.lock();
     int i = newLiquidShapeIndex - 1;
-    for (b2Body* BodyIterator = liquidPhysics.World->GetBodyList(); BodyIterator != NULL; BodyIterator = BodyIterator->GetNext())
+    b2Body* BodyIterator = liquidPhysics.World->GetBodyList();
+
+    for (; BodyIterator; BodyIterator = BodyIterator->GetNext())
     {
         liquidShapes[i].setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
         draw(liquidShapes[i]);
