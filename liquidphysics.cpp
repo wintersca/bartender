@@ -22,7 +22,7 @@ LiquidPhysics::LiquidPhysics()
     groundBox.SetAsBox(50.0f, 10.0f);
     groundBody->CreateFixture(&groundBox, 0.0f);
 
-
+    CreateCup();
     // Basically connect in Controller whenever the screen has to update to the step function of the Liquid Physics so it can move along too.
     //connect(this->timer, SIGNAL(timeout()), this, SLOT(WorldStep()));
 }
@@ -91,4 +91,32 @@ void LiquidPhysics::DeleteLiquid()
     groundBox.SetAsBox(50.0f, 10.0f);
     groundBody->CreateFixture(&groundBox, 0.0f);
 //Add cup back
+}
+
+void LiquidPhysics::CreateCup()
+{
+    b2BodyDef glass;
+    glass.type = b2_staticBody;
+    glass.position.Set(0,0); //middle, bottom
+
+    b2Body* Cup = World->CreateBody(&glass);
+
+    b2EdgeShape edgeShape;
+    edgeShape.Set( b2Vec2(40,0), b2Vec2(60,0));
+    b2FixtureDef glassfixture;
+    glassfixture.shape = &edgeShape;
+
+    b2EdgeShape edgeShape2;
+    edgeShape2.Set( b2Vec2(40,0), b2Vec2(35,50));
+    b2FixtureDef glassfixture2;
+    glassfixture2.shape = &edgeShape2;
+
+    b2EdgeShape edgeShape3;
+    edgeShape3.Set( b2Vec2(65,50), b2Vec2(60,0));
+    b2FixtureDef glassfixture3;
+    glassfixture3.shape = &edgeShape3;
+
+    Cup->CreateFixture(&glassfixture);
+    Cup->CreateFixture(&glassfixture2);
+    Cup->CreateFixture(&glassfixture3);
 }
