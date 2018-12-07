@@ -54,9 +54,10 @@ signals:
 
 private:
     Ui::MainWindow *ui;
-    QVector<QLabel*> ingredientAmountLabels;
-    QVector<QLabel*> ingredientNameLabels;
-    QVector<QLabel*> ingredientUnitLabels;
+    //QVector<QLabel*> ingredientAmountLabels;
+    //QVector<QLabel*> ingredientNameLabels;
+    //QVector<QLabel*> ingredientUnitLabels;
+    QVector<QLabel*> stepsInDrink;
 };
 
 #endif // MAINWINDOW_H

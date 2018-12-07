@@ -64,6 +64,20 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ui->menuDifficulty->actions().at(1)->setEnabled(false);
     ui->menuDifficulty->actions().at(2)->setEnabled(true);
 
+    // Labels for displaying the steps of a drink.
+    stepsInDrink = QVector<QLabel*>(10);
+    stepsInDrink[0] = ui->step1;
+    stepsInDrink[1] = ui->step2;
+    stepsInDrink[2] = ui->step3;
+    stepsInDrink[3] = ui->step4;
+    stepsInDrink[4] = ui->step5;
+    stepsInDrink[5] = ui->step6;
+    stepsInDrink[6] = ui->step7;
+    stepsInDrink[7] = ui->step8;
+    stepsInDrink[8] = ui->step9;
+    stepsInDrink[9] = ui->step10;
+
+    /*
     // Build array of labels for displaying ingredients.
     ingredientAmountLabels = QVector<QLabel*>(10);
     ingredientAmountLabels[0] = ui->ingredientAmount1;
@@ -100,15 +114,14 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ingredientUnitLabels[7] = ui->ingredientUnit8;
     ingredientUnitLabels[8] = ui->ingredientUnit9;
     ingredientUnitLabels[9] = ui->ingredientUnit10;
+    */
 
     // Clear the ingredients text.
     ui->drinkName->setText("");
     ui->triviaLabel->setText("");
     for (int i = 0; i < 10; i++)
     {
-        ingredientAmountLabels[i]->setText("");
-        ingredientNameLabels[i]->setText("");
-        ingredientUnitLabels[i]->setText("");
+        stepsInDrink[i]->setText("");
     }
 
     // Set up the amounts to pour box.
@@ -151,12 +164,10 @@ void MainWindow::receiveDrink(Drink* drink)
 {
     ui->drinkName->setText(drink->Name);
 
-    // Clear the old ingredients.
+    // Clear the steps
     for (int i = 0; i < 10; i++)
     {
-        ingredientAmountLabels[i]->setText("");
-        ingredientNameLabels[i]->setText("");
-        ingredientUnitLabels[i]->setText("");
+        stepsInDrink[i]->setText("");
     }
 
     // Display all the ingredients.
@@ -164,10 +175,21 @@ void MainWindow::receiveDrink(Drink* drink)
     if (currentDifficulty != Difficulty::hard)
     {
         int ingredientIndex = 0;
-        QMapIterator<Ingredients::Ingredients, double> i(drink->IngredientsMap);
+        //QMapIterator<Ingredients::Ingredients, double> i(drink->Steps->);
+
+        QVector<Step> steps = drink->getSteps();
+
+        for (int i = 0; i < steps.length(); i++)
+        {
+            stepsInDrink[i]->setText(steps[i].getInstruction());
+        }
+
+        /*
         while (i.hasNext())
         {
             i.next();
+
+
             // Display amount
             ingredientAmountLabels[ingredientIndex]->setText(QString::number(i.value()));
 
@@ -179,8 +201,10 @@ void MainWindow::receiveDrink(Drink* drink)
             QString ingredientUnits = Ingredients::ingredientData[i.key()].unit;
             ingredientUnitLabels[ingredientIndex]->setText(ingredientUnits);
 
+
             ingredientIndex++;
         }
+        */
     }
 
     // Display the trivia.
@@ -319,10 +343,6 @@ void MainWindow::on_actionHard_triggered()
 void MainWindow::on_actionStart_triggered()
 {
     emit start(currentDifficulty);
-
-    // Testing
-    //receiveTime(-30);
-    //receiveTips(73, 47);
 }
 
 void MainWindow::on_serveButton_clicked()
