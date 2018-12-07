@@ -12,7 +12,7 @@
 #include "ingredientsprite.h"
 #include "qsfmlcanvas.h"
 #include "xmldrinkparser.h"
-
+#include "recordtracker.h"
 
 class Controller : public QObject
 {
@@ -58,6 +58,9 @@ private:
     int stepCount;
     int totalTipDollars;
     int totalTipCents;
+    int totalCustomersSatisfied;
+    int totalCustomersDissatisfied;
+    int totalDrinksServed;
     int timeToCompleteDrink;
     int drinkComplexity;
     int drinkPoints;

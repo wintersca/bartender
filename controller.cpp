@@ -9,8 +9,48 @@ Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(pa
     currentDrink = nullptr;
     for (Drink* drink : menu)
         drink->setSelected(true);
-    totalTipDollars = 0;
-    totalTipCents = 0;
+
+    // grab game record if there is one
+    QMap<QString, int> historicalData = RecordTracker::parseGameRecord();
+
+    if(historicalData.size() == 0)
+    {
+        totalTipDollars = 0;
+        totalTipCents = 0;
+        totalCustomersSatisfied = 0;
+        totalCustomersDissatisfied = 0;
+        totalDrinksServed = 0;
+    }
+    else
+    {
+        for(QString data: historicalData.keys())
+        {
+            if(data.compare("TipDollars"))
+            {
+                totalTipDollars = historicalData.value(data);
+            }
+
+            if(data.compare("TipCents"))
+            {
+                totalTipCents = historicalData.value(data);
+            }
+
+            if(data.compare("CustomersSatisfied"))
+            {
+                totalCustomersSatisfied = historicalData.value(data);
+            }
+
+            if(data.compare("CustomerDissatisfied"))
+            {
+                totalCustomersDissatisfied = historicalData.value(data);
+            }
+
+            if(data.compare("DrinksServed"))
+            {
+                totalDrinksServed = historicalData.value(data);
+            }
+        }
+    }
     timer = new QTimer(this);
     connect(timer, SIGNAL(timeout()),
             this, SLOT(timerUpdate()));
@@ -214,6 +254,7 @@ bool Controller::outOfOrderAmount(Ingredients::Ingredients ingredient, QVector<S
 void Controller::drinkServed()
 {
     endRound();
+    totalDrinksServed++;
     QTimer::singleShot(1000, this, SLOT(startRound()));
     emit clearDrink();
 }
@@ -225,6 +266,18 @@ void Controller::endRound()
     calculateTip();
     standardizeHappiness();
     emit moodToGameArea(currentHappiness);
+
+    totalDrinksServed++;
+
+    // record game data
+    QMap<QString, int> toRecord;
+    toRecord["TipDollars"] = totalTipDollars;
+    toRecord["TipCents"] = totalTipCents;
+    toRecord["CustomersSatisfied"] = totalCustomersSatisfied;
+    toRecord["CustomerDissatisfied"] = totalCustomersDissatisfied;
+    toRecord["DrinksServed"] = totalDrinksServed;
+
+    RecordTracker::writeGameRecord(toRecord);
 }
 
 void Controller::endOfRoundHappinessBonus()
@@ -255,4 +308,10 @@ void Controller::standardizeHappiness()
         currentHappiness = 5;
     else if (currentHappiness < 0)
         currentHappiness = 0;
+
+    // update customer satisfaction counts
+    if(currentHappiness >= 3)
+        totalCustomersSatisfied++;
+    else
+        totalCustomersDissatisfied++;
 }
