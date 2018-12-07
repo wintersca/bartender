@@ -10,11 +10,12 @@
 
 class RecordTracker
 {
-private:
-    RecordTracker();
-public:
-    static QMap<QString, double> parseGameRecord();
-    static void writeGameRecord(QMap<QString, double>);
+    private:
+        RecordTracker();
+
+    public:
+        static QMap<QString, int> parseGameRecord();
+        static void writeGameRecord(QMap<QString, int>);
 };
 
 #endif // RECORDTRACKER_H

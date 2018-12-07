@@ -426,20 +426,4 @@
             <trivia description="Egg whites are also common in traditional sours but are generally left out now."/>
         </trivia_details>
     </drink>
-    <drink>
-        <name>White Russian</name>
-        <ingredients>
-            <ingredient name="Vodka" amount="2"/>
-            <ingredient name="Kahlua" amount="1"/>
-            <ingredient name="Cream" amount="3"/>
-        </ingredients>
-        <actions>
-            <action instruction=" 2 oz Vodka" item="Vodka" amount="2"/>
-            <action instruction=" 3 oz Cream" item="Cream" amount="3"/>
-            <action instruction=" 1 oz Kahlua" item="Kahlua" amount="1"/>
-        </actions>
-        <trivia_details>
-            <trivia description="True Story Henry got me way to drunk with these and I can't drink them, any more.&#10;        "/>
-        </trivia_details>
-    </drink>
 </collection>

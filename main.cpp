@@ -3,10 +3,12 @@
 #include "gamearea.h"
 #include "controller.h"
 #include "xmldrinkparser.h"
+//#include <Box2D/Box2D/Box2D.h>
+
 int main(int argc, char *argv[])
 {
-    XMLDrinkParser* xml = new XMLDrinkParser();
     QApplication a(argc, argv);
+    XMLDrinkParser* xml = new XMLDrinkParser();
     Controller *c = new Controller(xml);
     MainWindow w(c);
     w.show();

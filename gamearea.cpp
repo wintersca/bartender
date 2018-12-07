@@ -1,4 +1,27 @@
 #include "gamearea.h"
+#include <Box2D/Box2D/Box2D.h>
+
+void GameArea::pouring(){
+
+
+}
+
+GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, Controller *ctrlrPtr) :
+    QSFMLCanvas(Parent, Position, Size)
+{
+    controller = ctrlrPtr;
+    // to controller
+    QObject::connect(this, &GameArea::ingredientAdded,
+                     controller, &Controller::checkIngredient);   
+    QObject::connect(this, &GameArea::requestMenu,
+                     controller, &Controller::menuRequestByGameArea);
+
+    // from controller
+    QObject::connect(controller, &Controller::moodToGameArea,
+                     this, &GameArea::receiveMood);
+    QObject::connect(controller, &Controller::clearDrink,
+                     this, &GameArea::drinkServed);
+}
 
 void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
 {
@@ -34,6 +57,22 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
         {
             qDebug() << "Added to drink" << selected->ingredient << "\n";
             emit ingredientAdded(selected->ingredient);
+
+            if (selected->ingredient <= Ingredients::Celery)
+            {
+                // Spawn drink items
+                liquidPhysics.GenerateLiquid();
+
+                // Store sprites to represent them.
+                QColor thisColor = Ingredients::ingredientData[selected->ingredient].color;
+                for (int i = 0; i < liquidPhysics.liquidParticles; i++)
+                {
+                    liquidShapes.append(sf::CircleShape(8));
+                    liquidShapes[newLiquidShapeIndex + i].setFillColor(sf::Color(thisColor.red(), thisColor.green(), thisColor.blue(), 150));
+                    liquidShapes[newLiquidShapeIndex + i].setOrigin(4, 4);
+                }
+                newLiquidShapeIndex += liquidPhysics.liquidParticles;
+            }
         }
     }
 
@@ -43,12 +82,11 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
 // Constructor.
 void GameArea::OnInit()
 {
-    // Get the sprites.
+    // Get the ingredient sprites.
     QVector<QFileInfo> ingredientFilePaths = Spritesheet::makeSprites("../a8-an-educational-app-f18-kathrynriding-1/images/ingredients/ingredientsSheet.png", 49, 60, 80);
     ingredientSprites = QVector<IngredientSprite>();
 
     trueIngredientTextures = QVector<sf::Texture>(Ingredients::TRUEINGREDIENTS);
-    //assignTextures(ingredientFilePaths);
 
     // Create all ingredient sprite objects. This included tools.
     //int ingredientIndex = 0;
@@ -155,7 +193,7 @@ void GameArea::OnInit()
     currentMood = 0;
 
     // Load the background image.
-    if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gamePlayBackground.png"))
+    if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gameplayBackground.png"))
     {
         qDebug() << "Couldn't load background.";
     }
@@ -163,6 +201,18 @@ void GameArea::OnInit()
     backgroundSprite.setPosition(0.f, 0.f);
 
     selected = nullptr;
+
+    // Phyics set up.
+    liquidPhysics = LiquidPhysics();
+    newLiquidShapeIndex = 0;
+
+    // This is a test object on the ground.
+    for (int i = 0; i < 2; i++)
+    {
+        liquidShapes.prepend(sf::CircleShape(2));
+        liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0));
+        newLiquidShapeIndex++;
+    }
 }
 
 //Game loop
@@ -191,124 +241,43 @@ void GameArea::OnUpdate()
         draw(ingredientSprites[i]);
     }
 
+    // Update the physics
+    liquidPhysics.WorldStep();
 
+    // Draw liquid items.
+    lock.lock();
+    int i = newLiquidShapeIndex - 1;
+    for (b2Body* BodyIterator = liquidPhysics.World->GetBodyList(); BodyIterator != NULL; BodyIterator = BodyIterator->GetNext())
+    {
+        liquidShapes[i].setPosition(physicsOffsetHorizontal +  BodyIterator->GetPosition().x, physicsOffSetVertical + BodyIterator->GetPosition().y);
+        draw(liquidShapes[i]);
+        i--;
+    }
+    lock.unlock();
 }
 
-/*
-void GameArea::assignTextures(QVector<QFileInfo> sprites)
+void GameArea::receiveMood(int mood)
 {
-    ingredientSprites = QVector<IngredientSprite>();
+    currentMood = mood;
+}
 
-    for(QFileInfo current: sprites){
-       ingredientSprites.append(IngredientSprite());
+void GameArea::drinkServed()
+{
+    // This just freezes the game currently.
+    /*
+    lock.lock();
+    liquidPhysics.DeleteLiquid();
+    newLiquidShapeIndex = 0;
+    liquidShapes.clear();
+
+    // Add test balls.
+    for (int i = 0; i < 2; i++)
+    {
+        liquidShapes.prepend(sf::CircleShape(5));
+        liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0));
+        newLiquidShapeIndex++;
     }
 
-    textureVodka.loadFromFile(sprites.at(0).absoluteFilePath().toStdString());
-    textureTequila.loadFromFile(sprites.at(1).absoluteFilePath().toStdString());
-    textureBourbon.loadFromFile(sprites.at(2).absoluteFilePath().toStdString());
-    textureGin.loadFromFile(sprites.at(3).absoluteFilePath().toStdString());
-    textureDarkRum.loadFromFile(sprites.at(4).absoluteFilePath().toStdString());
-    textureWhiteRum.loadFromFile(sprites.at(5).absoluteFilePath().toStdString());
-    textureLightRum.loadFromFile(sprites.at(6).absoluteFilePath().toStdString());
-    textureGrandMarnier.loadFromFile(sprites.at(7).absoluteFilePath().toStdString());
-    textureSweetVermouth.loadFromFile(sprites.at(8).absoluteFilePath().toStdString());
-    textureDryVermouth.loadFromFile(sprites.at(9).absoluteFilePath().toStdString());
-    textureTrippleSec.loadFromFile(sprites.at(10).absoluteFilePath().toStdString());
-    textureKahlua.loadFromFile(sprites.at(11).absoluteFilePath().toStdString());
-    textureJagermeister.loadFromFile(sprites.at(12).absoluteFilePath().toStdString());
-    textureCampari.loadFromFile(sprites.at(13).absoluteFilePath().toStdString());
-    textureGreenCremeDeMenthe.loadFromFile(sprites.at(14).absoluteFilePath().toStdString());
-    textureCremeDeCacao.loadFromFile(sprites.at(15).absoluteFilePath().toStdString());
-    texturePeachSchnapps.loadFromFile(sprites.at(16).absoluteFilePath().toStdString());
-
-    textureSalt.loadFromFile(sprites.at(17).absoluteFilePath().toStdString());
-    textureMargaritaSalt.loadFromFile(sprites.at(18).absoluteFilePath().toStdString());
-    texturePepper.loadFromFile(sprites.at(19).absoluteFilePath().toStdString());
-    textureNutmeg.loadFromFile(sprites.at(20).absoluteFilePath().toStdString());
-    textureice.loadFromFile(sprites.at(21).absoluteFilePath().toStdString());
-
-    textureTonicWater.loadFromFile(sprites.at(22).absoluteFilePath().toStdString());
-    textureSparklingWater.loadFromFile(sprites.at(23).absoluteFilePath().toStdString());
-    textureClubSoda.loadFromFile(sprites.at(24).absoluteFilePath().toStdString());
-    textureCola.loadFromFile(sprites.at(25).absoluteFilePath().toStdString());
-    textureSimpleSyrup.loadFromFile(sprites.at(26).absoluteFilePath().toStdString());
-    textureCream.loadFromFile(sprites.at(27).absoluteFilePath().toStdString());
-    textureAngosturaBitters.loadFromFile(sprites.at(28).absoluteFilePath().toStdString());
-    textureWorcestershireSauce.loadFromFile(sprites.at(29).absoluteFilePath().toStdString());
-    textureCreamOfCoconut.loadFromFile(sprites.at(30).absoluteFilePath().toStdString());
-    textureGingerBeer.loadFromFile(sprites.at(31).absoluteFilePath().toStdString());
-
-    textureOrangeJuice.loadFromFile(sprites.at(32).absoluteFilePath().toStdString());
-    textureLimeJuice.loadFromFile(sprites.at(33).absoluteFilePath().toStdString());
-    textureLemonJuice.loadFromFile(sprites.at(34).absoluteFilePath().toStdString());
-    texturePineappleJuice.loadFromFile(sprites.at(35).absoluteFilePath().toStdString());
-    textureTomatoJuice.loadFromFile(sprites.at(36).absoluteFilePath().toStdString());
-    textureCranberryJuice.loadFromFile(sprites.at(37).absoluteFilePath().toStdString());
-
-    textureOrangeWedge.loadFromFile(sprites.at(38).absoluteFilePath().toStdString());
-    textureOrangeTwist.loadFromFile(sprites.at(39).absoluteFilePath().toStdString());
-    textureLimeWedge.loadFromFile(sprites.at(40).absoluteFilePath().toStdString());
-    textureLimeTwist.loadFromFile(sprites.at(41).absoluteFilePath().toStdString());
-    textureLemonTwist.loadFromFile(sprites.at(42).absoluteFilePath().toStdString());
-    texturePineappleWedge.loadFromFile(sprites.at(43).absoluteFilePath().toStdString());
-    textureMintLeaf.loadFromFile(sprites.at(44).absoluteFilePath().toStdString());
-    textureMintSprig.loadFromFile(sprites.at(45).absoluteFilePath().toStdString());
-    textureCherry.loadFromFile(sprites.at(46).absoluteFilePath().toStdString());
-    textureGreenOlive.loadFromFile(sprites.at(47).absoluteFilePath().toStdString());
-    textureCelery.loadFromFile(sprites.at(48).absoluteFilePath().toStdString());
-
-    ingredientSprites[0].setTexture(textureVodka);
-    ingredientSprites[1].setTexture(textureTequila);
-    ingredientSprites[2].setTexture(textureBourbon);
-    ingredientSprites[3].setTexture(textureGin);
-    ingredientSprites[4].setTexture(textureDarkRum);
-    ingredientSprites[5].setTexture(textureWhiteRum);
-    ingredientSprites[6].setTexture(textureLightRum);
-    ingredientSprites[7].setTexture(textureGrandMarnier);
-    ingredientSprites[8].setTexture(textureSweetVermouth);
-    ingredientSprites[9].setTexture(textureDryVermouth);
-    ingredientSprites[10].setTexture(textureTrippleSec);
-    ingredientSprites[11].setTexture(textureKahlua);
-    ingredientSprites[12].setTexture(textureJagermeister);
-    ingredientSprites[13].setTexture(textureCampari);
-    ingredientSprites[14].setTexture(textureGreenCremeDeMenthe);
-    ingredientSprites[15].setTexture(textureCremeDeCacao);
-    ingredientSprites[16].setTexture(texturePeachSchnapps);
-
-    ingredientSprites[17].setTexture(textureSalt);
-    ingredientSprites[18].setTexture(textureMargaritaSalt);
-    ingredientSprites[19].setTexture(texturePepper);
-    ingredientSprites[20].setTexture(textureNutmeg);
-    ingredientSprites[21].setTexture(textureice);
-
-    ingredientSprites[22].setTexture(textureTonicWater);
-    ingredientSprites[23].setTexture(textureSparklingWater);
-    ingredientSprites[24].setTexture(textureClubSoda);
-    ingredientSprites[25].setTexture(textureCola);
-    ingredientSprites[26].setTexture(textureSimpleSyrup);
-    ingredientSprites[27].setTexture(textureCream);
-    ingredientSprites[28].setTexture(textureAngosturaBitters);
-    ingredientSprites[29].setTexture(textureWorcestershireSauce);
-    ingredientSprites[30].setTexture(textureCreamOfCoconut);
-    ingredientSprites[31].setTexture(textureGingerBeer);
-
-    ingredientSprites[32].setTexture(textureOrangeJuice);
-    ingredientSprites[33].setTexture(textureLimeJuice);
-    ingredientSprites[34].setTexture(textureLemonJuice);
-    ingredientSprites[35].setTexture(texturePineappleJuice);
-    ingredientSprites[36].setTexture(textureTomatoJuice);
-    ingredientSprites[37].setTexture(textureCranberryJuice);
-
-    ingredientSprites[38].setTexture(textureOrangeWedge);
-    ingredientSprites[39].setTexture(textureOrangeTwist);
-    ingredientSprites[40].setTexture(textureLimeWedge);
-    ingredientSprites[41].setTexture(textureLimeTwist);
-    ingredientSprites[42].setTexture(textureLemonTwist);
-    ingredientSprites[43].setTexture(texturePineappleWedge);
-    ingredientSprites[44].setTexture(textureMintLeaf);
-    ingredientSprites[45].setTexture(textureMintSprig);
-    ingredientSprites[46].setTexture(textureCherry);
-    ingredientSprites[47].setTexture(textureGreenOlive);
-    ingredientSprites[48].setTexture(textureCelery);
+    lock.unlock();
+    */
 }
-*/

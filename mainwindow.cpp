@@ -13,8 +13,10 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     this->ui->setupUi(this);
+    // Controller set up.
+    controller = controllerPtr;
 
-    GameArea* SFMLView = new GameArea(this, QPoint(20, 20), QSize(1000, 1000));
+    GameArea* SFMLView = new GameArea(this, QPoint(20, 20), QSize(1000, 1000), controller);
     //ui->verticalLayout->addWidget(SFMLView);
     ui->widgetLayout->addWidget(SFMLView);
 
@@ -62,51 +64,25 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ui->menuDifficulty->actions().at(1)->setEnabled(false);
     ui->menuDifficulty->actions().at(2)->setEnabled(true);
 
-    // Build array of labels for displaying ingredients.
-    ingredientAmountLabels = QVector<QLabel*>(10);
-    ingredientAmountLabels[0] = ui->ingredientAmount1;
-    ingredientAmountLabels[1] = ui->ingredientAmount2;
-    ingredientAmountLabels[2] = ui->ingredientAmount3;
-    ingredientAmountLabels[3] = ui->ingredientAmount4;
-    ingredientAmountLabels[4] = ui->ingredientAmount5;
-    ingredientAmountLabels[5] = ui->ingredientAmount6;
-    ingredientAmountLabels[6] = ui->ingredientAmount7;
-    ingredientAmountLabels[7] = ui->ingredientAmount8;
-    ingredientAmountLabels[8] = ui->ingredientAmount9;
-    ingredientAmountLabels[9] = ui->ingredientAmount10;
-
-    ingredientNameLabels = QVector<QLabel*>(10);
-    ingredientNameLabels[0] = ui->ingredientName1;
-    ingredientNameLabels[1] = ui->ingredientName2;
-    ingredientNameLabels[2] = ui->ingredientName3;
-    ingredientNameLabels[3] = ui->ingredientName4;
-    ingredientNameLabels[4] = ui->ingredientName5;
-    ingredientNameLabels[5] = ui->ingredientName6;
-    ingredientNameLabels[6] = ui->ingredientName7;
-    ingredientNameLabels[7] = ui->ingredientName8;
-    ingredientNameLabels[8] = ui->ingredientName9;
-    ingredientNameLabels[9] = ui->ingredientName10;
-
-    ingredientUnitLabels = QVector<QLabel*>(10);
-    ingredientUnitLabels[0] = ui->ingredientUnit1;
-    ingredientUnitLabels[1] = ui->ingredientUnit2;
-    ingredientUnitLabels[2] = ui->ingredientUnit3;
-    ingredientUnitLabels[3] = ui->ingredientUnit4;
-    ingredientUnitLabels[4] = ui->ingredientUnit5;
-    ingredientUnitLabels[5] = ui->ingredientUnit6;
-    ingredientUnitLabels[6] = ui->ingredientUnit7;
-    ingredientUnitLabels[7] = ui->ingredientUnit8;
-    ingredientUnitLabels[8] = ui->ingredientUnit9;
-    ingredientUnitLabels[9] = ui->ingredientUnit10;
+    // Labels for displaying the steps of a drink.
+    stepsInDrink = QVector<QLabel*>(10);
+    stepsInDrink[0] = ui->step1;
+    stepsInDrink[1] = ui->step2;
+    stepsInDrink[2] = ui->step3;
+    stepsInDrink[3] = ui->step4;
+    stepsInDrink[4] = ui->step5;
+    stepsInDrink[5] = ui->step6;
+    stepsInDrink[6] = ui->step7;
+    stepsInDrink[7] = ui->step8;
+    stepsInDrink[8] = ui->step9;
+    stepsInDrink[9] = ui->step10;
 
     // Clear the ingredients text.
     ui->drinkName->setText("");
     ui->triviaLabel->setText("");
     for (int i = 0; i < 10; i++)
     {
-        ingredientAmountLabels[i]->setText("");
-        ingredientNameLabels[i]->setText("");
-        ingredientUnitLabels[i]->setText("");
+        stepsInDrink[i]->setText("");
     }
 
     // Set up the amounts to pour box.
@@ -114,8 +90,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ui->amountToAdd->setSingleStep(0.25);
     ui->amountToAdd->setValue(1.0);
 
-    // Controller set up.
-    controller = controllerPtr;
+    // Disable the serve drink button
+    ui->serveButton->setEnabled(false);
 
     // to controller
     QObject::connect(this, &MainWindow::start,
@@ -124,6 +100,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                       controller, &Controller::menuRequestedByMainWindow);
     QObject::connect(this, &MainWindow::sendAmountToAdd,
                       controller, &Controller::receiveAmountToAdd);
+    QObject::connect(this, &MainWindow::drinkServed,
+                      controller, &Controller::drinkServed);
 
     // from controller
     QObject::connect(controller, &Controller::sendDrink,
@@ -136,6 +114,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      this, &MainWindow::receiveTips);
     QObject::connect(controller, &Controller::requestAmountToAdd,
                      this, &MainWindow::requestAmountToAdd);
+    QObject::connect(controller, &Controller::enableServe,
+                     this, &MainWindow::enableServe);
 
 }
 
@@ -148,12 +128,10 @@ void MainWindow::receiveDrink(Drink* drink)
 {
     ui->drinkName->setText(drink->Name);
 
-    // Clear the old ingredients.
+    // Clear the steps
     for (int i = 0; i < 10; i++)
     {
-        ingredientAmountLabels[i]->setText("");
-        ingredientNameLabels[i]->setText("");
-        ingredientUnitLabels[i]->setText("");
+        stepsInDrink[i]->setText("");
     }
 
     // Display all the ingredients.
@@ -161,22 +139,13 @@ void MainWindow::receiveDrink(Drink* drink)
     if (currentDifficulty != Difficulty::hard)
     {
         int ingredientIndex = 0;
-        QMapIterator<Ingredients::Ingredients, double> i(drink->IngredientsMap);
-        while (i.hasNext())
+        //QMapIterator<Ingredients::Ingredients, double> i(drink->Steps->);
+
+        QVector<Step> steps = drink->getSteps();
+
+        for (int i = 0; i < steps.length(); i++)
         {
-            i.next();
-            // Display amount
-            ingredientAmountLabels[ingredientIndex]->setText(QString::number(i.value()));
-
-            // Display name.
-            QString ingredientName = Ingredients::ingredientData[i.key()].displayString;
-            ingredientNameLabels[ingredientIndex]->setText(ingredientName);
-
-            // Display units.
-            QString ingredientUnits = Ingredients::ingredientData[i.key()].unit;
-            ingredientUnitLabels[ingredientIndex]->setText(ingredientUnits);
-
-            ingredientIndex++;
+            stepsInDrink[i]->setText(steps[i].getInstruction());
         }
     }
 
@@ -316,8 +285,16 @@ void MainWindow::on_actionHard_triggered()
 void MainWindow::on_actionStart_triggered()
 {
     emit start(currentDifficulty);
+    ui->serveButton->setEnabled(true);
+}
 
-    // Testing
-    //receiveTime(-30);
-    //receiveTips(73, 47);
+void MainWindow::on_serveButton_clicked()
+{
+    ui->serveButton->setEnabled(false);
+    emit drinkServed();
+}
+
+void MainWindow::enableServe()
+{
+    ui->serveButton->setEnabled(true);
 }

@@ -1,15 +1,14 @@
 #include "recordtracker.h"
-#include <iostream>
 
-QMap<QString, double> RecordTracker::parseGameRecord()
+QMap<QString, int> RecordTracker::parseGameRecord()
 {
-    QMap<QString, double> result;
+    QMap<QString, int> result;
     QXmlStreamReader reader;
 
     QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/HistoricalGameData.xml");
     if(!file.open(QFile::ReadOnly | QFile::Text))
     {
-        throw -1;
+        return result;
     }
     else
     {
@@ -24,14 +23,10 @@ QMap<QString, double> RecordTracker::parseGameRecord()
         file.close();
     }
 
-    for(QString current: result.keys()){
-       std::cout << current.toStdString() << std::endl;
-    }
-
     return result;
 }
 
-void RecordTracker::writeGameRecord(QMap<QString, double> toWrite)
+void RecordTracker::writeGameRecord(QMap<QString, int> toWrite)
 {
     QXmlStreamWriter writer;
 
