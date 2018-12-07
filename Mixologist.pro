@@ -38,7 +38,6 @@ SOURCES += \
     step.cpp \
     customizemenu.cpp \
     recordtracker.cpp \
-    gamemodel.cpp \
     liquidphysics.cpp
 
 HEADERS += \
@@ -56,7 +55,6 @@ HEADERS += \
     step.h \
     customizemenu.h \
     recordtracker.h \
-    gamemodel.h \
     liquidphysics.h
 
 FORMS += \
