@@ -67,9 +67,9 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
                 QColor thisColor = Ingredients::ingredientData[selected->ingredient].color;
                 for (int i = 0; i < liquidPhysics.liquidParticles; i++)
                 {
-                    liquidShapes.append(sf::CircleShape(10));
+                    liquidShapes.append(sf::CircleShape(8));
                     liquidShapes[newLiquidShapeIndex + i].setFillColor(sf::Color(thisColor.red(), thisColor.green(), thisColor.blue(), 150));
-                    liquidShapes[newLiquidShapeIndex + i].setOrigin(5, 5);
+                    liquidShapes[newLiquidShapeIndex + i].setOrigin(4, 4);
                 }
                 newLiquidShapeIndex += liquidPhysics.liquidParticles;
             }
@@ -209,7 +209,7 @@ void GameArea::OnInit()
     // This is a test object on the ground.
     for (int i = 0; i < 2; i++)
     {
-        liquidShapes.prepend(sf::CircleShape(5));
+        liquidShapes.prepend(sf::CircleShape(2));
         liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0));
         newLiquidShapeIndex++;
     }

@@ -11,7 +11,7 @@ LiquidPhysics::LiquidPhysics()
 {
     worldAABB.lowerBound.Set(0, 0);
     worldAABB.upperBound.Set(200, 500);
-    World = new b2World(b2Vec2(0.0f, 9.8f));
+    World = new b2World(b2Vec2(0.0f, 98.f));
     World->SetAllowSleeping(true);
 
     // Ground placement
@@ -40,7 +40,7 @@ void LiquidPhysics::GenerateLiquid()
 
     // Creating the circle
     dynamicCircle.m_p.Set(0, 0);
-    dynamicCircle.m_radius = 5;
+    dynamicCircle.m_radius = 4;
 
     b2FixtureDef fixtureDef;
     // properties of the liquid drop
@@ -102,19 +102,19 @@ void LiquidPhysics::CreateCup()
 
     // Bottom edge.
     b2EdgeShape edgeShape;
-    edgeShape.Set(b2Vec2(24, -20), b2Vec2(95, -20));
+    edgeShape.Set(b2Vec2(24, -18), b2Vec2(95, -18));
     b2FixtureDef glassfixture;
     glassfixture.shape = &edgeShape;
 
     // Left edge.
     b2EdgeShape edgeShape2;
-    edgeShape2.Set(b2Vec2(8, -204), b2Vec2(24, -20));
+    edgeShape2.Set(b2Vec2(8, -204), b2Vec2(24, -18));
     b2FixtureDef glassfixture2;
     glassfixture2.shape = &edgeShape2;
 
     // Right edge.
     b2EdgeShape edgeShape3;
-    edgeShape3.Set( b2Vec2(110, -204), b2Vec2(95, -20));
+    edgeShape3.Set( b2Vec2(112, -204), b2Vec2(97, -18));
     b2FixtureDef glassfixture3;
     glassfixture3.shape = &edgeShape3;
 
