@@ -7,13 +7,14 @@ QVector<QFileInfo> Spritesheet::makeSprites(QString pathToSheet, int frameCount,
 
     QImage spritesheet(pathToSheet);
 
-    int imagesInARow = spritesheet.width()/frameWidth;
-    int numberOfRows = spritesheet.height()/frameHeight;
+    int imagesInARow = spritesheet.width() / frameWidth;
+    int numberOfRows = spritesheet.height() / frameHeight;
 
     int imageCount = 1;
-    for(int rowCount = 0; rowCount < numberOfRows; rowCount++)
+
+    for(int framePosition = 0; framePosition < imagesInARow; framePosition++)
     {
-        for(int framePosition = 0; framePosition < imagesInARow; framePosition++)
+        for(int rowCount = 0; rowCount < numberOfRows; rowCount++)
         {
             if(spriteFiles.length() >= frameCount)
             {

@@ -1,0 +1,1 @@
+/usr/bin/c++   -DDEBUG=0 -Wall -Wno-long-long -Wno-variadic-macros  -rdynamic CMakeFiles/ConfinementTests.dir/Confinement/ConfinementTests.cpp.o CMakeFiles/ConfinementTests.dir/BodyTracker.cpp.o  -o Release/ConfinementTests ../googletest/Release/libgtest.a ../Box2D/Release/libliquidfun.a -lpthread -lrt 

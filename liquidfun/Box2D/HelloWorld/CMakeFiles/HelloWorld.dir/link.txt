@@ -1,0 +1,1 @@
+/usr/bin/c++   -DDEBUG=0 -Wall -Wno-long-long -Wno-variadic-macros  -rdynamic CMakeFiles/HelloWorld.dir/HelloWorld.cpp.o  -o Release/HelloWorld ../Box2D/Release/libliquidfun.a -lrt 

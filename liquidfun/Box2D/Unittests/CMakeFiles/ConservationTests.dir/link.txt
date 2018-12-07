@@ -1,0 +1,1 @@
+/usr/bin/c++   -DDEBUG=0 -Wall -Wno-long-long -Wno-variadic-macros  -rdynamic CMakeFiles/ConservationTests.dir/Conservation/ConservationTests.cpp.o CMakeFiles/ConservationTests.dir/BodyTracker.cpp.o  -o Release/ConservationTests ../googletest/Release/libgtest.a ../Box2D/Release/libliquidfun.a -lpthread -lrt 

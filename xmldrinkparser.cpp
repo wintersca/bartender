@@ -20,7 +20,7 @@ QVector<Drink*> XMLDrinkParser::parseXMLDatabase()
     QFile file("../a8-an-educational-app-f18-kathrynriding-1/database/DrinkDatabase.xml");
     if(!file.open(QFile::ReadOnly | QFile::Text))
     {
-        throw -1;
+        //throw -1;
     }
     else
     {

@@ -38,7 +38,7 @@ SOURCES += \
     step.cpp \
     customizemenu.cpp \
     recordtracker.cpp \
-    gamemodel.cpp
+    liquidphysics.cpp
 
 HEADERS += \
         mainwindow.h \
@@ -55,7 +55,7 @@ HEADERS += \
     step.h \
     customizemenu.h \
     recordtracker.h \
-    gamemodel.h
+    liquidphysics.h
 
 FORMS += \
         mainwindow.ui \
@@ -72,3 +72,11 @@ unix:!macx: LIBS += -lsfml-audio -lsfml-graphics -lsfml-window -lsfml-system
 
 RESOURCES += \
     images.qrc
+
+
+unix:!macx: LIBS += -L$$PWD/Box2D/Build/bin/x86_64/Debug/ -lBox2D
+
+INCLUDEPATH += $$PWD/Box2D/Build/bin/x86_64/Debug
+DEPENDPATH += $$PWD/Box2D/Build/bin/x86_64/Debug
+
+//unix:!macx: PRE_TARGETDEPS += $$PWD/Box2D/Build/bin/x86_64/Debug/libBox2D.a

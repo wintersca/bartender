@@ -1,0 +1,1 @@
+/usr/bin/c++   -DDEBUG=0 -Wall -Wno-long-long -Wno-variadic-macros  -rdynamic CMakeFiles/HelloWorldTests.dir/HelloWorld/HelloWorldTests.cpp.o CMakeFiles/HelloWorldTests.dir/BodyTracker.cpp.o  -o Release/HelloWorldTests ../googletest/Release/libgtest.a ../Box2D/Release/libliquidfun.a -lpthread -lrt 
