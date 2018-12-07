@@ -1,4 +1,10 @@
 #include "gamearea.h"
+#include <Box2D/Box2D/Box2D.h>
+
+void GameArea::pouring(){
+
+
+}
 
 GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, Controller *ctrlrPtr) :
     QSFMLCanvas(Parent, Position, Size)
@@ -51,6 +57,7 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
         {
             qDebug() << "Added to drink" << selected->ingredient << "\n";
             emit ingredientAdded(selected->ingredient);
+            // Spawn drink items
         }
     }
 

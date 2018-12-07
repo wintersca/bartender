@@ -1,0 +1,1 @@
+/usr/bin/c++   -DDEBUG=0 -Wall -Wno-long-long -Wno-variadic-macros  -rdynamic CMakeFiles/TrackedBlockTests.dir/TrackedBlock/TrackedBlockTests.cpp.o CMakeFiles/TrackedBlockTests.dir/BodyTracker.cpp.o  -o Release/TrackedBlockTests ../googletest/Release/libgtest.a ../Box2D/Release/libliquidfun.a -lpthread -lrt 
