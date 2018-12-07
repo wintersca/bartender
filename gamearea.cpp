@@ -172,7 +172,7 @@ void GameArea::OnInit()
     currentMood = 0;
 
     // Load the background image.
-    if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gamePlayBackground.png"))
+    if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gameplayBackground.png"))
     {
         qDebug() << "Couldn't load background.";
     }
