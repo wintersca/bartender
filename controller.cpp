@@ -104,22 +104,12 @@ void Controller::startGame(unsigned int difficultyInit)
 
 void Controller::startRound()
 {
-    qDebug() << "We are making a new customer, see if it crashes";
     newCustomer(difficulty);
-    qDebug() << "We made a customer without a crash!";
-    qDebug() << "We are computing drink complexity, see if it crashes here";
     drinkComplexity = currentDrink->getSteps().length();
-    qDebug() << "We computed drink complexity without a crash";
     drinkPoints = 0;
-    qDebug() << "We are computing time to complete drink, see if it crashes here";
     timeToCompleteDrink = static_cast<int>(moodValueModifier * 15 * drinkComplexity);
-    qDebug() << "We computed time to complete drink without a crash";
-    qDebug() << "We are sending the drink to the main window, see if it crashes here";
-    emit sendDrink(currentDrink);
-    qDebug() << "We send the drink without a crash";
-    qDebug() << "We are sending the happiness to the game area, see if it crashes";
+    emit sendDrink(currentDrink);    
     emit moodToGameArea(currentHappiness);
-    qDebug() << "We have sent happiness with no crash!";
     emit enableServe();
     if(difficulty != 0) //easy
     {
@@ -159,12 +149,10 @@ void Controller::newCustomer(unsigned int difficulty)
 }
 
 Drink* Controller::selectNewRandomDrink()
-{
-    qDebug() << "We are selecting a random drink. See if it crashes here.";
+{    
     qsrand(time(nullptr));
     int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
     currentDrink = userSpecifiedMenu[rand % userSpecifiedMenu.length()];
-    qDebug() << "We have selected a random drink with no crash.";
     return currentDrink;
 }
 
