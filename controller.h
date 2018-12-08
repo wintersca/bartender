@@ -61,11 +61,21 @@ private:
     int currentHappiness;
     int standardizedHappiness;
     int stepCount;
-    int totalTipDollars;
-    int totalTipCents;
-    int totalCustomersSatisfied;
-    int totalCustomersDissatisfied;
-    int totalDrinksServed;
+    int easyTotalTipDollars;
+    int medTotalTipDollars;
+    int hardTotalTipDollars;
+    int easyTotalTipCents;
+    int medTotalTipCents;
+    int hardTotalTipCents;
+    int easyTotalCustomersSatisfied;
+    int medTotalCustomersSatisfied;
+    int hardTotalCustomersSatisfied;
+    int easyTotalCustomersDissatisfied;
+    int medTotalCustomersDissatisfied;
+    int hardTotalCustomersDissatisfied;
+    int easyTotalDrinksServed;
+    int medTotalDrinksServed;
+    int hardTotalDrinksServed;
     int timeToCompleteDrink;
     int drinkComplexity;
     int drinkPoints;
@@ -81,7 +91,7 @@ private:
 
     //helper methods
 
-    void calculateTip(); //when drink is served
+    void calculateTip(int &dollars, int &cents); //when drink is served
     void decreaseHappiness();
     void endRound();
     QVector<Drink*> getAllRecipes();
