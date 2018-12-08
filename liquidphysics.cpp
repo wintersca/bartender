@@ -1,10 +1,4 @@
 #include "liquidphysics.h"
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include <QTimer>
-#include <QPainter>
-#include <QPen>
-#include <QDebug>
 
 LiquidPhysics::LiquidPhysics()
 {
