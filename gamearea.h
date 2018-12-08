@@ -65,7 +65,6 @@ private :
 
 signals:
     void ingredientAdded(Ingredients::Ingredients);     //Emits which ingredient was dropped in glass.
-    void requestMenu();
 
 public slots:
     void receiveMood(int mood);

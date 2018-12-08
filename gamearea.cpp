@@ -9,8 +9,6 @@ GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, C
     // to controller
     QObject::connect(this, &GameArea::ingredientAdded,
                      controller, &Controller::checkIngredient);   
-   QObject::connect(this, &GameArea::requestMenu,
-                     controller, &Controller::menuRequestByGameArea);
 
     // from controller
     QObject::connect(controller, &Controller::moodToGameArea,
