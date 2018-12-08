@@ -1,10 +1,4 @@
 #include "customdrinkimporter.h"
-#include "ui_customdrinkimporter.h"
-#include "ingredients.h"
-#include "ingredientsmap.h"
-#include <QMetaEnum>
-#include <iostream>
-#include "step.h"
 
 CustomDrinkImporter::CustomDrinkImporter(Controller *controller,QWidget *parent) :
     QDialog(parent),
@@ -56,7 +50,6 @@ CustomDrinkImporter::CustomDrinkImporter(Controller *controller,QWidget *parent)
         {
             QString ingredientName = Ingredients::ingredientData[ingredient].displayString;
             stepBoxes[box]->addItem(ingredientName);
-            //stepBoxes[box]->addItem(Ingredients::All[ingredient]);
         }
     }
 }
@@ -71,7 +64,6 @@ void CustomDrinkImporter::on_buttonBox_accepted()
     QVector<Ingredients::Ingredients> includedSteps = QVector<Ingredients::Ingredients>();
     QVector<double> totalOfSteps = QVector<double>();
     QVector<Step> steps = QVector<Step>();
-
 
     // Create a dictionary to map strings to enums.
     IngredientsMap ingredientsMap = IngredientsMap();
@@ -117,24 +109,18 @@ void CustomDrinkImporter::on_buttonBox_accepted()
                 amount=0;
             }
 
-
-
-
             totalOfSteps.append(amount);
             includedSteps.append(ingredient);
             Step step= Step(instruction, ingredient,  amount);
 
             steps.push_back(step);
-
         }
     }
 
     // Convert to a drink object.
-
     drink.Name = "*"+ui->drinkName->text();
     drink.Trivia.append(ui->drinkTrivia->toPlainText());
     for (int i = 0; i < includedSteps.count(); i++)
-
     {
         drink.IngredientsMap.insert(includedSteps[i], totalOfSteps[i]);
     }

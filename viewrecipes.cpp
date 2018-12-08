@@ -71,7 +71,6 @@ ViewRecipes::~ViewRecipes()
     delete ui;
 }
 
-
 // Display all information.
 void ViewRecipes::on_allRecipes_currentIndexChanged(int index)
 {

@@ -24,7 +24,6 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     bgm.setLoop(true);
     bgm.play();
 
-
     // Set background color of the recipe area.
     QFrame* recipeFrame = ui->recipeFrame;
     QPalette paperPalette = recipeFrame->palette();

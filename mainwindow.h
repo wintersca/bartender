@@ -16,6 +16,14 @@
 #include "recordboard.h"
 #include "viewrecipes.h"
 
+/*
+ * The main window is the main place to interact with the game.
+ * It contains the gameplay area where drawing in SFML is handled.
+ * It also handles creating all the pop up windows.
+ * Most data about the current state of the game is displayed here.
+ * Author: Alex Smith
+ */
+
 extern Controller *controller;
 namespace Ui {
 class MainWindow;
@@ -28,7 +36,6 @@ class MainWindow : public QMainWindow
 public:
     explicit MainWindow(Controller *controller, QWidget *parent = nullptr);
     ~MainWindow();
-
 
 // Mapping difficulty settings to unsigned integers.
 private:

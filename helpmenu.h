@@ -3,6 +3,12 @@
 
 #include <QDialog>
 
+/*
+ * The help menu displays information about how the game is played.
+ * It also explains how the game can be modified.
+ * Author: Alex Smith.
+ */
+
 namespace Ui {
 class HelpMenu;
 }
