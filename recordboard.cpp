@@ -17,7 +17,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     if(records.contains("CustomersSatisfied")){
         std::cout<< "sat" <<std::endl;
-        int value = records.value("CustomerSatisfied");
+        int value = records.value("CustomersSatisfied");
         QString valueString= QString::number(value);
         ui->numSatisfiedLabel->setText(valueString);
     }
