@@ -156,6 +156,7 @@ void MainWindow::receiveDrink(Drink* drink)
         }
     }
 
+
     // Display the trivia.
     // Pick a random trivia string.
     int totalTriva = drink->Trivia.length();
@@ -164,9 +165,7 @@ void MainWindow::receiveDrink(Drink* drink)
     std::default_random_engine randomEngine;
     randomEngine.seed(randomSeed);
     int randomIndex = distribution(randomEngine);
-
     QString triviaString = drink->Trivia[randomIndex];
-
     // Create a string that has new lines to display the trivia on multiple lines.
     QStringList wordsInTrivia = triviaString.split(" ", QString::SkipEmptyParts);
     int wordsOnLine = 0;

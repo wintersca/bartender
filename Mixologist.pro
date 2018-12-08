@@ -85,7 +85,7 @@ RESOURCES += \
 
 unix:!macx: LIBS += -L$$PWD/Box2D/Build/bin/x86_64/Debug/ -lBox2D
 
-INCLUDEPATH += $$PWD/Box2D/Build/bin/x86_64/Debug
+INCLUDEPATH += $$PWD/Box2D
 DEPENDPATH += $$PWD/Box2D/Build/bin/x86_64/Debug
 
 #unix:!macx: PRE_TARGETDEPS += $$PWD/Box2D/Build/bin/x86_64/Debug/libBox2D.a
