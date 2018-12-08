@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include "drink.h"
+#include <QLabel>
 
 namespace Ui {
 class ViewRecipes;
@@ -16,9 +17,16 @@ public:
     explicit ViewRecipes(QVector<Drink*> menu, QWidget *parent = nullptr);
     ~ViewRecipes();
 
+private slots:
+    void on_allRecipes_activated(const QString &arg1);
+
 private:
     Ui::ViewRecipes *ui;
     QVector<Drink*> Menu;
+    QVector<QLabel*> stepsInDrink;
+    QVector<QLabel*> amountsInDrink;
+    QVector<QLabel*> unitsInDrink;
+    QVector<QLabel*> ingredientsInDrink;
 };
 
 #endif // VIEWRECIPES_H
