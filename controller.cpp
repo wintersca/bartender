@@ -118,6 +118,11 @@ void Controller::menuRequestedByMainWindow()
     emit menuToMainWindow(menu);
 }
 
+void Controller::menuInfoRequestedByMainWindow()
+{
+    emit menuInfoToMainWindow(menu);
+}
+
 void Controller::recordsRequestedByMainWindow()
 {
     QMap<QString, int> historicalData = RecordTracker::parseGameRecord();
@@ -356,7 +361,7 @@ void Controller::endRound()
 
 void Controller::endOfRoundHappinessBonus()
 {
-    if (drinkPoints == 0)
+    if (drinkPoints <= 0)
         currentHappiness = 0;
     if (currentHappiness > 0)
         currentHappiness += ((5 * drinkPoints) / (drinkComplexity * 3)) - 2;
@@ -367,7 +372,7 @@ void Controller::calculateTip(int &dollars, int &cents)
 {
     if (currentHappiness > 0)
     {
-        int tip = static_cast<int>((drinkPoints) * (10 * moodValueModifier));
+        int tip = static_cast<int>(drinkPoints * 10 * moodValueModifier);
         dollars += tip / 100;
         cents += tip % 100;
         dollars += cents / 100;
@@ -413,7 +418,4 @@ void Controller::standardizeHappiness()
     }
 }
 
-void Controller::menuInfoRequestedByMainWindow()
-{
-    emit menuInfoToMainWindow(menu);
-}
+
