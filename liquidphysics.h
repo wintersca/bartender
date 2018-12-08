@@ -10,6 +10,7 @@ class LiquidPhysics
 public:
     LiquidPhysics();
     void GenerateLiquid();
+    void GenerateSolid();
     void DeleteLiquid();
     void WorldStep();
 

@@ -11,7 +11,7 @@ LiquidPhysics::LiquidPhysics()
 {
     worldAABB.lowerBound.Set(0, 0);
     worldAABB.upperBound.Set(200, 500);
-    World = new b2World(b2Vec2(0.0f, 200.f));
+    World = new b2World(b2Vec2(0.0f, 150.f));
     World->SetAllowSleeping(true);
 
     CreateGround();
@@ -64,6 +64,35 @@ void LiquidPhysics::GenerateLiquid()
         // spawn circle on body
         body->CreateFixture(&fixtureDef);
     }
+}
+
+void LiquidPhysics::GenerateSolid()
+{
+    b2CircleShape dynamicCircle;
+
+    // Creating the circle
+    dynamicCircle.m_p.Set(0, 0);
+    dynamicCircle.m_radius = 12;
+
+    b2FixtureDef fixtureDef;
+    // properties of the liquid drop
+    fixtureDef.shape = &dynamicCircle;
+    fixtureDef.density = 1.0f;
+    fixtureDef.friction = 0.3f;
+    fixtureDef.restitution = 0.8f;
+
+    float32 pos_y = -200.0f;
+    float32 pos_x = 64.f;
+
+    b2BodyDef bodyDef;
+    b2Body* body;
+    // Body for placing shapes on
+    bodyDef.type = b2_dynamicBody;
+    bodyDef.position.Set(pos_x, pos_y);
+    body = World->CreateBody(&bodyDef);
+
+    // spawn circle on body
+    body->CreateFixture(&fixtureDef);
 }
 
 void LiquidPhysics::DeleteLiquid()
