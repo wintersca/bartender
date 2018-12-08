@@ -151,6 +151,13 @@ void Controller::startGame(unsigned int difficultyInit)
 {
     difficulty = difficultyInit;
     emit clearDrink();
+    if(difficulty==0){
+        emit tipAmountToGame(easyTotalTipCents, easyTotalTipDollars);
+    }else if (difficulty ==1){
+        emit tipAmountToGame(medTotalTipCents, medTotalTipDollars);
+    }else{
+        emit tipAmountToGame(hardTotalTipCents, hardTotalTipDollars);
+    }
     startRound();
 }
 
@@ -163,6 +170,7 @@ void Controller::startRound()
     emit sendDrink(currentDrink);    
     emit moodToGameArea(currentHappiness);
     emit enableServe();
+
     if(difficulty != 0) //easy
     {
         timer->start(1000);
@@ -318,42 +326,41 @@ void Controller::endRound()
     endOfRoundHappinessBonus();
     // record game data
     QMap<QString, int> toRecord;
-    switch(difficulty)
+    if(difficulty==0)
     {
-        case 0:
-        {
-            calculateTip(easyTotalTipDollars, easyTotalTipCents);
-            easyTotalDrinksServed++;
-            toRecord["EasyTipDollars"] = easyTotalTipDollars;
-            toRecord["EasyTipCents"] = easyTotalTipCents;
-            toRecord["EasyCustomersSatisfied"] = easyTotalCustomersSatisfied;
-            toRecord["EasyCustomerDissatisfied"] = easyTotalCustomersDissatisfied;
-            toRecord["EasyDrinksServed"] = easyTotalDrinksServed;
-            break;
-        }
-        case 1:
-        {
-            calculateTip(medTotalTipDollars, medTotalTipCents);
-            medTotalDrinksServed++;
-            toRecord["MedTipDollars"] = medTotalTipDollars;
-            toRecord["MedTipCents"] = medTotalTipCents;
-            toRecord["MedCustomersSatisfied"] = medTotalCustomersSatisfied;
-            toRecord["MedCustomerDissatisfied"] = medTotalCustomersDissatisfied;
-            toRecord["MedDrinksServed"] = medTotalDrinksServed;
-            break;
-        }
-        case 2:
-        {
-            calculateTip(hardTotalTipDollars, hardTotalTipCents);
-            hardTotalDrinksServed++;
-            toRecord["HardTipDollars"] = hardTotalTipDollars;
-            toRecord["HardTipCents"] = hardTotalTipCents;
-            toRecord["HardCustomersSatisfied"] = hardTotalCustomersSatisfied;
-            toRecord["HardCustomerDissatisfied"] = hardTotalCustomersDissatisfied;
-            toRecord["HardDrinksServed"] = hardTotalDrinksServed;
-            break;
-        }
+        calculateTip(easyTotalTipDollars, easyTotalTipCents);
+        easyTotalDrinksServed++;
     }
+    else if(difficulty==1)
+    {
+        calculateTip(medTotalTipDollars, medTotalTipCents);
+        medTotalDrinksServed++;
+    }
+    else
+    {
+        (hardTotalTipDollars, hardTotalTipCents);
+        hardTotalDrinksServed++;
+    }
+
+
+    toRecord["EasyTipDollars"] = easyTotalTipDollars;
+    toRecord["EasyTipCents"] = easyTotalTipCents;
+    toRecord["EasyCustomersSatisfied"] = easyTotalCustomersSatisfied;
+    toRecord["EasyCustomerDissatisfied"] = easyTotalCustomersDissatisfied;
+    toRecord["EasyDrinksServed"] = easyTotalDrinksServed;
+
+    toRecord["MedTipDollars"] = medTotalTipDollars;
+    toRecord["MedTipCents"] = medTotalTipCents;
+    toRecord["MedCustomersSatisfied"] = medTotalCustomersSatisfied;
+    toRecord["MedCustomerDissatisfied"] = medTotalCustomersDissatisfied;
+    toRecord["MedDrinksServed"] = medTotalDrinksServed;
+
+    toRecord["HardTipDollars"] = hardTotalTipDollars;
+    toRecord["HardTipCents"] = hardTotalTipCents;
+    toRecord["HardCustomersSatisfied"] = hardTotalCustomersSatisfied;
+    toRecord["HardCustomerDissatisfied"] = hardTotalCustomersDissatisfied;
+    toRecord["HardDrinksServed"] = hardTotalDrinksServed;
+
     RecordTracker::writeGameRecord(toRecord);
     standardizeHappiness();
     emit moodToGameArea(currentHappiness);
@@ -378,6 +385,16 @@ void Controller::calculateTip(int &dollars, int &cents)
         dollars += cents / 100;
         cents = cents % 100;
         emit tipAmountToGame(dollars, cents);
+        if(difficulty==0){
+            easyTotalTipDollars+= dollars;
+            easyTotalTipCents+= cents;
+        }else if (difficulty ==1){
+            medTotalTipDollars += dollars;
+            medTotalTipCents+= cents;
+        }else{
+            hardTotalTipDollars+=dollars;
+            hardTotalTipCents+=cents;
+        }
     }
 }
 
@@ -389,33 +406,31 @@ void Controller::standardizeHappiness()
         currentHappiness = 0;
 
     // update customer satisfaction counts
-    switch(difficulty)
-    {
-    case 0:
+    if(difficulty==0)
         {
             if(currentHappiness >= 3)
                 easyTotalCustomersSatisfied++;
             else
                 easyTotalCustomersDissatisfied++;
-            break;
+
         }
-    case 1:
+    else if(difficulty==1)
         {
             if(currentHappiness >= 3)
                 medTotalCustomersSatisfied++;
             else
                 medTotalCustomersDissatisfied++;
-            break;
+
         }
-    case 2:
+    else
         {
             if(currentHappiness >= 3)
                 hardTotalCustomersSatisfied++;
             else
                 hardTotalCustomersDissatisfied++;
-            break;
+
         }
-    }
+
 }
 
 

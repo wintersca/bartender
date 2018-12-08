@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>400</width>
-    <height>300</height>
+    <width>524</width>
+    <height>546</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -16,8 +16,8 @@
   <widget class="QDialogButtonBox" name="buttonBox">
    <property name="geometry">
     <rect>
-     <x>210</x>
-     <y>260</y>
+     <x>330</x>
+     <y>490</y>
      <width>171</width>
      <height>32</height>
     </rect>
@@ -32,8 +32,8 @@
   <widget class="QLabel" name="recordBoardLabel">
    <property name="geometry">
     <rect>
-     <x>120</x>
-     <y>20</y>
+     <x>170</x>
+     <y>10</y>
      <width>171</width>
      <height>51</height>
     </rect>
@@ -47,50 +47,50 @@
     <string>Record Board</string>
    </property>
   </widget>
-  <widget class="QLabel" name="satisfiedLabel">
+  <widget class="QLabel" name="totalSatisfiedLabel">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>70</y>
+     <y>420</y>
+     <width>261</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Total Number of Satisfied Customers</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="totalDissatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>440</y>
+     <width>281</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Total Number of Dissatisfied Customers</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="totalServedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>460</y>
      <width>221</width>
      <height>16</height>
     </rect>
    </property>
    <property name="text">
-    <string>Number of Satisfied Customers</string>
+    <string>Total Number of Drinks Served</string>
    </property>
   </widget>
-  <widget class="QLabel" name="dissatisfiedLabel">
+  <widget class="QLabel" name="totalTipsLabel">
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>90</y>
-     <width>241</width>
-     <height>41</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Number of Dissatisfied Customers</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="servedLabel">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>130</y>
-     <width>181</width>
-     <height>16</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Number of Drinks Served</string>
-   </property>
-  </widget>
-  <widget class="QLabel" name="tipsLabel">
-   <property name="geometry">
-    <rect>
-     <x>30</x>
-     <y>160</y>
+     <y>480</y>
      <width>81</width>
      <height>16</height>
     </rect>
@@ -99,11 +99,11 @@
     <string>Total Tips</string>
    </property>
   </widget>
-  <widget class="QLabel" name="numSatisfiedLabel">
+  <widget class="QLabel" name="easyNumSatisfiedLabel">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>70</y>
+     <x>300</x>
+     <y>78</y>
      <width>67</width>
      <height>17</height>
     </rect>
@@ -115,11 +115,254 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="numDissatisfiedLabel">
+  <widget class="QLabel" name="easyNumDissatisfiedLabel">
    <property name="geometry">
     <rect>
-     <x>270</x>
+     <x>300</x>
+     <y>98</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="easyNumServedLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>118</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="easyNumTipsLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>138</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hardSatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>320</y>
+     <width>261</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of Satisfied Customers</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hardTipsLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>380</y>
+     <width>81</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Tips</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hardDissatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>340</y>
+     <width>281</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of Dissatisfied Customers</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hardServedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>360</y>
+     <width>221</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of Drinks Served</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mediumDissatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>220</y>
+     <width>281</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of Dissatisfied Customers</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mediumTipsLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>260</y>
+     <width>81</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Tips</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mediumSatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>200</y>
+     <width>261</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of Satisfied Customers</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mediumServedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>240</y>
+     <width>221</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of Drinks Served</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="easySatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>80</y>
+     <width>261</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of Satisfied Customers</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="easyServedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>120</y>
+     <width>221</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of Drinks Served</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="easyTipsLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>140</y>
+     <width>81</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Tips</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="easyDissatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
      <y>100</y>
+     <width>281</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Number of Dissatisfied Customers</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="EasyLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>60</y>
+     <width>261</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Easy:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mediumLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>180</y>
+     <width>261</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Medium:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hardLabel">
+   <property name="geometry">
+    <rect>
+     <x>30</x>
+     <y>300</y>
+     <width>261</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Hard:</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mediumNumDissatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>220</y>
      <width>67</width>
      <height>17</height>
     </rect>
@@ -131,11 +374,11 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="numServedLabel">
+  <widget class="QLabel" name="mediumNumTipsLabel">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>130</y>
+     <x>300</x>
+     <y>260</y>
      <width>67</width>
      <height>17</height>
     </rect>
@@ -147,11 +390,155 @@
     <set>Qt::AlignCenter</set>
    </property>
   </widget>
-  <widget class="QLabel" name="numTipsLabel">
+  <widget class="QLabel" name="mediumNumServedLabel">
    <property name="geometry">
     <rect>
-     <x>270</x>
-     <y>160</y>
+     <x>300</x>
+     <y>240</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="mediumNumSatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>200</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hardNumSatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>320</y>
+     <width>67</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hardNumDissatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>340</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hardNumServedLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>360</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="hardNumTipsLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>380</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="totalNumSatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>420</y>
+     <width>67</width>
+     <height>16</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="totalNumTipsLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>480</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="totalnumDissatisfiedLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>440</y>
+     <width>67</width>
+     <height>17</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>0</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QLabel" name="totalNumServedLabel">
+   <property name="geometry">
+    <rect>
+     <x>300</x>
+     <y>460</y>
      <width>67</width>
      <height>17</height>
     </rect>
