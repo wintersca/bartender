@@ -94,7 +94,6 @@ void ViewRecipes::on_allRecipes_currentIndexChanged(int index)
         stepsInDrink[i]->setText(steps[i].getInstruction());
     }
 
-    // Fill in amounts.
     int ingredientIndex = 0;
     QMapIterator<Ingredients::Ingredients, double> i(drink->IngredientsMap);
     while (i.hasNext())
