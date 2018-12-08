@@ -51,7 +51,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     else
     {
-        ui->easyNumSatisfiedLabel->setText(0);
+        ui->easyNumSatisfiedLabel->setText(QString::number(0));
     }
 
     if(records.contains("EasyCustomerDissatisfied"))
@@ -63,7 +63,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     else
     {
-        ui->easyNumDissatisfiedLabel->setText(0);
+        ui->easyNumDissatisfiedLabel->setText(QString::number(0));
     }
 
     if(records.contains("EasyDrinksServed"))
@@ -75,7 +75,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     else
     {
-        ui->easyNumServedLabel->setText(0);
+        ui->easyNumServedLabel->setText(QString::number(0));
     }
 
     if(records.contains("MedTipDollars")&&records.contains("MedTipCents"))
@@ -116,7 +116,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     else
     {
-        ui->mediumNumSatisfiedLabel->setText(0);
+        ui->mediumNumSatisfiedLabel->setText(QString::number(0));
     }
 
     if(records.contains("MedCustomerDissatisfied"))
@@ -128,7 +128,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     else
     {
-        ui->mediumNumDissatisfiedLabel->setText(0);
+        ui->mediumNumDissatisfiedLabel->setText(QString::number(0));
     }
 
     if(records.contains("MedDrinksServed"))
@@ -140,7 +140,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     else
     {
-        ui->mediumNumServedLabel->setText(0);
+        ui->mediumNumServedLabel->setText(QString::number(0));
     }
 
     if(records.contains("HardTipDollars")&&records.contains("HardTipCents"))
@@ -181,7 +181,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     else
     {
-        ui->hardNumSatisfiedLabel->setText(0);
+        ui->hardNumSatisfiedLabel->setText(QString::number(0));
     }
 
     if(records.contains("HardCustomerDissatisfied"))
@@ -193,7 +193,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     else
     {
-        ui->hardNumDissatisfiedLabel->setText(0);
+        ui->hardNumDissatisfiedLabel->setText(QString::number(0));
     }
 
     if(records.contains("HardDrinksServed"))
@@ -205,7 +205,7 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
     }
     else
     {
-        ui->hardNumServedLabel->setText(0);
+        ui->hardNumServedLabel->setText(QString::number(0));
     }
 
     if(totalCents >= 100)
