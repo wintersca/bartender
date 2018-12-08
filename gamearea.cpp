@@ -5,10 +5,11 @@ GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, C
     QSFMLCanvas(Parent, Position, Size)
 {
     controller = ctrlrPtr;
+
     // to controller
     QObject::connect(this, &GameArea::ingredientAdded,
                      controller, &Controller::checkIngredient);   
-    QObject::connect(this, &GameArea::requestMenu,
+   QObject::connect(this, &GameArea::requestMenu,
                      controller, &Controller::menuRequestByGameArea);
 
     // from controller
@@ -20,7 +21,6 @@ GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, C
 
 void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
 {
-    qDebug() << "YOU CLICKED THE MOUSE";
 
     sf::Vector2i mouse = sf::Mouse::getPosition(*this);
 
@@ -31,15 +31,12 @@ void GameArea::GameArea::mousePressEvent(QMouseEvent *e)
         {
             selected = &ingredientSprites[i];
 
-            //qDebug() << "Mouse is on Sprite: " << Ingredients::ingredientData[ingredientSprites[i].ingredient].displayString;
-
         }
     }
 }
 
 void GameArea::mouseReleaseEvent(QMouseEvent *e)
 {
-    qDebug() << "You let go of the mouse!";
 
     if (selected)
     {
@@ -50,7 +47,6 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
         sf::Vector2i mouse = sf::Mouse::getPosition(*this);
         if (glassImage.getGlobalBounds().contains(sf::Vector2f(mouse)))
         {
-            qDebug() << "Added to drink" << selected->ingredient << "\n";
             emit ingredientAdded(selected->ingredient);
 
             // Create phyics stuff.
@@ -98,7 +94,6 @@ void GameArea::OnInit()
     trueIngredientTextures = QVector<sf::Texture>(Ingredients::TRUEINGREDIENTS);
 
     // Create all ingredient sprite objects. This included tools.
-    //int ingredientIndex = 0;
     for (int i = 0; i < Ingredients::TRUEINGREDIENTS; i++)
     {
         // Add all images.
@@ -106,12 +101,6 @@ void GameArea::OnInit()
         trueIngredientTextures[i].loadFromFile(ingredientFilePaths[i].absoluteFilePath().toStdString());
         ingredientSprites[i].setTexture(trueIngredientTextures[i]);
 
-        /*
-        // Add all images.
-        ingredientSprites.append(IngredientSprite());
-        ingredientSprites[i].storedTexture.loadFromFile(ingredientFilePaths[i].absoluteFilePath().toStdString());
-        ingredientSprites[i].setTexture(ingredientSprites[i].storedTexture);
-        */
 
         // Center
         ingredientSprites[i].setOrigin(ingredientSprites[i].getGlobalBounds().width / 2, ingredientSprites[i].getGlobalBounds().height / 2);
@@ -202,10 +191,7 @@ void GameArea::OnInit()
     currentMood = 5;
 
     // Load the background image.
-    if(!backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gameplayBackground.png"))
-    {
-        qDebug() << "Couldn't load background.";
-    }
+    backgroundTexture.loadFromFile("../a8-an-educational-app-f18-kathrynriding-1/images/gameplayBackground.png");
     backgroundSprite.setTexture(backgroundTexture);
     backgroundSprite.setPosition(0.f, 0.f);
 
@@ -214,15 +200,7 @@ void GameArea::OnInit()
     // Phyics set up.
     liquidPhysics = LiquidPhysics();
     newLiquidShapeIndex = 0;
-    /*
-    // This is a test object on the ground.
-    for (int i = 0; i < 2; i++)
-    {
-        liquidShapes.prepend(sf::CircleShape(0));
-        liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0, 0));
-        newLiquidShapeIndex++;
-    }
-    */
+
 }
 
 //Game loop
@@ -242,7 +220,6 @@ void GameArea::OnUpdate()
     if(selected)
     {
         selected->setPosition(mouse.x, mouse.y);
-        //qDebug() << mouse.x << ", " << mouse.y;
     }
 
     // Draw all ingredients and tools.
@@ -280,22 +257,12 @@ void GameArea::receiveMood(int mood)
 
 void GameArea::drinkServed()
 {
-    // This just freezes the game currently.
 
     lock.lock();
+
     liquidPhysics.DeleteLiquid();
     newLiquidShapeIndex = 0;
     liquidShapes.clear();
-
-    /*
-    // Add test balls.
-    for (int i = 0; i < 2; i++)
-    {
-        liquidShapes.prepend(sf::CircleShape(5));
-        liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(0, 0, 0));
-        newLiquidShapeIndex++;
-    }
-    */
 
     lock.unlock();
 
