@@ -151,17 +151,12 @@ MainWindow::~MainWindow()
 
 void MainWindow::receiveDrink(Drink* drink)
 {
-    qDebug() << "We are setting the drink name to display, see if it crashes";
     ui->drinkName->setText(drink->Name);
-    qDebug() << "We displayed the drink name without a crash";
     // Clear the steps
-    qDebug() << "We are clearing out the stepsInDrink array, see if it crashes";
     for (int i = 0; i < 10; i++)
     {
         stepsInDrink[i]->setText("");
     }
-    qDebug() << "We cleared out the stepsInDrink array without a crash";
-
     // Display all the ingredients.
     // Check that the difficulty isn't set to hard.
     if (currentDifficulty != Difficulty::hard)
@@ -177,6 +172,7 @@ void MainWindow::receiveDrink(Drink* drink)
         }
     }
 
+
     // Display the trivia.
     // Pick a random trivia string.
     int totalTriva = drink->Trivia.length();
@@ -186,9 +182,7 @@ void MainWindow::receiveDrink(Drink* drink)
     randomEngine.seed(randomSeed);
     int randomIndex = distribution(randomEngine);
     //randomIndex--;
-
     QString triviaString = drink->Trivia[randomIndex];
-
     // Create a string that has new lines to display the trivia on multiple lines.
     QStringList wordsInTrivia = triviaString.split(" ", QString::SkipEmptyParts);
     int wordsOnLine = 0;
@@ -247,9 +241,6 @@ void MainWindow::receiveTime(int currentTime)
     QTime time(0, 0, currentTime);
     QString timeString = time.toString("m:ss");
     ui->timeLeft->setText(timeString);
-
-    //this is for testing and should be removed
-    qDebug() << currentTime;
 }
 
 void MainWindow::receiveTips(int tipDollars, int tipCents)
