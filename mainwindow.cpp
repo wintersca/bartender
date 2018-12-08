@@ -95,6 +95,12 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     // Disable the serve drink button
     ui->serveButton->setEnabled(false);
 
+    // Set background color of the menu bar.
+    ui->menuBar->setAutoFillBackground(true);
+    ui->menuBar->setPalette(paperPalette);
+    ui->menuBar->update();
+
+
     // to controller
     QObject::connect(this, &MainWindow::start,
                      controller, &Controller::startGame);
@@ -202,8 +208,6 @@ void MainWindow::receiveMenu(QVector<Drink*> menu)
     window->show();
     window->raise();
     window->activateWindow();
-
-    //TODO: display menu so user can edit
 }
 
 void MainWindow::receiveTime(int currentTime)
@@ -328,3 +332,8 @@ void MainWindow::receiveRecords(QMap<QString, int> records)
     window->activateWindow();
 }
 
+
+void MainWindow::on_actionAll_Recipes_triggered()
+{
+
+}

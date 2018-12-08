@@ -574,11 +574,18 @@
     </property>
     <addaction name="actionView_Record_Board"/>
    </widget>
+   <widget class="QMenu" name="menuView_Recipes">
+    <property name="title">
+     <string>View Recipes</string>
+    </property>
+    <addaction name="actionAll_Recipes"/>
+   </widget>
    <addaction name="menuStart_Game"/>
    <addaction name="menuDifficulty"/>
    <addaction name="menuModify_Menu"/>
    <addaction name="menuRecord_Board"/>
    <addaction name="menuHelp"/>
+   <addaction name="menuView_Recipes"/>
   </widget>
   <action name="actionAdd_New_Drink">
    <property name="text">
@@ -623,6 +630,11 @@
   <action name="actionView_Record_Board">
    <property name="text">
     <string>View Record Board</string>
+   </property>
+  </action>
+  <action name="actionAll_Recipes">
+   <property name="text">
+    <string>Making All Drinks</string>
    </property>
   </action>
  </widget>

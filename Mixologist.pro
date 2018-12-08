@@ -40,7 +40,8 @@ SOURCES += \
     recordtracker.cpp \
     liquidphysics.cpp \
     helpmenu.cpp \
-    recordboard.cpp
+    recordboard.cpp \
+    viewrecipes.cpp
 
 HEADERS += \
     mainwindow.h \
@@ -59,14 +60,16 @@ HEADERS += \
     recordtracker.h \
     liquidphysics.h \
     helpmenu.h \
-    recordboard.h
+    recordboard.h \
+    viewrecipes.h
 
 FORMS += \
     mainwindow.ui \
     customdrinkimporter.ui \
     customizemenu.ui \
     helpmenu.ui \
-    recordboard.ui
+    recordboard.ui \
+    viewrecipes.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -85,4 +88,4 @@ unix:!macx: LIBS += -L$$PWD/Box2D/Build/bin/x86_64/Debug/ -lBox2D
 INCLUDEPATH += $$PWD/Box2D/Build/bin/x86_64/Debug
 DEPENDPATH += $$PWD/Box2D/Build/bin/x86_64/Debug
 
-//unix:!macx: PRE_TARGETDEPS += $$PWD/Box2D/Build/bin/x86_64/Debug/libBox2D.a
+#unix:!macx: PRE_TARGETDEPS += $$PWD/Box2D/Build/bin/x86_64/Debug/libBox2D.a
