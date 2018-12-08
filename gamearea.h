@@ -11,7 +11,6 @@
 #include <QMouseEvent>
 #include "ingredientsprite.h"
 #include "controller.h"
-#include "./Box2D/Box2D/Box2D.h"
 #include "spritesheet.h"
 #include "liquidphysics.h"
 #include <QMutex>
