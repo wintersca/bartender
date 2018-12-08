@@ -32,6 +32,7 @@ private slots:
     void receiveTime(int currentTime);
     void receiveMenu(QVector<Drink*> menu);
     void receiveTips(int tipDollars, int tipCents);
+    void receiveRecords(QMap<QString, int> records);
     void requestAmountToAdd();
     void enableServe();
 
@@ -47,9 +48,12 @@ private slots:
 
     void on_actionAbout_triggered();
 
+    void on_actionView_Record_Board_triggered();
+
 signals:
     void start(unsigned int difficulty); //TODO put an enum as the parameter
     void requestMenu();
+    void requestRecords();
     void sendAmountToAdd(double amount);
     void drinkServed();
 
