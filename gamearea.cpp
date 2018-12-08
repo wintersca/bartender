@@ -1,11 +1,6 @@
 #include "gamearea.h"
 #include <Box2D/Box2D/Box2D.h>
 
-void GameArea::pouring(){
-
-
-}
-
 GameArea::GameArea(QWidget* Parent, const QPoint& Position, const QSize& Size, Controller *ctrlrPtr) :
     QSFMLCanvas(Parent, Position, Size)
 {
@@ -58,20 +53,34 @@ void GameArea::mouseReleaseEvent(QMouseEvent *e)
             qDebug() << "Added to drink" << selected->ingredient << "\n";
             emit ingredientAdded(selected->ingredient);
 
+            // Create phyics stuff.
             if (selected->ingredient <= Ingredients::Celery)
             {
-                // Spawn drink items
-                liquidPhysics.GenerateLiquid();
-
-                // Store sprites to represent them.
-                QColor thisColor = Ingredients::ingredientData[selected->ingredient].color;
-                for (int i = 0; i < liquidPhysics.liquidParticles; i++)
+                // Check if poured or added.
+                if (Ingredients::ingredientData[selected->ingredient].action == Ingredients::Action::PourAction)
                 {
-                    liquidShapes.append(sf::CircleShape(8));
-                    liquidShapes[newLiquidShapeIndex + i].setFillColor(sf::Color(thisColor.red(), thisColor.green(), thisColor.blue(), 150));
-                    liquidShapes[newLiquidShapeIndex + i].setOrigin(4, 4);
+                    // Spawn drink items
+                    liquidPhysics.GenerateLiquid();
+
+                    // Store sprites to represent them.
+                    QColor thisColor = Ingredients::ingredientData[selected->ingredient].color;
+                    for (int i = 0; i < liquidPhysics.liquidParticles; i++)
+                    {
+                        liquidShapes.append(sf::CircleShape(8));
+                        liquidShapes[newLiquidShapeIndex + i].setFillColor(sf::Color(thisColor.red(), thisColor.green(), thisColor.blue(), 150));
+                        liquidShapes[newLiquidShapeIndex + i].setOrigin(4, 4);
+                    }
+                    newLiquidShapeIndex += liquidPhysics.liquidParticles;
                 }
-                newLiquidShapeIndex += liquidPhysics.liquidParticles;
+                else
+                {
+                    liquidPhysics.GenerateSolid();
+                    QColor thisColor = Ingredients::ingredientData[selected->ingredient].color;
+                    liquidShapes.append(sf::CircleShape(12));
+                    liquidShapes[newLiquidShapeIndex].setFillColor(sf::Color(thisColor.red(), thisColor.green(), thisColor.blue(), 255));
+                    liquidShapes[newLiquidShapeIndex].setOrigin(4, 4);
+                    newLiquidShapeIndex++;
+                }
             }
         }
     }

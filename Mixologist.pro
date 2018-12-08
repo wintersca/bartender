@@ -89,3 +89,4 @@ INCLUDEPATH += $$PWD/Box2D/Build/bin/x86_64/Debug
 DEPENDPATH += $$PWD/Box2D/Build/bin/x86_64/Debug
 
 #unix:!macx: PRE_TARGETDEPS += $$PWD/Box2D/Build/bin/x86_64/Debug/libBox2D.a
+unix:!macx: PRE_TARGETDEPS += $$PWD/Box2D
