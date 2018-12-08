@@ -7,11 +7,11 @@
     <x>0</x>
     <y>0</y>
     <width>812</width>
-    <height>470</height>
+    <height>370</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>All recipes</string>
   </property>
   <layout class="QVBoxLayout" name="verticalLayout">
    <item>
@@ -50,7 +50,7 @@
         <property name="minimumSize">
          <size>
           <width>350</width>
-          <height>350</height>
+          <height>250</height>
          </size>
         </property>
         <property name="frameShape">
@@ -60,14 +60,26 @@
          <enum>QFrame::Raised</enum>
         </property>
         <layout class="QGridLayout" name="gridLayout">
-         <item row="7" column="2">
+         <item row="0" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="font">
+            <font>
+             <pointsize>13</pointsize>
+            </font>
+           </property>
+           <property name="text">
+            <string>Amount:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="7" column="3">
           <widget class="QLabel" name="ingredient6">
            <property name="text">
             <string>ingredient6</string>
            </property>
           </widget>
          </item>
-         <item row="8" column="2">
+         <item row="8" column="3">
           <widget class="QLabel" name="ingredient7">
            <property name="text">
             <string>ingredient7</string>
@@ -81,7 +93,7 @@
            </property>
           </widget>
          </item>
-         <item row="2" column="2">
+         <item row="2" column="3">
           <widget class="QLabel" name="ingredient2">
            <property name="text">
             <string>ingredient2</string>
@@ -102,7 +114,7 @@
            </property>
           </widget>
          </item>
-         <item row="4" column="2">
+         <item row="4" column="3">
           <widget class="QLabel" name="ingredient3">
            <property name="text">
             <string>ingredient3</string>
@@ -123,7 +135,7 @@
            </property>
           </widget>
          </item>
-         <item row="9" column="2">
+         <item row="9" column="3">
           <widget class="QLabel" name="ingredient8">
            <property name="text">
             <string>ingredient8</string>
@@ -151,10 +163,17 @@
            </property>
           </widget>
          </item>
-         <item row="1" column="2">
+         <item row="1" column="3">
           <widget class="QLabel" name="ingredient1">
            <property name="text">
             <string>ingredient1</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="1">
+          <widget class="QLabel" name="unit10">
+           <property name="text">
+            <string>unit10</string>
            </property>
           </widget>
          </item>
@@ -162,6 +181,13 @@
           <widget class="QLabel" name="amount1">
            <property name="text">
             <string>amount1</string>
+           </property>
+          </widget>
+         </item>
+         <item row="11" column="3">
+          <widget class="QLabel" name="ingredient10">
+           <property name="text">
+            <string>ingredient10</string>
            </property>
           </widget>
          </item>
@@ -179,18 +205,6 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_2">
-           <property name="font">
-            <font>
-             <pointsize>13</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Amount:</string>
-           </property>
-          </widget>
-         </item>
          <item row="5" column="1">
           <widget class="QLabel" name="unit4">
            <property name="text">
@@ -202,18 +216,6 @@
           <widget class="QLabel" name="unit7">
            <property name="text">
             <string>unit7</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_3">
-           <property name="font">
-            <font>
-             <pointsize>13</pointsize>
-            </font>
-           </property>
-           <property name="text">
-            <string>Units:</string>
            </property>
           </widget>
          </item>
@@ -238,7 +240,7 @@
            </property>
           </widget>
          </item>
-         <item row="10" column="2">
+         <item row="10" column="3">
           <widget class="QLabel" name="ingredient9">
            <property name="text">
             <string>ingredient9</string>
@@ -252,7 +254,14 @@
            </property>
           </widget>
          </item>
-         <item row="0" column="2">
+         <item row="11" column="0">
+          <widget class="QLabel" name="amount10">
+           <property name="text">
+            <string>amount10</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
           <widget class="QLabel" name="label_4">
            <property name="font">
             <font>
@@ -264,14 +273,14 @@
            </property>
           </widget>
          </item>
-         <item row="6" column="2">
+         <item row="6" column="3">
           <widget class="QLabel" name="ingredient5">
            <property name="text">
             <string>ingredient5</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="2">
+         <item row="5" column="3">
           <widget class="QLabel" name="ingredient4">
            <property name="text">
             <string>ingredient4</string>
@@ -285,26 +294,30 @@
            </property>
           </widget>
          </item>
-         <item row="11" column="2">
-          <widget class="QLabel" name="ingredient10">
+         <item row="0" column="1">
+          <widget class="QLabel" name="label_3">
+           <property name="font">
+            <font>
+             <pointsize>13</pointsize>
+            </font>
+           </property>
            <property name="text">
-            <string>ingredient10</string>
+            <string>Units:</string>
            </property>
           </widget>
          </item>
-         <item row="11" column="1">
-          <widget class="QLabel" name="unit10">
-           <property name="text">
-            <string>unit10</string>
+         <item row="0" column="2">
+          <spacer name="horizontalSpacer">
+           <property name="orientation">
+            <enum>Qt::Horizontal</enum>
            </property>
-          </widget>
-         </item>
-         <item row="11" column="0">
-          <widget class="QLabel" name="amount10">
-           <property name="text">
-            <string>amount10</string>
+           <property name="sizeHint" stdset="0">
+            <size>
+             <width>40</width>
+             <height>20</height>
+            </size>
            </property>
-          </widget>
+          </spacer>
          </item>
         </layout>
        </widget>
@@ -314,7 +327,7 @@
         <property name="minimumSize">
          <size>
           <width>350</width>
-          <height>350</height>
+          <height>250</height>
          </size>
         </property>
         <property name="frameShape">

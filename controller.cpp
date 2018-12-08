@@ -59,7 +59,6 @@ Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(pa
 QVector<Drink*> Controller::getAllRecipes()
 {
     QVector<Drink*> menu = parser->parseXMLDatabase();
-    qDebug() << "We have received a vector of recipes from the database";
     return menu;
 }
 
@@ -95,7 +94,6 @@ void Controller::updateRecipes(Drink* newRecipe)
     parser->updateXMLDatabase(newRecipe);
     menu.append(newRecipe);
     userSpecifiedMenu.append(newRecipe);
-    qDebug() << "We have sent a recipe to the database and updated the menu of the game";
 }
 
 void Controller::startGame(unsigned int difficultyInit)
@@ -106,12 +104,22 @@ void Controller::startGame(unsigned int difficultyInit)
 
 void Controller::startRound()
 {
+    qDebug() << "We are making a new customer, see if it crashes";
     newCustomer(difficulty);
-    drinkComplexity = currentDrink->IngredientsMap.size();
+    qDebug() << "We made a customer without a crash!";
+    qDebug() << "We are computing drink complexity, see if it crashes here";
+    drinkComplexity = currentDrink->getSteps().length();
+    qDebug() << "We computed drink complexity without a crash";
     drinkPoints = 0;
-    timeToCompleteDrink = static_cast<int>(moodValueModifier * 10 * drinkComplexity);
+    qDebug() << "We are computing time to complete drink, see if it crashes here";
+    timeToCompleteDrink = static_cast<int>(moodValueModifier * 15 * drinkComplexity);
+    qDebug() << "We computed time to complete drink without a crash";
+    qDebug() << "We are sending the drink to the main window, see if it crashes here";
     emit sendDrink(currentDrink);
+    qDebug() << "We send the drink without a crash";
+    qDebug() << "We are sending the happiness to the game area, see if it crashes";
     emit moodToGameArea(currentHappiness);
+    qDebug() << "We have sent happiness with no crash!";
     emit enableServe();
     if(difficulty != 0) //easy
     {
@@ -145,8 +153,6 @@ void Controller::newCustomer(unsigned int difficulty)
         }
     }
     currentDrink = selectNewRandomDrink();
-    for (Step s : currentDrink->getSteps())
-        qDebug() << s.getItem();
     moodValueModifier = static_cast<double>(currentHappiness) / 5;
     stepCount = 0;
     addedIngredients.clear();
@@ -154,9 +160,11 @@ void Controller::newCustomer(unsigned int difficulty)
 
 Drink* Controller::selectNewRandomDrink()
 {
+    qDebug() << "We are selecting a random drink. See if it crashes here.";
     qsrand(time(nullptr));
     int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
     currentDrink = userSpecifiedMenu[rand % userSpecifiedMenu.length()];
+    qDebug() << "We have selected a random drink with no crash.";
     return currentDrink;
 }
 
@@ -320,4 +328,9 @@ void Controller::standardizeHappiness()
         totalCustomersSatisfied++;
     else
         totalCustomersDissatisfied++;
+}
+
+void Controller::menuInfoRequestedByMainWindow()
+{
+    emit menuInfoToMainWindow(menu);
 }

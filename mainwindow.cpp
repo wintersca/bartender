@@ -6,8 +6,11 @@
 #include "gamearea.h"
 #include <random>
 #include "customizemenu.h"
+#include <SFML/Audio.hpp>
 #include "helpmenu.h"
 #include "recordboard.h"
+#include "viewrecipes.h"
+
 
 Controller *controller;
 MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
@@ -27,6 +30,12 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     QPalette palette;
     palette.setBrush(QPalette::Background, recipeAndTips);
     this->setPalette(palette);
+
+    //setup music
+    bgm.openFromFile("../a8-an-educational-app-f18-kathrynriding-1/audio/mixologist_BGM.wav");
+    bgm.setLoop(true);
+    bgm.play();
+
 
     // Set background color of the recipe area.
     QFrame* recipeFrame = ui->recipeFrame;
@@ -106,6 +115,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      controller, &Controller::startGame);
     QObject::connect(this, &MainWindow::requestMenu,
                       controller, &Controller::menuRequestedByMainWindow);
+    QObject::connect(this, &MainWindow::requestMenuInfo,
+                      controller, &Controller::menuInfoRequestedByMainWindow);
     QObject::connect(this, &MainWindow::sendAmountToAdd,
                       controller, &Controller::receiveAmountToAdd);
     QObject::connect(this, &MainWindow::drinkServed,
@@ -120,6 +131,8 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      this, &MainWindow::receiveTime);
     QObject::connect(controller, &Controller::menuToMainWindow,
                      this, &MainWindow::receiveMenu);
+    QObject::connect(controller, &Controller::menuInfoToMainWindow,
+                     this, &MainWindow::receiveMenuInfo);
     QObject::connect(controller, &Controller::tipAmountToGame,
                      this, &MainWindow::receiveTips);
     QObject::connect(controller, &Controller::requestAmountToAdd,
@@ -138,13 +151,16 @@ MainWindow::~MainWindow()
 
 void MainWindow::receiveDrink(Drink* drink)
 {
+    qDebug() << "We are setting the drink name to display, see if it crashes";
     ui->drinkName->setText(drink->Name);
-
+    qDebug() << "We displayed the drink name without a crash";
     // Clear the steps
+    qDebug() << "We are clearing out the stepsInDrink array, see if it crashes";
     for (int i = 0; i < 10; i++)
     {
         stepsInDrink[i]->setText("");
     }
+    qDebug() << "We cleared out the stepsInDrink array without a crash";
 
     // Display all the ingredients.
     // Check that the difficulty isn't set to hard.
@@ -335,5 +351,14 @@ void MainWindow::receiveRecords(QMap<QString, int> records)
 
 void MainWindow::on_actionAll_Recipes_triggered()
 {
+    emit requestMenuInfo();
+}
 
+void MainWindow::receiveMenuInfo(QVector<Drink*> menu)
+{
+    ViewRecipes* window = new ViewRecipes(menu, this);
+    window->setModal(true);
+    window->show();
+    window->raise();
+    window->activateWindow();
 }

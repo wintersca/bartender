@@ -71,13 +71,46 @@ ViewRecipes::~ViewRecipes()
     delete ui;
 }
 
+
 // Display all information.
-void ViewRecipes::on_allRecipes_activated(const QString &arg1)
+void ViewRecipes::on_allRecipes_currentIndexChanged(int index)
 {
     // Clear all data
     for (int i = 0; i < 10; i++)
     {
         stepsInDrink[i]->setText("");
+        amountsInDrink[i]->setText("");
+        unitsInDrink[i]->setText("");
+        ingredientsInDrink[i]->setText("");
+    }
 
+    // Get the drink.
+    Drink* drink = Menu[index];
+
+    // Fill in steps.
+    QVector<Step> steps = drink->getSteps();
+    for (int i = 0; i < steps.length(); i++)
+    {
+        stepsInDrink[i]->setText(steps[i].getInstruction());
+    }
+
+    // Fill in amounts.
+    int ingredientIndex = 0;
+    QMapIterator<Ingredients::Ingredients, double> i(drink->IngredientsMap);
+    while (i.hasNext())
+    {
+        i.next();
+        // Display amount
+        amountsInDrink[ingredientIndex]->setText(QString::number(i.value()));
+
+        // Display units.
+        QString ingredientUnits = Ingredients::ingredientData[i.key()].unit;
+        unitsInDrink[ingredientIndex]->setText(ingredientUnits);
+
+        // Display name.
+        QString ingredientName = Ingredients::ingredientData[i.key()].displayString;
+        ingredientsInDrink[ingredientIndex]->setText(ingredientName);
+
+        ingredientIndex++;
     }
 }

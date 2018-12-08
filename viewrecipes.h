@@ -18,7 +18,7 @@ public:
     ~ViewRecipes();
 
 private slots:
-    void on_allRecipes_activated(const QString &arg1);
+    void on_allRecipes_currentIndexChanged(int index);
 
 private:
     Ui::ViewRecipes *ui;

@@ -584,8 +584,8 @@
    <addaction name="menuDifficulty"/>
    <addaction name="menuModify_Menu"/>
    <addaction name="menuRecord_Board"/>
-   <addaction name="menuHelp"/>
    <addaction name="menuView_Recipes"/>
+   <addaction name="menuHelp"/>
   </widget>
   <action name="actionAdd_New_Drink">
    <property name="text">

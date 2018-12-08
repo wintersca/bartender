@@ -11,7 +11,7 @@ LiquidPhysics::LiquidPhysics()
 {
     worldAABB.lowerBound.Set(0, 0);
     worldAABB.upperBound.Set(200, 500);
-    World = new b2World(b2Vec2(0.0f, 500.f));
+    World = new b2World(b2Vec2(0.0f, 200.f));
     World->SetAllowSleeping(true);
 
     CreateGround();

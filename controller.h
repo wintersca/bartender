@@ -34,6 +34,7 @@ public slots:
 
     // from MainWindow
     void menuRequestedByMainWindow();
+    void menuInfoRequestedByMainWindow();
     void receiveUserSpecifiedMenu(QVector<Drink*> newMenu);
     void startGame(unsigned int difficulty);
     void receiveAmountToAdd(double amount);
@@ -47,6 +48,7 @@ signals:
 
     // to MainWindow
     void menuToMainWindow(QVector<Drink*> menu);
+    void menuInfoToMainWindow(QVector<Drink*> menu);
     void recordsToMainWindow(QMap<QString, int>);
     void sendDrink(Drink* drink);
     void sendTime(int currentTime);
