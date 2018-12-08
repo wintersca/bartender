@@ -15,6 +15,13 @@
 #include "liquidphysics.h"
 #include <QMutex>
 
+/*
+ * The GameArea class extends QSFMLCanvas to provide a Qt frame for SFML drawing and
+ * events. It is specifically implemented to hold all game sprites and data for
+ * the Mixologist game.
+ *
+ * Authors: Kylee Fluckiger & Alex Smith
+ */
 class GameArea : public QSFMLCanvas
 {
     Q_OBJECT
@@ -28,20 +35,20 @@ public :
 
 private :
 
-    QVector<IngredientSprite> ingredientSprites;
-    IngredientSprite* selected;
+    QVector<IngredientSprite> ingredientSprites;    //Tracks all ingredient sprites for the game.
+    IngredientSprite* selected;                     //Tracks the currently selected ingredient sprite.
     IngredientSprite glassImage;
     sf::Texture backgroundTexture;
     sf::Sprite backgroundSprite;
-    QVector<IngredientSprite> faceSprites;
-    QVector<sf::Texture> faceTextures;
-    int currentMood;
-    QVector<sf::Texture> trueIngredientTextures;
-    Controller *controller;
-    LiquidPhysics liquidPhysics;
-    QVector<sf::CircleShape> liquidShapes;
-    int newLiquidShapeIndex;
-    QMutex lock;
+    QVector<IngredientSprite> faceSprites;          //Holds all the faces for the customers.
+    QVector<sf::Texture> faceTextures;              //Textures for ^^
+    int currentMood;                                //Used to determine which customer face to display.
+    QVector<sf::Texture> trueIngredientTextures;    //Textures for real ingredient sprites.
+    Controller *controller;                         //Reference to a Controller object for gameplay.
+    LiquidPhysics liquidPhysics;                    //Instantiation of our liquid physics engine.
+    QVector<sf::CircleShape> liquidShapes;          //Sprites for generated physics animation.
+    int newLiquidShapeIndex;                        //Track newly created physics sprite instances.
+    QMutex lock;                                    //Helps keep physics generation sequential and correct.
 
     void OnInit();
     void OnUpdate();
@@ -56,8 +63,7 @@ private :
     const int physicsOffsetHorizontal = 469;
 
 signals:
-    void ingredientAdded(Ingredients::Ingredients);
-    void requestMenu();
+    void ingredientAdded(Ingredients::Ingredients);     //Emits which ingredient was dropped in glass.
 
 public slots:
     void receiveMood(int mood);
