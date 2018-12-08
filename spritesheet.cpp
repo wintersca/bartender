@@ -12,13 +12,12 @@ QVector<QFileInfo> Spritesheet::makeSprites(QString pathToSheet, int frameCount,
 
     int imageCount = 1;
 
-    for(int framePosition = 0; framePosition < imagesInARow; framePosition++)
+    for(int rowCount = 0; rowCount < numberOfRows; rowCount++)
     {
-        for(int rowCount = 0; rowCount < numberOfRows; rowCount++)
+        for(int columnCount = 0; columnCount < imagesInARow; columnCount++)
         {
-            if(spriteFiles.length() >= frameCount)
+            if(spriteFiles.length() > frameCount)
             {
-                // edge case if all the rows do not fully contain images
                 break;
             }
 
@@ -27,7 +26,7 @@ QVector<QFileInfo> Spritesheet::makeSprites(QString pathToSheet, int frameCount,
             directory.append(QString::number(imageCount));
             directory.append(".png");
 
-            QImage newSprite = spritesheet.copy(rowCount*frameWidth, framePosition*frameHeight, frameWidth, frameHeight);
+            QImage newSprite = spritesheet.copy(columnCount*frameWidth, rowCount*frameHeight, frameWidth, frameHeight);
             newSprite.save(directory);
 
             spriteFiles.append(directory);

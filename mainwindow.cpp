@@ -6,6 +6,7 @@
 #include "gamearea.h"
 #include <random>
 #include "customizemenu.h"
+#include "helpmenu.h"
 #include "recordboard.h"
 
 Controller *controller;
@@ -205,17 +206,6 @@ void MainWindow::receiveMenu(QVector<Drink*> menu)
     //TODO: display menu so user can edit
 }
 
-void MainWindow::receiveRecords(QMap<QString, int> records)
-{
-    RecordBoard* window = new RecordBoard(controller, records, this);
-    window->setModal(true);
-    window->show();
-    window->raise();
-    window->activateWindow();
-
-    //TODO: display menu so user can edit
-}
-
 void MainWindow::receiveTime(int currentTime)
 {
     // Deal with negative time left.
@@ -315,7 +305,26 @@ void MainWindow::enableServe()
     ui->serveButton->setEnabled(true);
 }
 
+void MainWindow::on_actionAbout_triggered()
+{
+    HelpMenu* window = new HelpMenu();
+    window->setModal(true);
+    window->show();
+    window->raise();
+    window->activateWindow();
+}
+
 void MainWindow::on_actionView_Record_Board_triggered()
 {
     emit requestRecords();
 }
+
+void MainWindow::receiveRecords(QMap<QString, int> records)
+{
+    RecordBoard* window = new RecordBoard(controller, records, this);
+    window->setModal(true);
+    window->show();
+    window->raise();
+    window->activateWindow();
+}
+
