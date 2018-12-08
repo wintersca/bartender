@@ -4,10 +4,17 @@
 #include <QObject>
 #include <QString>
 #include <QColor>
-#include <QMap>
 
+/*
+ * The Ingredients class provides a central data labelling format for all common
+ * QStrings used by the game, such as ingredients, actions, colors, etc. It uses
+ * enums to allow universal communication about game events to relevant classes.
+ *
+ * Authors: Kylee Fluckiger and Alex Smith and Tristan Bowler
+ */
 namespace Ingredients {
 
+    //This enum lists out all ingredient names for the game.
     enum Ingredients : unsigned int {
 
         // Core boozes
@@ -78,6 +85,9 @@ namespace Ingredients {
 
     };
 
+    /*This enum is used to communicate about actions taken by the player
+     *and is also used in animation the physics of making the drink.
+     */
     enum Action : unsigned int {
 
         PourAction,
@@ -88,6 +98,12 @@ namespace Ingredients {
 
     };
 
+    /*
+     * This struct allows aggregation of all relevant information about an
+     * ingredient in the game, such as its color, its unit string for text
+     * display, and what action should be used to animate its addition
+     * to a drink.
+     */
     struct IngredientData {
 
       QColor color;
@@ -99,7 +115,7 @@ namespace Ingredients {
     };
 
     static const int TRUEINGREDIENTS = 49;
-    static const int ITEMSININGREDIENTS = 52;
+    static const int ITEMSININGREDIENTS = 52;   //True ingredients plus stir/shake/muddler.
 
     //You index into this by ingredientData[Ingredient::Ingredient].
     // ingredientData[Ingredient::Ingredient].displayString, etc.
