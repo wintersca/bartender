@@ -4,6 +4,7 @@
 #include <QMainWindow>
 #include <QLabel>
 #include "controller.h"
+#include <SFML/Audio.hpp>
 
 extern Controller *controller;
 namespace Ui {
@@ -26,11 +27,13 @@ private:
         hard
     };
     unsigned int currentDifficulty;
+    sf::Music bgm;
 
 private slots:
     void receiveDrink(Drink* drink);
     void receiveTime(int currentTime);
     void receiveMenu(QVector<Drink*> menu);
+    void receiveMenuInfo(QVector<Drink*> menu);
     void receiveTips(int tipDollars, int tipCents);
     void receiveRecords(QMap<QString, int> records);
     void requestAmountToAdd();
@@ -50,9 +53,12 @@ private slots:
 
     void on_actionView_Record_Board_triggered();
 
+    void on_actionAll_Recipes_triggered();
+
 signals:
     void start(unsigned int difficulty); //TODO put an enum as the parameter
     void requestMenu();
+    void requestMenuInfo();
     void requestRecords();
     void sendAmountToAdd(double amount);
     void drinkServed();
