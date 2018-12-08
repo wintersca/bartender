@@ -338,7 +338,7 @@ void Controller::endRound()
     }
     else
     {
-        (hardTotalTipDollars, hardTotalTipCents);
+        calculateTip(hardTotalTipDollars, hardTotalTipCents);
         hardTotalDrinksServed++;
     }
 
@@ -385,16 +385,6 @@ void Controller::calculateTip(int &dollars, int &cents)
         dollars += cents / 100;
         cents = cents % 100;
         emit tipAmountToGame(dollars, cents);
-        if(difficulty==0){
-            easyTotalTipDollars+= dollars;
-            easyTotalTipCents+= cents;
-        }else if (difficulty ==1){
-            medTotalTipDollars += dollars;
-            medTotalTipCents+= cents;
-        }else{
-            hardTotalTipDollars+=dollars;
-            hardTotalTipCents+=cents;
-        }
     }
 }
 
