@@ -210,14 +210,14 @@ Drink* Controller::selectNewRandomDrink()
 
 void Controller::timerUpdate()
 {
-    if (currentHappiness > 0)
+    if (currentHappiness >= 0)
     {
         emit sendTime(timeToCompleteDrink--);
         if (timeToCompleteDrink < 0 && timeToCompleteDrink % static_cast<int>(5*moodValueModifier) == 0)
             emit moodToGameArea(currentHappiness--);
     }
     else
-        endRound();
+        emit sendTime(timeToCompleteDrink--);
 }
 
 void Controller::receiveAmountToAdd(double amount)

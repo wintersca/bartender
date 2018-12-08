@@ -27,7 +27,8 @@ public slots:
      * updates the in-game timer and mood sprite every second
      * If the time has exceed the time alloted to make the drink, decreases the
      * customers current mood every starting mood seconds. If the customers mood
-     * drops to 0 the round is ended
+     * drops to 0 the mood is no longer decreased, but the timer continues to run
+     * until the user ends the roudn by serving the drink.
      */
     void timerUpdate();
 
