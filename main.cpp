@@ -3,7 +3,6 @@
 #include "gamearea.h"
 #include "controller.h"
 #include "xmldrinkparser.h"
-//#include <Box2D/Box2D/Box2D.h>
 
 int main(int argc, char *argv[])
 {

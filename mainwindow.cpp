@@ -1,16 +1,4 @@
 #include "mainwindow.h"
-#include "ui_mainwindow.h"
-#include <QHBoxLayout>
-#include <QTime>
-#include "customdrinkimporter.h"
-#include "gamearea.h"
-#include <random>
-#include "customizemenu.h"
-#include <SFML/Audio.hpp>
-#include "helpmenu.h"
-#include "recordboard.h"
-#include "viewrecipes.h"
-
 
 Controller *controller;
 MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
@@ -18,11 +6,11 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     this->ui->setupUi(this);
+
     // Controller set up.
     controller = controllerPtr;
 
     GameArea* SFMLView = new GameArea(this, QPoint(20, 20), QSize(1000, 1000), controller);
-    //ui->verticalLayout->addWidget(SFMLView);
     ui->widgetLayout->addWidget(SFMLView);
 
     QPixmap recipeAndTips(":/iconImages/images/corkBoard.png");
@@ -35,7 +23,6 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     bgm.openFromFile("../a8-an-educational-app-f18-kathrynriding-1/audio/mixologist_BGM.wav");
     bgm.setLoop(true);
     bgm.play();
-
 
     // Set background color of the recipe area.
     QFrame* recipeFrame = ui->recipeFrame;
@@ -109,7 +96,6 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
     ui->menuBar->setPalette(paperPalette);
     ui->menuBar->update();
 
-
     // to controller
     QObject::connect(this, &MainWindow::start,
                      controller, &Controller::startGame);
@@ -141,7 +127,6 @@ MainWindow::MainWindow(Controller *controllerPtr, QWidget *parent) :
                      this, &MainWindow::enableServe);
     QObject::connect(controller, &Controller::recordsToMainWindow,
                      this, &MainWindow::receiveRecords);
-
 }
 
 MainWindow::~MainWindow()
@@ -151,24 +136,17 @@ MainWindow::~MainWindow()
 
 void MainWindow::receiveDrink(Drink* drink)
 {
-    qDebug() << "We are setting the drink name to display, see if it crashes";
     ui->drinkName->setText(drink->Name);
-    qDebug() << "We displayed the drink name without a crash";
     // Clear the steps
-    qDebug() << "We are clearing out the stepsInDrink array, see if it crashes";
     for (int i = 0; i < 10; i++)
     {
         stepsInDrink[i]->setText("");
     }
-    qDebug() << "We cleared out the stepsInDrink array without a crash";
 
     // Display all the ingredients.
     // Check that the difficulty isn't set to hard.
     if (currentDifficulty != Difficulty::hard)
     {
-        int ingredientIndex = 0;
-        //QMapIterator<Ingredients::Ingredients, double> i(drink->Steps->);
-
         QVector<Step> steps = drink->getSteps();
 
         for (int i = 0; i < steps.length(); i++)
@@ -176,6 +154,7 @@ void MainWindow::receiveDrink(Drink* drink)
             stepsInDrink[i]->setText(steps[i].getInstruction());
         }
     }
+
 
     // Display the trivia.
     // Pick a random trivia string.
@@ -185,10 +164,7 @@ void MainWindow::receiveDrink(Drink* drink)
     std::default_random_engine randomEngine;
     randomEngine.seed(randomSeed);
     int randomIndex = distribution(randomEngine);
-    //randomIndex--;
-
     QString triviaString = drink->Trivia[randomIndex];
-
     // Create a string that has new lines to display the trivia on multiple lines.
     QStringList wordsInTrivia = triviaString.split(" ", QString::SkipEmptyParts);
     int wordsOnLine = 0;
@@ -243,13 +219,13 @@ void MainWindow::receiveTime(int currentTime)
     timerFrame->setPalette(timerPalette);
     timerFrame->update();
 
+    int currentMinutes = currentTime / 60;
+    int currentSeconds = currentTime % 60;
+
     // Format the string.
-    QTime time(0, 0, currentTime);
+    QTime time = QTime(0, currentMinutes, currentSeconds);
     QString timeString = time.toString("m:ss");
     ui->timeLeft->setText(timeString);
-
-    //this is for testing and should be removed
-    qDebug() << currentTime;
 }
 
 void MainWindow::receiveTips(int tipDollars, int tipCents)

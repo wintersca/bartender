@@ -15,39 +15,85 @@ Controller::Controller(XMLDrinkParser *parserInit, QObject *parent) : QObject(pa
 
     if(historicalData.size() == 0)
     {
-        totalTipDollars = 0;
-        totalTipCents = 0;
-        totalCustomersSatisfied = 0;
-        totalCustomersDissatisfied = 0;
-        totalDrinksServed = 0;
+        easyTotalTipDollars = 0;
+        medTotalTipDollars = 0;
+        hardTotalTipDollars = 0;
+        easyTotalTipCents = 0;
+        medTotalTipCents = 0;
+        hardTotalTipCents = 0;
+        easyTotalCustomersSatisfied = 0;
+        medTotalCustomersSatisfied = 0;
+        hardTotalCustomersSatisfied = 0;
+        easyTotalCustomersDissatisfied = 0;
+        medTotalCustomersDissatisfied = 0;
+        hardTotalCustomersDissatisfied = 0;
+        easyTotalDrinksServed = 0;
+        medTotalDrinksServed = 0;
+        hardTotalDrinksServed = 0;
     }
     else
     {
         for(QString data: historicalData.keys())
         {
-            if(data.compare("TipDollars"))
+            if(data.compare("EasyTipDollars"))
             {
-                totalTipDollars = historicalData.value(data);
+                easyTotalTipDollars = historicalData.value(data);
             }
-
-            if(data.compare("TipCents"))
+            if(data.compare("EasyTipCents"))
             {
-                totalTipCents = historicalData.value(data);
+                easyTotalTipCents = historicalData.value(data);
             }
-
-            if(data.compare("CustomersSatisfied"))
+            if(data.compare("EasyCustomersSatisfied"))
             {
-                totalCustomersSatisfied = historicalData.value(data);
+                easyTotalCustomersSatisfied = historicalData.value(data);
             }
-
-            if(data.compare("CustomerDissatisfied"))
+            if(data.compare("EasyCustomerDissatisfied"))
             {
-                totalCustomersDissatisfied = historicalData.value(data);
+                easyTotalCustomersDissatisfied = historicalData.value(data);
             }
-
-            if(data.compare("DrinksServed"))
+            if(data.compare("EasyDrinksServed"))
             {
-                totalDrinksServed = historicalData.value(data);
+                easyTotalDrinksServed = historicalData.value(data);
+            }
+            if(data.compare("MedTipDollars"))
+            {
+                medTotalTipDollars = historicalData.value(data);
+            }
+            if(data.compare("MedTipCents"))
+            {
+                medTotalTipCents = historicalData.value(data);
+            }
+            if(data.compare("MedCustomersSatisfied"))
+            {
+                medTotalCustomersSatisfied = historicalData.value(data);
+            }
+            if(data.compare("MedCustomerDissatisfied"))
+            {
+                medTotalCustomersDissatisfied = historicalData.value(data);
+            }
+            if(data.compare("MedDrinksServed"))
+            {
+                medTotalDrinksServed = historicalData.value(data);
+            }
+            if(data.compare("HardTipDollars"))
+            {
+                hardTotalTipDollars = historicalData.value(data);
+            }
+            if(data.compare("HardTipCents"))
+            {
+                hardTotalTipCents = historicalData.value(data);
+            }
+            if(data.compare("HardCustomersSatisfied"))
+            {
+                hardTotalCustomersSatisfied = historicalData.value(data);
+            }
+            if(data.compare("HardCustomerDissatisfied"))
+            {
+                hardTotalCustomersDissatisfied = historicalData.value(data);
+            }
+            if(data.compare("HardDrinksServed"))
+            {
+                hardTotalDrinksServed = historicalData.value(data);
             }
         }
     }
@@ -70,6 +116,11 @@ void Controller::menuRequestByGameArea()
 void Controller::menuRequestedByMainWindow()
 {
     emit menuToMainWindow(menu);
+}
+
+void Controller::menuInfoRequestedByMainWindow()
+{
+    emit menuInfoToMainWindow(menu);
 }
 
 void Controller::recordsRequestedByMainWindow()
@@ -99,28 +150,27 @@ void Controller::updateRecipes(Drink* newRecipe)
 void Controller::startGame(unsigned int difficultyInit)
 {
     difficulty = difficultyInit;
+    emit clearDrink();
+    if(difficulty==0){
+        emit tipAmountToGame(easyTotalTipCents, easyTotalTipDollars);
+    }else if (difficulty ==1){
+        emit tipAmountToGame(medTotalTipCents, medTotalTipDollars);
+    }else{
+        emit tipAmountToGame(hardTotalTipCents, hardTotalTipDollars);
+    }
     startRound();
 }
 
 void Controller::startRound()
 {
-    qDebug() << "We are making a new customer, see if it crashes";
     newCustomer(difficulty);
-    qDebug() << "We made a customer without a crash!";
-    qDebug() << "We are computing drink complexity, see if it crashes here";
     drinkComplexity = currentDrink->getSteps().length();
-    qDebug() << "We computed drink complexity without a crash";
     drinkPoints = 0;
-    qDebug() << "We are computing time to complete drink, see if it crashes here";
     timeToCompleteDrink = static_cast<int>(moodValueModifier * 15 * drinkComplexity);
-    qDebug() << "We computed time to complete drink without a crash";
-    qDebug() << "We are sending the drink to the main window, see if it crashes here";
-    emit sendDrink(currentDrink);
-    qDebug() << "We send the drink without a crash";
-    qDebug() << "We are sending the happiness to the game area, see if it crashes";
+    emit sendDrink(currentDrink);    
     emit moodToGameArea(currentHappiness);
-    qDebug() << "We have sent happiness with no crash!";
     emit enableServe();
+
     if(difficulty != 0) //easy
     {
         timer->start(1000);
@@ -159,25 +209,23 @@ void Controller::newCustomer(unsigned int difficulty)
 }
 
 Drink* Controller::selectNewRandomDrink()
-{
-    qDebug() << "We are selecting a random drink. See if it crashes here.";
+{    
     qsrand(time(nullptr));
     int rand = static_cast<int>(qFabs(static_cast<int>(qrand())));
     currentDrink = userSpecifiedMenu[rand % userSpecifiedMenu.length()];
-    qDebug() << "We have selected a random drink with no crash.";
     return currentDrink;
 }
 
 void Controller::timerUpdate()
 {
-    if (currentHappiness > 0)
+    if (currentHappiness >= 0)
     {
         emit sendTime(timeToCompleteDrink--);
         if (timeToCompleteDrink < 0 && timeToCompleteDrink % static_cast<int>(5*moodValueModifier) == 0)
             emit moodToGameArea(currentHappiness--);
     }
     else
-        endRound();
+        emit sendTime(timeToCompleteDrink--);
 }
 
 void Controller::receiveAmountToAdd(double amount)
@@ -268,7 +316,6 @@ bool Controller::outOfOrderAmount(Ingredients::Ingredients ingredient, QVector<S
 void Controller::drinkServed()
 {
     endRound();
-    totalDrinksServed++;
     QTimer::singleShot(1000, this, SLOT(startRound()));
     emit clearDrink();
 }
@@ -277,42 +324,67 @@ void Controller::endRound()
 {
     timer->stop();
     endOfRoundHappinessBonus();
-    calculateTip();
-    standardizeHappiness();
-    emit moodToGameArea(currentHappiness);
-
-    totalDrinksServed++;
-
     // record game data
     QMap<QString, int> toRecord;
-    toRecord["TipDollars"] = totalTipDollars;
-    toRecord["TipCents"] = totalTipCents;
-    toRecord["CustomersSatisfied"] = totalCustomersSatisfied;
-    toRecord["CustomerDissatisfied"] = totalCustomersDissatisfied;
-    toRecord["DrinksServed"] = totalDrinksServed;
+    if(difficulty==0)
+    {
+        calculateTip(easyTotalTipDollars, easyTotalTipCents);
+        easyTotalDrinksServed++;
+    }
+    else if(difficulty==1)
+    {
+        calculateTip(medTotalTipDollars, medTotalTipCents);
+        medTotalDrinksServed++;
+    }
+    else
+    {
+        calculateTip(hardTotalTipDollars, hardTotalTipCents);
+        hardTotalDrinksServed++;
+    }
+
+
+    toRecord["EasyTipDollars"] = easyTotalTipDollars;
+    toRecord["EasyTipCents"] = easyTotalTipCents;
+    toRecord["EasyCustomersSatisfied"] = easyTotalCustomersSatisfied;
+    toRecord["EasyCustomerDissatisfied"] = easyTotalCustomersDissatisfied;
+    toRecord["EasyDrinksServed"] = easyTotalDrinksServed;
+
+    toRecord["MedTipDollars"] = medTotalTipDollars;
+    toRecord["MedTipCents"] = medTotalTipCents;
+    toRecord["MedCustomersSatisfied"] = medTotalCustomersSatisfied;
+    toRecord["MedCustomerDissatisfied"] = medTotalCustomersDissatisfied;
+    toRecord["MedDrinksServed"] = medTotalDrinksServed;
+
+    toRecord["HardTipDollars"] = hardTotalTipDollars;
+    toRecord["HardTipCents"] = hardTotalTipCents;
+    toRecord["HardCustomersSatisfied"] = hardTotalCustomersSatisfied;
+    toRecord["HardCustomerDissatisfied"] = hardTotalCustomersDissatisfied;
+    toRecord["HardDrinksServed"] = hardTotalDrinksServed;
 
     RecordTracker::writeGameRecord(toRecord);
+    standardizeHappiness();
+    emit moodToGameArea(currentHappiness);
 }
 
 void Controller::endOfRoundHappinessBonus()
 {
-    if (drinkPoints == 0)
+    if (drinkPoints <= 0)
         currentHappiness = 0;
     if (currentHappiness > 0)
         currentHappiness += ((5 * drinkPoints) / (drinkComplexity * 3)) - 2;
     moodValueModifier = currentHappiness / 5;
 }
 
-void Controller::calculateTip()
+void Controller::calculateTip(int &dollars, int &cents)
 {
     if (currentHappiness > 0)
     {
-        int tip = static_cast<int>((drinkPoints) * (10 * moodValueModifier));
-        totalTipDollars += tip / 100;
-        totalTipCents += tip % 100;
-        totalTipDollars += totalTipCents / 100;
-        totalTipCents = totalTipCents % 100;
-        emit tipAmountToGame(totalTipDollars, totalTipCents);
+        int tip = static_cast<int>(drinkPoints * 10 * moodValueModifier);
+        dollars += tip / 100;
+        cents += tip % 100;
+        dollars += cents / 100;
+        cents = cents % 100;
+        emit tipAmountToGame(dollars, cents);
     }
 }
 
@@ -324,13 +396,31 @@ void Controller::standardizeHappiness()
         currentHappiness = 0;
 
     // update customer satisfaction counts
-    if(currentHappiness >= 3)
-        totalCustomersSatisfied++;
+    if(difficulty==0)
+        {
+            if(currentHappiness >= 3)
+                easyTotalCustomersSatisfied++;
+            else
+                easyTotalCustomersDissatisfied++;
+
+        }
+    else if(difficulty==1)
+        {
+            if(currentHappiness >= 3)
+                medTotalCustomersSatisfied++;
+            else
+                medTotalCustomersDissatisfied++;
+
+        }
     else
-        totalCustomersDissatisfied++;
+        {
+            if(currentHappiness >= 3)
+                hardTotalCustomersSatisfied++;
+            else
+                hardTotalCustomersDissatisfied++;
+
+        }
+
 }
 
-void Controller::menuInfoRequestedByMainWindow()
-{
-    emit menuInfoToMainWindow(menu);
-}
+

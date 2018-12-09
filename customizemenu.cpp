@@ -40,7 +40,6 @@ void CustomizeMenu::AddDrinksToBoxes()
     }
 }
 
-
 void CustomizeMenu::on_removeDrink_clicked()
 {
     // Figure out what drink was selected.

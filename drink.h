@@ -30,11 +30,9 @@ public:
     bool getSelected();
     void print();
     
-
 private:
     QVector<Step> Steps;
     bool userSelected;
-
 };
 
 #endif // DRINK_H
