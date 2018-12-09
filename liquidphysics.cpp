@@ -1,14 +1,8 @@
 #include "liquidphysics.h"
-#include "mainwindow.h"
-#include "ui_mainwindow.h"
-//#include "Box2D/Box2D/Box2D.h"
-#include <QTimer>
-#include <QPainter>
-#include <QPen>
-#include <QDebug>
 
 LiquidPhysics::LiquidPhysics()
 {
+    //initalizes the world
     worldAABB.lowerBound.Set(0, 0);
     worldAABB.upperBound.Set(200, 500);
     World = new b2World(b2Vec2(0.0f, 150.f));
@@ -16,17 +10,12 @@ LiquidPhysics::LiquidPhysics()
 
     CreateGround();
     CreateCup();
-    // Basically connect in Controller whenever the screen has to update to the step function of the Liquid Physics so it can move along too.
-    //connect(this->timer, SIGNAL(timeout()), this, SLOT(WorldStep()));
 }
 
 
 void LiquidPhysics::WorldStep()
 {
     World->Step(timeStep, velocityIterations, positionIterations);
-    //b2Vec2 position = body->GetPosition();
-    //qDebug() << position.x << " " << position.y << "/n";
-    // signal to controller to update the screen
 }
 
 void LiquidPhysics::GenerateLiquid()
@@ -100,31 +89,8 @@ void LiquidPhysics::DeleteLiquid()
     for (b2Body* body = World->GetBodyList()->GetNext(); body; body = body->GetNext())
     {
         World->DestroyBody(body);
-        /*
-        b2Body* next = body->GetNext();  // remember next body before *b gets destroyed
-        World->DestroyBody(body); // do I need to destroy fixture as well(and how?) or it does that for me?
-        body = next;  // go to next body
-        */
-        /*
-        if (body->GetUserData() != NULL) {
-
-        }
-        else
-        {
-            body = body->GetNext();
-        }
-        */
     }
     CreateGround();
-    /*
-    //Add ground back afterwards
-    groundBodyDef.position.Set(0.0f, -10.0f);
-    groundBody = World->CreateBody(&groundBodyDef);
-    groundBox.SetAsBox(50.0f, 10.0f);
-    groundBody->CreateFixture(&groundBox, 0.0f);
-    */
-
-    //Add cup back
     CreateCup();
 }
 

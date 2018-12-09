@@ -11,7 +11,6 @@
 #include <QMouseEvent>
 #include "ingredientsprite.h"
 #include "controller.h"
-#include "./Box2D/Box2D/Box2D.h"
 #include "spritesheet.h"
 #include "liquidphysics.h"
 #include <QMutex>
@@ -38,9 +37,9 @@ private :
 
     QVector<IngredientSprite> ingredientSprites;    //Tracks all ingredient sprites for the game.
     IngredientSprite* selected;                     //Tracks the currently selected ingredient sprite.
-    IngredientSprite glassImage;
-    sf::Texture backgroundTexture;
-    sf::Sprite backgroundSprite;
+    IngredientSprite glassImage;                    // The image of the glass on the bar.
+    sf::Texture backgroundTexture;                  // The image file of the background.
+    sf::Sprite backgroundSprite;                    // The object for drawing the background.
     QVector<IngredientSprite> faceSprites;          //Holds all the faces for the customers.
     QVector<sf::Texture> faceTextures;              //Textures for ^^
     int currentMood;                                //Used to determine which customer face to display.
