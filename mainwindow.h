@@ -1,6 +1,3 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
-
 #include <QMainWindow>
 #include <QLabel>
 #include <SFML/Audio.hpp>
@@ -16,7 +13,10 @@
 #include "recordboard.h"
 #include "viewrecipes.h"
 
-/*
+#ifndef MAINWINDOW_H
+#define MAINWINDOW_H
+
+/**
  * The main window is the main place to interact with the game.
  * It contains the gameplay area where drawing in SFML is handled.
  * It also handles creating all the pop up windows.
@@ -53,77 +53,140 @@ private:
     sf::Music bgm;
 
 private slots:
-    // The UI receives a drink and displays it's name, steps, and one of its trivia.
+    /**
+     * @brief receiveDrink: The UI receives a drink and displays it's name, steps, and one of its trivia.
+     * @param drink: drink to receive
+     */
     void receiveDrink(Drink* drink);
 
-    // The UI receives the time left to make a drink and displays it. If negative it is displayed in red.
+    /**
+     * @brief receiveTime: The UI receives the time left to make a drink and displays it.
+     * If negative it is displayed in red.
+     * @param currentTime: current game time
+     */
     void receiveTime(int currentTime);
 
-    // The UI receives all the drinks and opens a widnow to modify the drinks on the menu.
+    /**
+     * @brief receiveMenu: The UI receives all the drinks and opens a widnow to modify the drinks on the menu.
+     * @param menu: menu to receive
+     */
     void receiveMenu(QVector<Drink*> menu);
 
-    // The UI receives all the drinks and opens a menu to display information about how to make them.
+    /**
+     * @brief receiveMenuInfo: The UI receives all the drinks and opens a menu to display
+     * information about how to make them.
+     * @param menu: menu info to receive
+     */
     void receiveMenuInfo(QVector<Drink*> menu);
 
-    // The UI receives the total tips the player has earned and displays them.
+    /**
+     * @brief receiveTips: The UI receives the total tips the player has earned and displays them.
+     * @param tipDollars
+     * @param tipCents
+     */
     void receiveTips(int tipDollars, int tipCents);
 
-    // The UI receives stats about how well the player has played the game. A window is opened to display them.
+    /**
+     * @brief receiveRecords: The UI receives stats about how well the player has played the game.
+     * A window is opened to display them.
+     * @param records
+     */
     void receiveRecords(QMap<QString, int> records);
 
-    // The Controller requests how much of an ingredient is being added to a drink.
+    /**
+     * @brief requestAmountToAdd: The Controller requests how much of an ingredient is being added to a drink.
+     */
     void requestAmountToAdd();
 
-    // The button to serve a drink is enabled by the controller.
+    /**
+     * @brief enableServe: The button to serve a drink is enabled by the controller.
+     */
     void enableServe();
 
-    // A button in the menu is pressed to modify what drinks are on the menu. The menu is requested from the controller.
+    /**
+     * @brief on_actionEdit_Available_Drinks_triggered: A button in the menu is pressed to modify what drinks are on the menu.
+     * The menu is requested from the controller.
+     */
     void on_actionEdit_Available_Drinks_triggered();
 
-    // A button is pressed to open the window to make a custom drink.
+    /**
+     * @brief on_actionCreat_Custom_Drink_triggered: A button is pressed to open the window to make a custom drink.
+     */
     void on_actionCreat_Custom_Drink_triggered();
 
-    // Easy difficulty was selected. It is greyed out.
+    /**
+     * @brief on_actionEasy_triggered: Easy difficulty was selected. It is greyed out.
+     */
     void on_actionEasy_triggered();
 
-    // Medium difficulty was selected. It is greyed out.
+    /**
+     * @brief on_actionMedium_triggered: Medium difficulty was selected. It is greyed out.
+     */
     void on_actionMedium_triggered();
 
-    // Hard difficulty was selected. It is greyed out.
+    /**
+     * @brief on_actionHard_triggered: Hard difficulty was selected. It is greyed out.
+     */
     void on_actionHard_triggered();
 
-    // The user requested to start the game. The controller is sent the current difficulty.
+    /**
+     * @brief on_actionStart_triggered: The user requested to start the game.
+     * The controller is sent the current difficulty.
+     */
     void on_actionStart_triggered();
 
-    // The button to finish making a drink is clicked. The controller then checks its correctness.
+    /**
+     * @brief on_serveButton_clicked: The button to finish making a drink is clicked.
+     * The controller then checks its correctness.
+     */
     void on_serveButton_clicked();
 
-    // The user clicked to open a window to view information about how the game works.
+    /**
+     * @brief on_actionAbout_triggered: The user clicked to open a window to view information about how the game works.
+     */
     void on_actionAbout_triggered();
 
-    // The user requested to view stats about how they have been playing the game.
+    /**
+     * @brief on_actionView_Record_Board_triggered: The user requested to view stats about how they have been playing the game.
+     */
     void on_actionView_Record_Board_triggered();
 
-    // The user requested to view information about all the drinks in the database.
+    /**
+     * @brief on_actionAll_Recipes_triggered: The user requested to view information about all the drinks in the database.
+     */
     void on_actionAll_Recipes_triggered();
 
 signals:
-    // Telling the controller the game is starting and sending the difficulty.
-    void start(unsigned int difficulty); //TODO put an enum as the parameter
+    /**
+     * @brief start: Telling the controller the game is starting and sending the difficulty.
+     * @param difficulty: starting difficulty
+     */
+    void start(unsigned int difficulty);
 
-    // Requesting all information about drinks, to allow modifying what can be ordered.
+    /**
+     * @brief requestMenu: Requesting all information about drinks, to allow modifying what can be ordered.
+     */
     void requestMenu();
 
-    // Requesting all information about drinks, to allow you user to view this information easily.
+    /**
+     * @brief requestMenuInfo: Requesting all information about drinks, to allow you user to view this information easily.
+     */
     void requestMenuInfo();
 
-    // Request stats about how the user is playing the game, so this can be view by the user.
+    /**
+     * @brief requestRecords: Request stats about how the user is playing the game, so this can be view by the user.
+     */
     void requestRecords();
 
-    // Telling the controller how much of an ingredient was added to a drink.
+    /**
+     * @brief sendAmountToAdd: Telling the controller how much of an ingredient was added to a drink.
+     * @param amount to add
+     */
     void sendAmountToAdd(double amount);
 
-    // Telling the controller that the user is done making a drink.
+    /**
+     * @brief drinkServed: Telling the controller that the user is done making a drink.
+     */
     void drinkServed();
 
 private:

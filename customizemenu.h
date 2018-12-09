@@ -1,16 +1,15 @@
-#ifndef CUSTOMIZEMENU_H
-#define CUSTOMIZEMENU_H
-
 #include <QDialog>
 #include "drink.h"
 #include "controller.h"
 
-/*
+#ifndef CUSTOMIZEMENU_H
+#define CUSTOMIZEMENU_H
+
+/**
  * Customize menu allows the user to limit the drinks customers can order.
  * This allows the user to practice a set number of drinks.
  * Author: Alex Smith
  */
-
 namespace Ui {
 class CustomizeMenu;
 }
@@ -32,24 +31,37 @@ private:
     // A copy of the menu in case the user wants to discard their changes.
     QVector<Drink*> GivenMenu;
 
-    // Fills out both combo boxes with the selected and unselected drinks.
+    /**
+     * @brief AddDrinksToBoxes: fills out both combo boxes with the selected and unselected drinks.
+     */
     void AddDrinksToBoxes();
 
 signals:
-    // Send the modified menu to the controller.
+    /**
+     * @brief sendUserSpecifiedMenu: Send the modified menu to the controller.
+     * @param newMenu
+     */
     void sendUserSpecifiedMenu(QVector<Drink*> newMenu);
 
 private slots:
-    // Move the selected drink to the unselected box.
+    /**
+     * @brief on_removeDrink_clicked: Move the selected drink to the unselected box.
+     */
     void on_removeDrink_clicked();
 
-    // Move the unselected drink to the selected box.
+    /**
+     * @brief on_addDrink_clicked: Move the unselected drink to the selected box.
+     */
     void on_addDrink_clicked();
 
-    // Send the controller the modified menu.
+    /**
+     * @brief on_buttonBox_accepted: Send the controller the modified menu.
+     */
     void on_buttonBox_accepted();
 
-    // Discard the changes and send the controller the origin menu.
+    /**
+     * @brief on_buttonBox_rejected: Discard the changes and send the controller the origin menu.
+     */
     void on_buttonBox_rejected();
 };
 
