@@ -1,9 +1,9 @@
+#include "qsfmlcanvas.h"
+
 #ifdef Q_WS_X11
     #include <Qt/qx11info_x11.h>
     #include <X11/Xlib.h>
 #endif
-
-#include "qsfmlcanvas.h"
 
 QSFMLCanvas::QSFMLCanvas(QWidget* Parent, const QPoint& Position, const QSize& Size, int FrameTime) :
 QWidget       (Parent),

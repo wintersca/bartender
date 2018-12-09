@@ -428,7 +428,6 @@ void Controller::standardizeHappiness()
                 hardTotalCustomersSatisfied++;
             else
                 hardTotalCustomersDissatisfied++;
-
         }
 
 }

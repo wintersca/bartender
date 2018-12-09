@@ -100,11 +100,6 @@ public:
      * @return
      */
     bool getSelected();
-
-    /**
-     * @brief print: makes drink printable
-     */
-    void print();
     
 private:
     QVector<Step> Steps;
