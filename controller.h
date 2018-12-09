@@ -202,7 +202,7 @@ private:
      * zero due to served drink incorrectness
      * Tips are not calculated for customers whose currentHappiness is <= 0
      */
-    void calculateTip(int &dollars, int &cents); //when drink is served
+    void calculateTip(int dollars, int cents); //when drink is served
 
     /* endRound()
      *
