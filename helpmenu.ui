@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1117</width>
-    <height>604</height>
+    <height>634</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -80,7 +80,14 @@
    <item>
     <widget class="QLabel" name="label_12">
      <property name="text">
-      <string>To add an item select the amount to add, then drag the item to add onto  the glass at the center of the bar.</string>
+      <string>To add an item select the amount to add, then drag the item to add onto  the glass at the center of the bar. </string>
+     </property>
+    </widget>
+   </item>
+   <item>
+    <widget class="QLabel" name="label_20">
+     <property name="text">
+      <string>To change the amount, toggle the up and down arrows on the right with the mouse or keyboard, or type an amount into the box. </string>
      </property>
     </widget>
    </item>
@@ -92,7 +99,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_20">
+    <widget class="QLabel" name="label_21">
      <property name="text">
       <string/>
      </property>
@@ -120,11 +127,7 @@
     </widget>
    </item>
    <item>
-    <widget class="QLabel" name="label_21">
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
+    <widget class="QWidget" name="widget" native="true"/>
    </item>
    <item>
     <widget class="QLabel" name="label_17">
