@@ -426,18 +426,4 @@
             <trivia description="Egg whites are also common in traditional sours but are generally left out now."/>
         </trivia_details>
     </drink>
-    <drink>
-        <name>*Vodka Cranbery</name>
-        <ingredients>
-            <ingredient name="Vodka" amount="2"/>
-            <ingredient name="Cranberry Juice" amount="6"/>
-        </ingredients>
-        <actions>
-            <action instruction="1. Pour 2 oz Vodka" item="Vodka" amount="2"/>
-            <action instruction="2. Pour 6 oz Cranberry Juice" item="Cranberry Juice" amount="6"/>
-        </actions>
-        <trivia_details>
-            <trivia description="This drink has a tart taste!"/>
-        </trivia_details>
-    </drink>
 </collection>
