@@ -187,7 +187,7 @@ private:
      * @param dollars: dollar amount to calculate
      * @param cents: cent amount to calculate
      */
-    void calculateTip(int &dollars, int &cents); //when drink is served
+    void calculateTip(int dollars, int cents); //when drink is served
 
     /**
      * @brief endRound: stops the round timer and calls endOfRoundHappinessBonus to determine the currentHappiness score

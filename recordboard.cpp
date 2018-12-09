@@ -164,12 +164,12 @@ RecordBoard::RecordBoard (Controller* controller, QMap<QString, int> records, QW
             valueString= "$"+QString::number(dollar)+"."+QString::number(cents);
         }
 
-        ui->mediumNumTipsLabel->setText(valueString);
+        ui->hardNumTipsLabel->setText(valueString);
 
     }
     else
     {
-        ui->mediumNumTipsLabel->setText("$0.00");
+        ui->hardNumTipsLabel->setText("$0.00");
     }
 
     if(records.contains("HardCustomersSatisfied"))
