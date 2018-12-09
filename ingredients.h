@@ -5,7 +5,7 @@
 #include <QString>
 #include <QColor>
 
-/*
+/**
  * The Ingredients class provides a central data labelling format for all common
  * QStrings used by the game, such as ingredients, actions, colors, etc. It uses
  * enums to allow universal communication about game events to relevant classes.
@@ -85,7 +85,8 @@ namespace Ingredients {
 
     };
 
-    /*This enum is used to communicate about actions taken by the player
+    /**
+     * This enum is used to communicate about actions taken by the player
      *and is also used in animation the physics of making the drink.
      */
     enum Action : unsigned int {
@@ -98,7 +99,7 @@ namespace Ingredients {
 
     };
 
-    /*
+    /**
      * This struct allows aggregation of all relevant information about an
      * ingredient in the game, such as its color, its unit string for text
      * display, and what action should be used to animate its addition

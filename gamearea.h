@@ -1,6 +1,3 @@
-#ifndef MYCANVAS_H
-#define MYCANVAS_H
-
 #include <QWidget>
 #include <QObject>
 #include <QTimer>
@@ -15,11 +12,13 @@
 #include "liquidphysics.h"
 #include <QMutex>
 
-/*
+#ifndef MYCANVAS_H
+#define MYCANVAS_H
+
+/**
  * The GameArea class extends QSFMLCanvas to provide a Qt frame for SFML drawing and
  * events. It is specifically implemented to hold all game sprites and data for
  * the Mixologist game.
- *
  * Authors: Kylee Fluckiger & Alex Smith
  */
 class GameArea : public QSFMLCanvas
@@ -50,7 +49,14 @@ private :
     int newLiquidShapeIndex;                        //Track newly created physics sprite instances.
     QMutex lock;                                    //Helps keep physics generation sequential and correct.
 
+    /**
+     * @brief OnInit: intializes necessary components on start.
+     */
     void OnInit();
+
+    /**
+     * @brief OnUpdate: updates necessary components when called.
+     */
     void OnUpdate();
 
     // Positions relative to the center.
@@ -63,10 +69,22 @@ private :
     const int physicsOffsetHorizontal = 469;
 
 signals:
-    void ingredientAdded(Ingredients::Ingredients);     //Emits which ingredient was dropped in glass.
+    /**
+     * @brief ingredientAdded: Emits which ingredient was dropped in glass.
+     */
+    void ingredientAdded(Ingredients::Ingredients);
 
 public slots:
+
+    /**
+     * @brief receiveMood: receives mood of customer to effect game area.
+     * @param mood: mood of customer
+     */
     void receiveMood(int mood);
+
+    /**
+     * @brief drinkServed: updates game area after served drink.
+     */
     void drinkServed();
 };
 

@@ -1,6 +1,3 @@
-#ifndef CUSTOMDRINKIMPORTER_H
-#define CUSTOMDRINKIMPORTER_H
-
 #include <QDialog>
 #include <QVector>
 #include <QComboBox>
@@ -13,10 +10,13 @@
 #include "ingredientsmap.h"
 #include "step.h"
 
-/*
+#ifndef CUSTOMDRINKIMPORTER_H
+#define CUSTOMDRINKIMPORTER_H
+
+/**
  * The drink importer allows the user to specify custom drinks using the given ingredients.
  * Drinks created here are added to the XML database and can be used when opening the game later.
- * Author: Alex Smith
+ * Authors: Alex Smith & Tristan Bowler
  */
 
 namespace Ui {
@@ -32,31 +32,50 @@ public:
     ~CustomDrinkImporter();
 
 private slots:
-    // The drink that the user created is sent to the database, and the window is closed.
+    /**
+     * @brief on_buttonBox_accepted: The drink that the user created is sent to the database, and the window is closed.
+     */
     void on_buttonBox_accepted();
 
-    // The drink the user created is ignored and the window is closed.
+    /**
+     * @brief on_buttonBox_rejected: The drink the user created is ignored and the window is closed.
+     */
     void on_buttonBox_rejected();
 
-    // The current trivia is saved and the box for trivia is cleared.
+    /**
+     * @brief on_addAdditionalTrivia_clicked: The current trivia is saved and the box for trivia is cleared.
+     */
     void on_addAdditionalTrivia_clicked();
 
 private:
     Ui::CustomDrinkImporter *ui;
 
-    // All combo boxes to show available ingredients.
+    /**
+     * @brief stepBoxes: All combo boxes to show available ingredients.
+     */
     QVector<QComboBox*> stepBoxes;
 
-    // All spin boxes to select amounts of an ingredient.
+    /**
+     * @brief amountBoxes: All spin boxes to select amounts of an ingredient.
+     */
     QVector<QDoubleSpinBox*> amountBoxes;
 
-    // The maximum possible ingredients in a drink.
+    /**
+     * @brief MAXINGREDIENTS: The maximum possible ingredients in a drink.
+     */
     const int MAXINGREDIENTS = 10;
 
-    // The drink object that is sent to the controller.
+    /**
+     * @brief drink: The drink object that is sent to the controller.
+     */
     Drink drink;
 
 signals:
+
+    /**
+     * @brief sendNewRecipe: sends new recipe details to controller.
+     * @param drink: to send
+     */
     void sendNewRecipe(Drink* drink);
 };
 

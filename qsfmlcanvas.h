@@ -1,10 +1,10 @@
-#ifndef QSFMLCANVAS_H
-#define QSFMLCANVAS_H
-
 #include <QWidget>
 #include <QObject>
 #include <QTimer>
 #include <SFML/Graphics.hpp>
+
+#ifndef QSFMLCANVAS_H
+#define QSFMLCANVAS_H
 
 /*
  * QSFMLCanvas provides a Qt-SFML hybrid class to better merge the two frameworks together to allow
