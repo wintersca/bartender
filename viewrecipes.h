@@ -1,11 +1,11 @@
-#ifndef VIEWRECIPES_H
-#define VIEWRECIPES_H
-
 #include <QDialog>
 #include "drink.h"
 #include <QLabel>
 
-/*
+#ifndef VIEWRECIPES_H
+#define VIEWRECIPES_H
+
+/**
  * View Recipes allows the user an easy way to view information about how all drinks are made.
  * This makes the game more educational by providing a reference to make drinks in real life.
  * All drinks in the database including custom drinks can be selected.
@@ -13,7 +13,8 @@
  * Author: Alex Smith
  */
 
-namespace Ui {
+namespace Ui
+{
 class ViewRecipes;
 }
 

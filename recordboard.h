@@ -1,11 +1,16 @@
-#ifndef RECORDBOARD_H
-#define RECORDBOARD_H
-
 #include <QDialog>
 #include "controller.h"
 
-namespace Ui {
-class RecordBoard;
+#ifndef RECORDBOARD_H
+#define RECORDBOARD_H
+
+/**
+ * RecordBoard compiles and shows historical records of gameplay.
+ * Authors: Tristan Bowler & Kathryn Riding
+ */
+namespace Ui
+{
+    class RecordBoard;
 }
 
 class RecordBoard : public QDialog
